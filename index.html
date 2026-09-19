@@ -13,6 +13,121 @@ content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
 href="styles/style.css">
 
+
+<style>
+
+/* =====================================================
+   MOBILE TOPIC CAROUSEL
+   Keeps the existing small round images,
+   but allows sideways finger scrolling on small screens.
+===================================================== */
+
+#topicCarousel {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+#topicCarousel::-webkit-scrollbar {
+    display: none;
+}
+
+#topicCarouselTrack {
+    width: max-content;
+    min-width: 100%;
+}
+
+
+/* =====================================================
+   TOPIC CAROUSEL DESCRIPTION
+===================================================== */
+
+.carousel-description {
+    margin: 2px auto 8px;
+    text-align: center;
+    color: rgba(255,255,255,.72);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+
+/* =====================================================
+   LIGHT CONTENT AREA
+===================================================== */
+
+.light-content {
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   FAINT STUDY / SEARCH WATERMARKS
+===================================================== */
+
+.study-watermarks {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.study-watermarks span {
+    position: absolute;
+    color: #d5d9e5;
+    opacity: .24;
+    filter: grayscale(1);
+    font-size: 25px;
+    user-select: none;
+}
+
+
+/* Keep actual content above the watermarks */
+
+.light-content > section {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* =====================================================
+   POWERED BY
+===================================================== */
+
+.powered-by {
+    margin-top: 5px;
+    font-size: 12px;
+    opacity: .65;
+}
+
+
+/* =====================================================
+   MOBILE SIDEWAYS SCROLL
+===================================================== */
+
+@media (max-width: 600px) {
+
+    #topicCarousel {
+        overflow-x: auto;
+        overflow-y: hidden;
+        touch-action: pan-x;
+        overscroll-behavior-x: contain;
+    }
+
+    #topicCarouselTrack {
+        justify-content: flex-start !important;
+    }
+
+    .carousel-description {
+        padding: 0 18px;
+    }
+
+}
+
+</style>
+
 </head>
 
 
@@ -138,6 +253,13 @@ href="styles/style.css">
         </div>
 
 
+        <div class="carousel-description">
+
+            Tap a picture to quickly explore that topic.
+
+        </div>
+
+
 
         <div class="quick-buttons">
 
@@ -169,6 +291,48 @@ href="styles/style.css">
     </div>
 
 </section>
+
+
+
+<!-- =========================
+     LIGHT CONTENT AREA
+========================= -->
+
+<main class="light-content">
+
+
+    <!-- =========================
+         FAINT WATERMARKS
+    ========================= -->
+
+    <div class="study-watermarks"
+         aria-hidden="true">
+
+        <span style="top:4%;left:3%;">🔎</span>
+
+        <span style="top:9%;right:7%;">📖</span>
+
+        <span style="top:18%;left:10%;">💡</span>
+
+        <span style="top:27%;right:4%;">✏️</span>
+
+        <span style="top:36%;left:3%;">🔬</span>
+
+        <span style="top:45%;right:10%;">🧠</span>
+
+        <span style="top:55%;left:8%;">📚</span>
+
+        <span style="top:64%;right:3%;">🔭</span>
+
+        <span style="top:74%;left:3%;">💡</span>
+
+        <span style="top:83%;right:8%;">🔎</span>
+
+        <span style="top:92%;left:11%;">📖</span>
+
+        <span style="top:97%;right:4%;">✏️</span>
+
+    </div>
 
 
 
@@ -466,12 +630,21 @@ href="styles/style.css">
 </section>
 
 
+</main>
+
+
 
 <footer>
 
     <p>
 
         MEWLIX LEARNING • Stay curious. Keep discovering.
+
+    </p>
+
+    <p class="powered-by">
+
+        Powered by OpenRouter
 
     </p>
 
@@ -1114,8 +1287,7 @@ Do not make up facts that aren't supported by the supplied information or your g
 
                 <p>
                     The AI couldn't answer right now.
-                    Please check that the Netlify
-                    deployment contains the AI function.
+                    Please try again in a moment.
                 </p>
 
                 <p style="
