@@ -841,3 +841,133 @@ footer {
     }
 
 }
+
+/* MEWLIX LEARNING — refined interactions */
+
+:root {
+    --mewlix-accent: #55d9ff;
+    --mewlix-purple: #635bff;
+    --mewlix-ink: #17213b;
+    --mewlix-surface: #ffffff;
+}
+
+/* Smooth, restrained movement */
+.card,
+.quick-buttons button,
+.search-area button,
+.topic-chip,
+.fact-box button,
+.surprise-box button {
+    transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        background-color 180ms ease,
+        opacity 180ms ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.quick-buttons button:hover,
+.topic-chip:hover {
+    transform: translateY(-2px);
+}
+
+.search-area button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px #00000018;
+}
+
+/* Clear keyboard focus */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 3px solid var(--mewlix-accent);
+    outline-offset: 3px;
+}
+
+/* Results appear gently */
+.result-card,
+.error-card {
+    animation: mewlixEnter 280ms ease both;
+}
+
+@keyframes mewlixEnter {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Prevent long content from breaking mobile layouts */
+.result-card,
+.ai-answer,
+.result-card p,
+.result-card li {
+    overflow-wrap: anywhere;
+}
+
+.result-card img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Comfortable mobile search */
+@media (max-width: 700px) {
+    .hero h1 {
+        font-size: clamp(36px, 10vw, 60px);
+        letter-spacing: -1.5px;
+    }
+
+    .search-area {
+        width: 100%;
+    }
+
+    .quick-buttons button {
+        padding: 12px 15px;
+    }
+
+    .cards {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .card {
+        min-width: 0;
+        padding: 18px;
+    }
+
+    .bottom-section {
+        grid-template-columns: minmax(0, 1fr);
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    #results-section {
+        padding: 24px 14px;
+    }
+
+    .result-card h2 {
+        font-size: clamp(25px, 7vw, 36px);
+        overflow-wrap: anywhere;
+    }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
