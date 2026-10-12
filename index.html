@@ -951,7 +951,7 @@ async function searchTopic() {
             levenshtein(cleanOriginal, cleanCorrection) <=
                 Math.max(1, Math.floor(cleanOriginal.length * 0.2));
 
-        if (sharesWord || closeSpelling) {
+        if (closeSpelling) {
             const correctedPage =
                 await getWikipediaPage(correction);
 
@@ -972,29 +972,31 @@ async function searchTopic() {
             */
 
             const aiAnswer =
-                await askAI(`
+await askAI(`
 
-You are the search assistant for MEWLIX LEARNING.
+You are the educational search assistant for MEWLIX LEARNING.
 
-The user searched for:
-
+The user's exact search is:
 "${originalSearch}"
 
-Try to identify what the user probably means.
+First, determine whether this exact topic can be identified confidently.
 
-If this is a real educational topic, explain it briefly and clearly.
+If you are confident about the exact topic, explain it briefly and accurately.
 
-If the spelling appears incorrect, begin with:
-"Possible topic: ..."
+If it appears to be a spelling mistake, suggest a correction only when the intended topic is unmistakable. Start with:
+"Possible topic: [corrected topic]"
 
-If you genuinely cannot determine the topic, say:
-"I couldn't identify that topic."
+If you cannot confidently identify the exact topic, respond:
+"I couldn't find an exact match for your topic. Please check the spelling or try a more specific search phrase."
 
+Do not substitute a related topic.
+Do not guess based merely on similar words.
 Do not invent facts.
+Do not output internal labels or safety classifications.
 
 Keep the response under 180 words.
 
-            `);
+        `);
 
 
             results.innerHTML = `
@@ -1053,8 +1055,15 @@ Wikipedia's introductory information is:
 
 Create a high-quality educational result.
 
+Create a high-quality educational result with accurate, useful information.
+
 IMPORTANT:
-Do NOT simply copy or rewrite the paragraph sentence-by-sentence.
+
+- Explain the topic in your own words.
+- Do not repeat the same information across sections.
+- Every key point must add a genuinely new fact or idea.
+- Use specific details and examples whenever reliable.
+- If the supplied information is insufficient, be honest rather than inventing facts.
 
 Return EXACTLY these sections:
 
