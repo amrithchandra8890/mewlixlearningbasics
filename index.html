@@ -1,1383 +1,3162 @@
+Hey there are some mistakes.. like I'll provide my style.css code and the old html once again. You check it and make modifications of what I asked for including some clean animations that doesnt looks bored, the colours of the website also should be simple and easy because complex ones can make the user exit the website with no likes... I'll also sent the screenshots to match my website's look because current;y it looks diferent.. not good.. maybe good to update the looks of my website! Its all your option except it should satisfy my needs
+
+HTML starts:
+
+
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#11152f">
-<meta name="description" content="MEWLIX SEARCH — search, discover, and keep asking questions.">
 <meta name="google-site-verification" content="jo1qjtLomZBus2ZtBi5Hy_XLfRJVfRCMhC2aMu7q_RE" />
-<title>MEWLIX SEARCH</title>
-<link rel="icon" href="favicon.png" type="image/png">
+   
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>MEWLIX LEARNING</title>
+
+<link rel="stylesheet"
+href="styles/style.css">
+
 
 <style>
-:root {
-  --navy: #11152f;
-  --navy2: #202452;
-  --blue: #6d83f2;
-  --cyan: #8be3e5;
-  --ink: #202944;
-  --muted: #74809a;
-  --paper: #f5f7fc;
-  --line: #e3e8f3;
-  --shadow: 0 14px 38px #1d2a5310;
-}
-
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  color: var(--ink);
-  background: var(--paper);
-}
-
-button, input, textarea { font: inherit; }
-button { cursor: pointer; }
-[hidden] { display: none !important; }
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  padding: 16px clamp(15px, 5vw, 65px);
-  color: white;
-  background: var(--navy);
-  border-bottom: 1px solid #ffffff17;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: white;
-  text-decoration: none;
-  font-weight: 850;
-  letter-spacing: .4px;
-}
-
-.logo {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 13px;
-  color: var(--navy);
-  background: linear-gradient(135deg, var(--cyan), #b4a5ff);
-  font-size: 23px;
-}
-
-nav { display: flex; gap: 20px; }
-
-nav a {
-  color: #dce4ff;
-  text-decoration: none;
-  font-size: .9rem;
-}
-
-nav a:hover { color: var(--cyan); }
-
-.hero {
-  padding: 68px 16px 78px;
-  text-align: center;
-  color: white;
-  background:
-    radial-gradient(ellipse at 15% 5%, #394781, transparent 35%),
-    radial-gradient(ellipse at 90% 30%, #40316c, transparent 34%),
-    linear-gradient(130deg, var(--navy), #1a1c40);
-}
-
-.eyebrow {
-  margin: 0 0 14px;
-  color: var(--cyan);
-  font-size: .75rem;
-  font-weight: 850;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-h1 {
-  font-size: clamp(2.1rem, 6vw, 4rem);
-  line-height: 1.08;
-  letter-spacing: -1.5px;
-  margin: 0 auto 16px;
-}
-
-.accent { color: var(--cyan); }
-
-.hero p.copy {
-  max-width: 600px;
-  margin: 0 auto 28px;
-  color: #d2daf7;
-  line-height: 1.7;
-}
-
-.search-wrap {
-  position: relative;
-  max-width: 760px;
-  margin: auto;
-}
-
-.search-form {
-  display: flex;
-  gap: 8px;
-  padding: 8px;
-  border-radius: 18px;
-  background: white;
-  box-shadow: 0 16px 40px #080b2455;
-}
-
-.search-icon {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  flex-shrink: 0;
-  color: #7e8aa6;
-  font-size: 24px;
-}
-
-#searchBox {
-  width: 100%;
-  min-width: 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: var(--ink);
-  padding: 9px 2px;
-}
-
-#searchBox::placeholder { color: #929bb0; }
-
-.primary {
-  border: 0;
-  border-radius: 13px;
-  padding: 12px 19px;
-  color: #11152f;
-  font-weight: 800;
-  background: linear-gradient(135deg, #8be3e5, #b2b8ff);
-  white-space: nowrap;
-}
-
-.primary:hover { filter: brightness(1.04); }
-
-.primary:disabled {
-  opacity: .6;
-  cursor: not-allowed;
-}
-
-.hint {
-  font-size: .8rem;
-  color: #aeb9e3;
-  margin: 15px 0 0;
-}
-
-.suggestions {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  right: 0;
-  z-index: 10;
-  padding: 6px;
-  border: 1px solid var(--line);
-  border-radius: 15px;
-  background: white;
-  box-shadow: 0 18px 38px #080d2540;
-  text-align: left;
-  overflow: hidden;
-}
-
-.suggestion {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-  padding: 11px 12px;
-  border: 0;
-  border-radius: 10px;
-  background: white;
-  color: var(--ink);
-  text-align: left;
-}
-
-.suggestion:hover { background: #f0f3ff; }
-
-.suggestion small {
-  display: block;
-  margin-top: 2px;
-  color: #8993aa;
-  font-size: .75rem;
-}
-
-.suggestion-symbol { color: #7182d0; }
-
-main {
-  max-width: 1150px;
-  margin: auto;
-  padding: 40px 20px 65px;
-}
-
-.section-head { margin-bottom: 18px; }
 
-.kicker {
-  margin: 0 0 6px;
-  color: #7784c1;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-size: .73rem;
-  font-weight: 850;
-}
-
-h2 {
-  margin: 0;
-  font-size: clamp(1.45rem, 3vw, 2rem);
-  letter-spacing: -.5px;
-}
-
-.section-sub {
-  margin: 8px 0 0;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-.topic-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.topic-card {
-  padding: 19px;
-  text-align: left;
-  border: 1px solid var(--line);
-  border-radius: 19px;
-  background: white;
-  transition: transform .15s, box-shadow .15s;
-}
-
-.topic-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow);
-}
-
-.topic-icon {
-  display: grid;
-  place-items: center;
-  width: 43px;
-  height: 43px;
-  margin-bottom: 13px;
-  border-radius: 14px;
-  background: #edf1ff;
-  font-size: 22px;
-}
-
-.topic-card strong {
-  display: block;
-  margin-bottom: 6px;
-}
-
-.topic-card span:last-child {
-  display: block;
-  color: var(--muted);
-  font-size: .84rem;
-  line-height: 1.5;
-}
-
-.quick-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 25px 0 45px;
-}
-
-.soft {
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 10px 15px;
-  background: white;
-  color: #3e4967;
-  font-size: .87rem;
-  font-weight: 700;
-}
-
-.soft:hover { background: #eef1ff; }
-
-#results-section {
-  scroll-margin-top: 18px;
-  margin-bottom: 40px;
-}
-
-.results-heading {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 15px;
-}
+/* =====================================================
+   MOBILE TOPIC CAROUSEL
+   Keeps the existing small round images,
+   but allows sideways finger scrolling on small screens.
+===================================================== */
 
-.subtle {
-  font-size: .85rem;
-  color: var(--muted);
+#topicCarousel {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
 }
 
-.result-card {
-  padding: clamp(20px, 4vw, 32px);
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  background: white;
-  box-shadow: var(--shadow);
+#topicCarousel::-webkit-scrollbar {
+    display: none;
 }
 
-.pill {
-  display: inline-block;
-  margin-bottom: 13px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: #eef1ff;
-  color: #5665a9;
-  font-size: .72rem;
-  font-weight: 850;
-  letter-spacing: .5px;
+#topicCarouselTrack {
+    width: max-content;
+    min-width: 100%;
 }
 
-.result-card h2 {
-  font-size: clamp(1.65rem, 4vw, 2.45rem);
-  margin-bottom: 14px;
-  overflow-wrap: anywhere;
-}
-
-.answer {
-  color: #4e5973;
-  line-height: 1.8;
-  overflow-wrap: anywhere;
-}
-
-.answer p { margin: 0 0 13px; }
-.answer ul { padding-left: 22px; }
-.answer li { margin: 5px 0; }
-
-.result-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 20px;
-  padding-top: 18px;
-  border-top: 1px solid #edf0f7;
-}
 
-.secondary {
-  border: 1px solid #dfe5f4;
-  border-radius: 12px;
-  padding: 11px 14px;
-  background: #f7f8ff;
-  color: #3c496f;
-  font-weight: 750;
-  text-decoration: none;
-}
-
-.busy {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--muted);
-  padding: 20px 0;
-}
-
-.spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid #dbe0f2;
-  border-top-color: #687ee4;
-  border-radius: 50%;
-  animation: spin .8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+/* =====================================================
+   TOPIC CAROUSEL DESCRIPTION
+===================================================== */
 
-footer {
-  padding: 24px 16px;
-  text-align: center;
-  color: #aab4d7;
-  background: var(--navy);
-  font-size: .82rem;
+.carousel-description {
+    margin: 2px auto 8px;
+    text-align: center;
+    color: rgba(255,255,255,.72);
+    font-size: 12px;
+    line-height: 1.4;
 }
 
-footer strong { color: #e0e7ff; }
 
-.chat-screen {
-  min-height: calc(100vh - 70px);
-  background: var(--paper);
-}
+/* =====================================================
+   LIGHT CONTENT AREA
+===================================================== */
 
-.chat-top {
-  position: sticky;
-  top: 0;
-  z-index: 4;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px clamp(14px, 4vw, 40px);
-  border-bottom: 1px solid var(--line);
-  background: white;
+.light-content {
+    position: relative;
+    overflow: hidden;
 }
 
-.back {
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 10px 13px;
-  background: white;
-  color: #35405e;
-  font-weight: 800;
-}
 
-.chat-top strong { display: block; }
+/* =====================================================
+   FAINT STUDY / SEARCH WATERMARKS
+===================================================== */
 
-.chat-top small {
-  display: block;
-  margin-top: 3px;
-  color: var(--muted);
+.study-watermarks {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
 }
 
-.chat-body {
-  max-width: 850px;
-  margin: auto;
-  padding: 25px 17px 20px;
+.study-watermarks span {
+    position: absolute;
+    color: #d5d9e5;
+    opacity: .24;
+    filter: grayscale(1);
+    font-size: 25px;
+    user-select: none;
 }
 
-.chat-topic {
-  margin-bottom: 20px;
-  padding: 16px 18px;
-  border: 1px solid #dfe5fb;
-  border-radius: 16px;
-  background: linear-gradient(120deg, #f0f3ff, #f0fbfc);
-}
 
-.chat-topic small {
-  color: #6876b1;
-  font-size: .72rem;
-  font-weight: 850;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
+/* Keep actual content above the watermarks */
 
-.chat-topic strong {
-  display: block;
-  margin-top: 5px;
+.light-content > section {
+    position: relative;
+    z-index: 1;
 }
 
-.chat-log {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
 
-.message {
-  max-width: 88%;
-  padding: 14px 16px;
-  border-radius: 17px;
-  line-height: 1.7;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
+/* =====================================================
+   POWERED BY
+===================================================== */
 
-.message.user {
-  align-self: flex-end;
-  color: white;
-  background: #5668c3;
-  border-bottom-right-radius: 5px;
+.powered-by {
+    margin-top: 5px;
+    font-size: 12px;
+    opacity: .65;
 }
 
-.message.assistant {
-  align-self: flex-start;
-  border: 1px solid var(--line);
-  background: white;
-  color: #34405c;
-  box-shadow: 0 5px 15px #1d2a5308;
-  border-bottom-left-radius: 5px;
-}
 
-.message-label {
-  display: block;
-  margin-bottom: 5px;
-  font-size: .68rem;
-  font-weight: 850;
-  letter-spacing: .8px;
-  text-transform: uppercase;
-  opacity: .7;
-}
+/* =====================================================
+   MOBILE SIDEWAYS SCROLL
+===================================================== */
 
-.compose-wrap {
-  position: sticky;
-  bottom: 0;
-  padding: 13px 16px max(15px, env(safe-area-inset-bottom));
-  background: linear-gradient(transparent, var(--paper) 20%);
-}
+@media (max-width: 600px) {
 
-.compose {
-  display: flex;
-  gap: 8px;
-  max-width: 850px;
-  margin: auto;
-  padding: 8px;
-  border: 1px solid #dfe5f2;
-  border-radius: 16px;
-  background: white;
-  box-shadow: 0 10px 30px #18234710;
-}
+    #topicCarousel {
+        overflow-x: auto;
+        overflow-y: hidden;
+        touch-action: pan-x;
+        overscroll-behavior-x: contain;
+    }
 
-#chatInput {
-  flex: 1;
-  min-width: 0;
-  max-height: 130px;
-  resize: vertical;
-  border: 0;
-  outline: 0;
-  padding: 10px;
-  background: transparent;
-  color: var(--ink);
-}
+    #topicCarouselTrack {
+        justify-content: flex-start !important;
+    }
 
-.chat-note {
-  text-align: center;
-  color: #9098ad;
-  font-size: .72rem;
-  margin: 9px 0 0;
-}
+    .carousel-description {
+        padding: 0 18px;
+    }
 
-@media (max-width: 800px) {
-  .topic-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  nav { gap: 12px; }
 }
 
-@media (max-width: 500px) {
-  header { padding: 12px 13px; }
-  .brand { font-size: .88rem; gap: 7px; }
-  .logo { width: 33px; height: 33px; }
-  nav { gap: 9px; }
-  nav a { font-size: .75rem; }
-  .hero { padding: 50px 14px 58px; }
-  .search-form { gap: 3px; padding: 6px; }
-  .search-icon { width: 27px; }
-  .primary { padding: 11px 13px; }
-  .topic-grid { gap: 9px; }
-  .topic-card { padding: 14px; min-height: 145px; }
-  main { padding: 32px 14px 48px; }
-  .message { max-width: 96%; }
-}
 </style>
+
 </head>
 
+
 <body>
-<header id="siteHeader">
-  <a class="brand" href="#" id="brandHome">
-    <span class="logo">⌕</span>
-    <span>MEWLIX SEARCH</span>
-  </a>
-  <nav>
-    <a href="#home" data-home-link>Home</a>
-    <a href="#discover" data-home-link>Discover</a>
-    <a href="#topics" data-home-link>Topics</a>
-  </nav>
-</header>
 
-<div id="homeScreen">
-  <section class="hero" id="home">
-    <p class="eyebrow">Explore · Discover · Understand</p>
-    <h1>Curiosity starts with<br><span class="accent">one good question.</span></h1>
-    <p class="copy">
-      Search a topic, get a clear explanation, and keep exploring with a follow-up chat that remembers what you're discussing.
-    </p>
 
-    <div class="search-wrap">
-      <form class="search-form" id="searchForm">
-        <span class="search-icon" aria-hidden="true">⌕</span>
-        <input
-          id="searchBox"
-          type="search"
-          placeholder="What are you curious about?"
-          autocomplete="off"
-          aria-label="Search a topic"
-        >
-        <button class="primary" type="submit">Explore ↗</button>
-      </form>
+<!-- =========================
+     NAVIGATION
+========================= -->
 
-      <div
-        class="suggestions"
-        id="searchSuggestions"
-        role="listbox"
-        aria-label="Search suggestions"
-        hidden
-      ></div>
+<nav>
+
+    <div class="logo">
+        ✦ MEWLIX <span>LEARNING</span>
     </div>
 
-    <p class="hint">
-      Try black holes, photosynthesis, ancient Egypt, or artificial intelligence.
-    </p>
-  </section>
+    <div class="navlinks">
 
-  <main>
-    <section id="results-section" hidden>
-      <div class="results-heading">
-        <div>
-          <p class="kicker">Your discovery</p>
-          <h2>Search results</h2>
+        <a href="#home">Home</a>
+
+        <a href="#explore">Explore</a>
+
+        <a href="#categories">Categories</a>
+
+        <a href="#facts">Facts</a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero" id="home">
+
+
+    <div class="planet planet1"></div>
+
+    <div class="planet planet2"></div>
+
+
+    <div class="hero-content">
+
+
+        <div class="small-title">
+
+            EXPLORE • DISCOVER • GROW
+
         </div>
-        <span class="subtle" id="resultStatus"></span>
-      </div>
-      <div id="results"></div>
-    </section>
 
-    <section id="discover">
-      <div class="section-head">
-        <p class="kicker">A little inspiration</p>
-        <h2>Try exploring</h2>
-        <p class="section-sub">Four fascinating places to begin your next rabbit hole.</p>
-      </div>
 
-      <div class="topic-grid">
-        <button class="topic-card" data-topic="Black holes">
-          <span class="topic-icon">🌌</span>
-          <strong>Black holes</strong>
-          <span>Gravity at its most mysterious.</span>
-        </button>
+        <h1>
 
-        <button class="topic-card" data-topic="Dinosaurs">
-          <span class="topic-icon">🦖</span>
-          <strong>Dinosaurs</strong>
-          <span>Giants of the ancient world.</span>
-        </button>
+            MEWLIX <span>LEARNING</span>
 
-        <button class="topic-card" data-topic="Mars">
-          <span class="topic-icon">🪐</span>
-          <strong>Mars</strong>
-          <span>Our neighbouring world and beyond.</span>
-        </button>
+        </h1>
 
-        <button class="topic-card" data-topic="Ocean">
-          <span class="topic-icon">🌊</span>
-          <strong>Oceans</strong>
-          <span>The planet's deep blue frontier.</span>
-        </button>
-      </div>
-    </section>
 
-    <div class="quick-row">
-      <button class="soft" id="randomFactBtn">💡 Random fact</button>
-      <button class="soft" id="surpriseBtn">✨ Surprise me</button>
-      <button class="soft" data-topic="How the human brain learns">🧠 How we learn</button>
+        <p>
+
+            Search anything. Discover something new.
+
+        </p>
+
+
+
+        <div class="search-area">
+
+
+            <input
+                type="text"
+                id="searchBox"
+                placeholder="What are you curious about?"
+                autocomplete="off"
+            >
+
+
+            <button onclick="searchTopic()">
+
+                Explore
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             TOPIC CAROUSEL
+        ========================= -->
+
+        <div
+            id="topicCarousel"
+            style="
+                width:100%;
+                max-width:620px;
+                margin:8px auto 0;
+                overflow:hidden;
+                position:relative;
+                min-height:90px;
+            "
+        >
+
+            <div
+                id="topicCarouselTrack"
+                style="
+                    display:flex;
+                    justify-content:center;
+                    align-items:flex-start;
+                    gap:14px;
+                    opacity:1;
+                    transform:translateY(0);
+                    transition:
+                        opacity .55s ease,
+                        transform .55s ease;
+                "
+            ></div>
+
+        </div>
+
+
+        <div class="carousel-description">
+
+            Tap a picture to quickly explore that topic.
+
+        </div>
+
+
+
+        <div class="quick-buttons">
+
+
+            <button onclick="randomFactAndScroll()">
+
+                💡 Random Facts
+
+            </button>
+
+
+            <button onclick="surpriseAndScroll()">
+
+                ✨ Surprise Me!
+
+            </button>
+
+
+            <button onclick="showTrending()">
+
+                🔥 Explore Topics
+
+            </button>
+
+
+        </div>
+
+
     </div>
 
-    <section id="topics">
-      <div class="section-head">
-        <p class="kicker">Follow your curiosity</p>
-        <h2>Explore & learn</h2>
-        <p class="section-sub">Choose a field, or search for anything you have in mind.</p>
-      </div>
-
-      <div class="topic-grid">
-        <button class="topic-card" data-topic="Science">
-          <span class="topic-icon">🔬</span>
-          <strong>Science</strong>
-          <span>Space, physics, chemistry, and more.</span>
-        </button>
-
-        <button class="topic-card" data-topic="Nature and animals">
-          <span class="topic-icon">🌿</span>
-          <strong>Nature & animals</strong>
-          <span>Living things and the natural world.</span>
-        </button>
-
-        <button class="topic-card" data-topic="World history">
-          <span class="topic-icon">🏛️</span>
-          <strong>History</strong>
-          <span>People, places, and past civilizations.</span>
-        </button>
-
-        <button class="topic-card" data-topic="Technology">
-          <span class="topic-icon">💻</span>
-          <strong>Technology</strong>
-          <span>Ideas shaping our digital future.</span>
-        </button>
-
-        <button class="topic-card" data-topic="Geography">
-          <span class="topic-icon">🌍</span>
-          <strong>Geography</strong>
-          <span>Places, people, and our planet.</span>
-        </button>
-
-        <button class="topic-card" data-topic="Universe">
-          <span class="topic-icon">✨</span>
-          <strong>The universe</strong>
-          <span>Stars, galaxies, and cosmic questions.</span>
-        </button>
-
-        <button class="topic-card" data-topic="Mathematics">
-          <span class="topic-icon">➗</span>
-          <strong>Mathematics</strong>
-          <span>Patterns, logic, and problem solving.</span>
-        </button>
-
-        <button class="topic-card" data-topic="Artificial intelligence">
-          <span class="topic-icon">🤖</span>
-          <strong>Artificial intelligence</strong>
-          <span>How machines learn and reason.</span>
-        </button>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <strong>MEWLIX SEARCH</strong> · Made for curious minds · AI answers powered by your secure site backend
-  </footer>
-</div>
-
-<section class="chat-screen" id="chatScreen" hidden>
-  <div class="chat-top">
-    <button class="back" id="backToResults" type="button">← Back</button>
-    <div>
-      <strong>MEWLIX FOLLOW-UP</strong>
-      <small>Your questions stay connected to this topic.</small>
-    </div>
-  </div>
-
-  <div class="chat-body">
-    <div class="chat-topic">
-      <small>Talking about</small>
-      <strong id="chatTopicTitle"></strong>
-    </div>
-    <div class="chat-log" id="chatLog" aria-live="polite"></div>
-  </div>
-
-  <div class="compose-wrap">
-    <form class="compose" id="chatForm">
-      <textarea
-        id="chatInput"
-        rows="1"
-        placeholder="Ask another question…"
-        aria-label="Ask a follow-up question"
-      ></textarea>
-      <button class="primary" id="sendChat" type="submit">Send ↑</button>
-    </form>
-    <p class="chat-note">AI can make mistakes. Check reliable sources for important topics.</p>
-  </div>
 </section>
 
+
+
+<!-- =========================
+     LIGHT CONTENT AREA
+========================= -->
+
+<main class="light-content">
+
+
+    <!-- =========================
+         FAINT WATERMARKS
+    ========================= -->
+
+    <div class="study-watermarks"
+         aria-hidden="true">
+
+        <span style="top:4%;left:3%;">🔎</span>
+
+        <span style="top:9%;right:7%;">📖</span>
+
+        <span style="top:18%;left:10%;">💡</span>
+
+        <span style="top:27%;right:4%;">✏️</span>
+
+        <span style="top:36%;left:3%;">🔬</span>
+
+        <span style="top:45%;right:10%;">🧠</span>
+
+        <span style="top:55%;left:8%;">📚</span>
+
+        <span style="top:64%;right:3%;">🔭</span>
+
+        <span style="top:74%;left:3%;">💡</span>
+
+        <span style="top:83%;right:8%;">🔎</span>
+
+        <span style="top:92%;left:11%;">📖</span>
+
+        <span style="top:97%;right:4%;">✏️</span>
+
+    </div>
+
+
+
+<!-- =========================
+     SEARCH RESULTS
+========================= -->
+
+<section id="results-section">
+
+    <div id="results"></div>
+
+</section>
+
+
+
+<!-- =========================
+     EXPLORE
+========================= -->
+
+<section class="section" id="explore">
+
+
+    <h2>
+
+        Explore & Learn
+
+    </h2>
+
+
+    <p class="section-subtitle">
+
+        Pick something interesting or follow your curiosity.
+
+    </p>
+
+
+
+    <div class="cards" id="categories">
+
+
+
+        <div
+            class="card science"
+            onclick="searchFromButton('Science')"
+        >
+
+            <div class="card-icon">⚗</div>
+
+            <h3>Science</h3>
+
+            <p>
+                Space, physics, chemistry,
+                nature and more.
+            </p>
+
+        </div>
+
+
+
+        <div
+            class="card nature"
+            onclick="searchFromButton('Animals')"
+        >
+
+            <div class="card-icon">◉</div>
+
+            <h3>Nature & Animals</h3>
+
+            <p>
+                Wildlife, oceans, plants
+                and ecosystems.
+            </p>
+
+        </div>
+
+
+
+        <div
+            class="card history"
+            onclick="searchFromButton('History')"
+        >
+
+            <div class="card-icon">◆</div>
+
+            <h3>History</h3>
+
+            <p>
+                Civilizations, people,
+                events and discoveries.
+            </p>
+
+        </div>
+
+
+
+        <div
+            class="card technology"
+            onclick="searchFromButton('Technology')"
+        >
+
+            <div class="card-icon">▣</div>
+
+            <h3>Technology</h3>
+
+            <p>
+                Computers, inventions,
+                AI and the future.
+            </p>
+
+        </div>
+
+
+
+        <div
+            class="card geography"
+            onclick="searchFromButton('Geography')"
+        >
+
+            <div class="card-icon">◎</div>
+
+            <h3>Geography</h3>
+
+            <p>
+                Countries, places,
+                Earth and our world.
+            </p>
+
+        </div>
+
+
+
+        <div
+            class="card universe"
+            onclick="searchFromButton('Universe')"
+        >
+
+            <div class="card-icon">✦</div>
+
+            <h3>Universe</h3>
+
+            <p>
+                Stars, galaxies, planets
+                and black holes.
+            </p>
+
+        </div>
+
+
+
+        <div
+            class="card math"
+            onclick="searchFromButton('Mathematics')"
+            style="
+                background:
+                linear-gradient(
+                    135deg,
+                    #dc2626,
+                    #ef4444
+                );
+            "
+        >
+
+            <div class="card-icon">∑</div>
+
+            <h3>Math & Logic</h3>
+
+            <p>
+                Numbers, patterns,
+                puzzles and problem-solving.
+            </p>
+
+        </div>
+
+
+
+        <div
+            class="card art"
+            onclick="searchFromButton('Art')"
+            style="
+                background:
+                linear-gradient(
+                    135deg,
+                    #db2777,
+                    #f472b6
+                );
+            "
+        >
+
+            <div class="card-icon">✎</div>
+
+            <h3>Art & Culture</h3>
+
+            <p>
+                Art, music, traditions
+                and human creativity.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     FACTS + SURPRISE
+========================= -->
+
+<section class="bottom-section" id="facts">
+
+
+    <div class="fact-box">
+
+
+        <h2>
+
+            💡 Amazing Facts
+
+        </h2>
+
+
+        <p>
+
+            Discover something you probably
+            didn't know.
+
+        </p>
+
+
+        <div id="factText">
+
+            <div style="
+                padding:18px;
+                background:#f4f6ff;
+                border-radius:16px;
+                margin:15px 0;
+                text-align:center;
+            ">
+
+                Tap the button below to discover
+                something amazing!
+
+            </div>
+
+        </div>
+
+
+        <button onclick="randomFact()">
+
+            ✨ More Facts
+
+        </button>
+
+
+    </div>
+
+
+
+    <div class="surprise-box" id="surprise">
+
+
+        <h2>
+
+            ✨ Surprise Me!
+
+        </h2>
+
+
+        <p>
+
+            Don't know what to learn?
+            Let curiosity choose for you.
+
+        </p>
+
+
+        <button onclick="surpriseMe()">
+
+            Discover Something
+
+        </button>
+
+
+        <div
+            id="surpriseOutput"
+            style="margin-top:20px;"
+        ></div>
+
+
+    </div>
+
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+    <p>
+
+        MEWLIX LEARNING • Stay curious. Keep discovering.
+
+    </p>
+
+    <p class="powered-by">
+
+        Powered by OpenRouter
+
+    </p>
+
+</footer>
+
+
+
 <script>
-"use strict";
 
-/*
-  IMPORTANT:
-  This uses your existing Netlify AI function.
-  Keep your Netlify backend and OPENROUTER_API_KEY setting.
-  Never place your private API key in this HTML file.
-*/
 
-const AI_ENDPOINT = "/.netlify/functions/ai";
+/* =====================================================
+   MEWLIX LEARNING
+   AI-POWERED WEBSITE
+===================================================== */
 
-const searchBox = document.getElementById("searchBox");
-const suggestionsBox = document.getElementById("searchSuggestions");
-const resultsSection = document.getElementById("results-section");
-const results = document.getElementById("results");
-const resultStatus = document.getElementById("resultStatus");
-const homeScreen = document.getElementById("homeScreen");
-const chatScreen = document.getElementById("chatScreen");
-const chatLog = document.getElementById("chatLog");
-const chatInput = document.getElementById("chatInput");
 
-let suggestionTimer = null;
-let suggestionRequest = 0;
-let activeTopic = "";
-let activeSummary = "";
-let conversation = [];
-let returnScrollY = 0;
-let chatBusy = false;
 
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, character => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[character]);
-}
+/* =====================================================
+   AI BACKEND
+===================================================== */
 
-/* Display plain AI text safely, including simple bullet lists. */
-function formatText(text) {
-  return String(text ?? "")
-    .split(/\n{2,}/)
-    .map(block => {
-      const lines = block.split("\n");
 
-      if (lines.every(line => /^\s*[-*•]\s+/.test(line))) {
-        return "<ul>" + lines.map(line =>
-          "<li>" +
-          escapeHTML(line.replace(/^\s*[-*•]\s+/, "")) +
-          "</li>"
-        ).join("") + "</ul>";
-      }
+async function askAI(prompt) {
 
-      return "<p>" + lines.map(escapeHTML).join("<br>") + "</p>";
-    })
-    .join("");
-}
 
-/* Connect to the existing Netlify AI endpoint. */
-async function callAI(prompt) {
-  const response = await fetch(AI_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ prompt })
-  });
+    const response = await fetch(
+        "/.netlify/functions/ai",
+        {
 
-  if (!response.ok) {
-    throw new Error("AI request failed: " + response.status);
-  }
+            method: "POST",
 
-  const data = await response.json();
+            headers: {
 
-  const answer =
-    data.answer ??
-    data.reply ??
-    data.text ??
-    data.content ??
-    data.output ??
-    data.choices?.[0]?.message?.content;
+                "Content-Type":
+                    "application/json"
 
-  if (typeof answer !== "string" || !answer.trim()) {
-    throw new Error("No answer returned by the AI backend.");
-  }
+            },
 
-  return answer.trim();
-}
+            body: JSON.stringify({
 
-/* Get live topic suggestions from Wikipedia. */
-async function wikiSuggestions(query) {
-  const url =
-    "https://en.wikipedia.org/w/api.php?action=opensearch" +
-    "&search=" + encodeURIComponent(query) +
-    "&limit=8&namespace=0&format=json&origin=*";
+                prompt: prompt
 
-  const response = await fetch(url);
+            })
 
-  if (!response.ok) {
-    throw new Error("Suggestion request failed.");
-  }
-
-  const data = await response.json();
-  const normalizedQuery = query.toLowerCase();
-
-  return [...new Set(data[1] || [])].sort((a, b) => {
-    function score(title) {
-      const normalizedTitle = title.toLowerCase();
-
-      if (normalizedTitle === normalizedQuery) return 0;
-      if (normalizedTitle.startsWith(normalizedQuery)) return 1;
-      if (normalizedTitle.includes(normalizedQuery)) return 2;
-
-      return 3;
-    }
-
-    return score(a) - score(b);
-  });
-}
-
-/* Show the exact typed query first, followed by topic suggestions. */
-function showSuggestions(items, query) {
-  suggestionsBox.replaceChildren();
-
-  const allSuggestions = [{
-    title: query,
-    detail: "Search this exact phrase",
-    symbol: "⌕"
-  }];
-
-  items.forEach(title => {
-    const alreadyExists = allSuggestions.some(item =>
-      item.title.toLowerCase() === title.toLowerCase()
+        }
     );
 
-    if (!alreadyExists) {
-      allSuggestions.push({
-        title,
-        detail: "Topic suggestion",
-        symbol: "↗"
-      });
-    }
-  });
 
-  allSuggestions.slice(0, 7).forEach(item => {
-    const button = document.createElement("button");
+    let data;
 
-    button.type = "button";
-    button.className = "suggestion";
-    button.setAttribute("role", "option");
 
-    button.innerHTML =
-      '<span class="suggestion-symbol">' +
-      item.symbol +
-      '</span><span>' +
-      escapeHTML(item.title) +
-      '<small>' +
-      item.detail +
-      '</small></span>';
-
-    button.addEventListener("click", () => {
-      searchBox.value = item.title;
-      suggestionsBox.hidden = true;
-      searchTopic(item.title);
-    });
-
-    suggestionsBox.appendChild(button);
-  });
-
-  suggestionsBox.hidden = false;
-}
-
-/* Live suggestions while the user types. */
-searchBox.addEventListener("input", () => {
-  clearTimeout(suggestionTimer);
-
-  const query = searchBox.value.trim();
-  const requestId = ++suggestionRequest;
-
-  suggestionsBox.replaceChildren();
-  suggestionsBox.hidden = true;
-
-  if (query.length < 2) return;
-
-  suggestionTimer = setTimeout(async () => {
     try {
-      const items = await wikiSuggestions(query);
 
-      if (
-        requestId === suggestionRequest &&
-        searchBox.value.trim() === query
-      ) {
-        showSuggestions(items, query);
-      }
-    } catch (error) {
-      if (
-        requestId === suggestionRequest &&
-        searchBox.value.trim() === query
-      ) {
-        showSuggestions([], query);
-      }
+        data =
+            await response.json();
+
     }
-  }, 220);
-});
+    catch {
 
-/* Hide the suggestions when clicking elsewhere. */
-document.addEventListener("click", event => {
-  if (
-    !suggestionsBox.contains(event.target) &&
-    event.target !== searchBox
-  ) {
-    suggestionsBox.hidden = true;
-  }
-});
+        throw new Error(
+            "The AI server returned an invalid response."
+        );
 
-/* Search form. */
-document.getElementById("searchForm").addEventListener("submit", event => {
-  event.preventDefault();
-  suggestionsBox.hidden = true;
-  searchTopic(searchBox.value.trim());
-});
-
-/* Make all topic cards searchable. */
-document.querySelectorAll("[data-topic]").forEach(button => {
-  button.addEventListener("click", () => {
-    searchTopic(button.dataset.topic);
-  });
-});
-
-/* Brand link returns to the home screen. */
-document.getElementById("brandHome").addEventListener("click", event => {
-  event.preventDefault();
-
-  if (!chatScreen.hidden) {
-    leaveChat();
-  }
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-});
-
-/* Home navigation links close the chat when necessary. */
-document.querySelectorAll("[data-home-link]").forEach(link => {
-  link.addEventListener("click", () => {
-    if (!chatScreen.hidden) {
-      leaveChat();
     }
-  });
-});
 
-/* Loading state for search results. */
-function setBusy(message) {
-  resultsSection.hidden = false;
-  resultStatus.textContent = message;
 
-  results.innerHTML =
-    '<div class="result-card">' +
-      '<div class="busy">' +
-        '<span class="spinner"></span>' +
-        '<span>' + escapeHTML(message) + '</span>' +
-      '</div>' +
-    '</div>';
+    if (!response.ok) {
 
-  resultsSection.scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
+        throw new Error(
+            data.error ||
+            "AI request failed."
+        );
+
+    }
+
+
+    if (!data.answer) {
+
+        throw new Error(
+            "The AI did not return an answer."
+        );
+
+    }
+
+
+    return data.answer;
+
 }
 
-/* Search a topic using Wikipedia first and AI as an explanation source. */
-async function searchTopic(query) {
-  const topic = String(query || "").trim();
 
-  if (!topic) {
-    searchBox.focus();
-    return;
-  }
 
-  searchBox.value = topic;
-  suggestionsBox.hidden = true;
+/* =====================================================
+   SIMPLE MARKDOWN → HTML
+===================================================== */
 
-  activeTopic = topic;
-  activeSummary = "";
 
-  setBusy('Looking into "' + topic + '"…');
+function formatAI(text) {
 
-  let wiki = null;
-  let answer = "";
 
-  try {
+    let html =
+        escapeHTML(text);
+
+
+    html =
+        html.replace(
+            /\*\*(.*?)\*\*/g,
+            "<strong>$1</strong>"
+        );
+
+
+    html =
+        html.replace(
+            /^### (.*)$/gm,
+            "<h4>$1</h4>"
+        );
+
+
+    html =
+        html.replace(
+            /^## (.*)$/gm,
+            "<h3>$1</h3>"
+        );
+
+
+    html =
+        html.replace(
+            /^# (.*)$/gm,
+            "<h2>$1</h2>"
+        );
+
+
+    html =
+        html.replace(
+            /^\s*[-•]\s+(.*)$/gm,
+            "<li>$1</li>"
+        );
+
+
+    html =
+        html.replace(
+            /(<li>.*<\/li>)/gs,
+            "<ul>$1</ul>"
+        );
+
+
+    html =
+        html.replace(
+            /\n\n+/g,
+            "</p><p>"
+        );
+
+
+    html =
+        html.replace(
+            /\n/g,
+            "<br>"
+        );
+
+
+    return "<p>" + html + "</p>";
+
+}
+
+
+
+/* =====================================================
+   MAIN SEARCH
+===================================================== */
+
+
+async function searchTopic() {
+
+
+    const input =
+        document.getElementById(
+            "searchBox"
+        );
+
+
+    const results =
+        document.getElementById(
+            "results"
+        );
+
+
+    const originalSearch =
+        input.value.trim();
+
+
+    if (!originalSearch) {
+
+
+        results.innerHTML = `
+
+            <div class="error-card">
+
+                <h2>
+                    What are you curious about?
+                </h2>
+
+                <p>
+                    Type a topic into the search box
+                    and let's learn about it.
+                </p>
+
+            </div>
+
+        `;
+
+
+        scrollToResults();
+
+        return;
+
+    }
+
+
+
+    results.innerHTML = `
+
+        <div class="loading">
+
+            🧠 MEWLIX is learning about
+
+            <strong>
+                ${escapeHTML(originalSearch)}
+            </strong>
+
+            ...
+
+        </div>
+
+    `;
+
+
+    scrollToResults();
+
+
+
+    try {
+
+
+        /*
+           First use Wikipedia to identify
+           the topic and get an image.
+        */
+
+        let data =
+            await getWikipediaPage(
+                originalSearch
+            );
+
+
+        let corrected =
+            false;
+
+
+
+        /*
+           If exact topic isn't found,
+           use Wikipedia search.
+        */
+
+        if (!data) {
+
+
+            const suggestions =
+                await getWikipediaSuggestions(
+                    originalSearch
+                );
+
+
+            const correction = findClosestTopic(
+    originalSearch,
+    suggestions
+);
+
+/* Only accept a strong spelling match. */
+if (correction) {
+    data = await getWikipediaPage(correction);
+
+    if (data) {
+        const originalWords = originalSearch
+            .toLowerCase()
+            .trim()
+            .split(/\s+/);
+
+        const correctedWords = correction
+            .toLowerCase()
+            .trim()
+            .split(/\s+/);
+
+        /*
+         * Do not silently replace a multiword search
+         * with a completely different subject.
+         */
+        const sharesWord = originalWords.some(word =>
+            word.length >= 4 &&
+            correctedWords.some(corrected =>
+                corrected === word
+            )
+        );
+
+        if (!sharesWord) {
+            data = null;
+        } else {
+            corrected = true;
+        }
+    }
+}
+
+
+            if (correction) {
+
+
+                data =
+                    await getWikipediaPage(
+                        correction
+                    );
+
+
+                corrected =
+                    true;
+
+            }
+
+        }
+
+
+
+        if (!data) {
+
+
+            /*
+               Let AI determine whether
+               it understands the topic.
+            */
+
+            const aiAnswer =
+                await askAI(`
+
+You are the search assistant for MEWLIX LEARNING.
+
+The user searched for:
+
+"${originalSearch}"
+
+Try to identify what the user probably means.
+
+If this is a real educational topic, explain it briefly and clearly.
+
+If the spelling appears incorrect, begin with:
+"Possible topic: ..."
+
+If you genuinely cannot determine the topic, say:
+"I couldn't identify that topic."
+
+Do not invent facts.
+
+Keep the response under 180 words.
+
+            `);
+
+
+            results.innerHTML = `
+
+                <article class="result-card">
+
+                    <div class="result-label">
+                        MEWLIX DISCOVERY
+                    </div>
+
+                    <div class="searched-topic">
+
+                        You searched for:
+
+                        <strong>
+                            ${escapeHTML(originalSearch)}
+                        </strong>
+
+                    </div>
+
+                    <h2>
+                        ${escapeHTML(originalSearch)}
+                    </h2>
+
+                    <div class="ai-answer">
+                        ${formatAI(aiAnswer)}
+                    </div>
+
+                </article>
+
+            `;
+
+
+            return;
+
+        }
+
+
+
+        /*
+           AI creates the actual learning result.
+        */
+
+        const aiAnswer =
+            await askAI(`
+
+You are the main educational writer for MEWLIX LEARNING.
+
+The user searched for:
+
+"${data.title}"
+
+Wikipedia's introductory information is:
+
+"${data.extract}"
+
+Create a high-quality educational result.
+
+IMPORTANT:
+Do NOT simply copy or rewrite the paragraph sentence-by-sentence.
+
+Return EXACTLY these sections:
+
+SHORT EXPLANATION:
+Write 2-3 clear sentences explaining the topic in your own words.
+
+KEY POINTS:
+Give exactly 4 genuinely different points.
+Each point must add NEW information.
+Do not repeat the short explanation.
+
+WHY IT MATTERS:
+Explain why this topic is useful, important, interesting, or significant.
+
+INTERESTING DETAIL:
+Give one memorable detail.
+
+LEARN NEXT:
+Suggest 4 related topics the student could explore.
+
+Keep the language clear and student-friendly.
+Do not make up facts that aren't supported by the supplied information or your general knowledge.
+
+            `);
+
+
+
+        let image = "";
+
+
+        if (
+            data.thumbnail &&
+            data.thumbnail.source
+        ) {
+
+
+            image = `
+
+                <img
+                    src="${escapeHTML(
+                        data.thumbnail.source
+                    )}"
+                    alt="${escapeHTML(
+                        data.title
+                    )}"
+                    onerror="
+                        this.style.display='none';
+                    "
+                >
+
+            `;
+
+        }
+
+
+
+        results.innerHTML = `
+
+            <article
+                class="result-card"
+                data-topic="${escapeHTML(
+                    data.title
+                )}"
+            >
+
+
+                <div class="result-label">
+
+                    MEWLIX DISCOVERY
+
+                </div>
+
+
+                <div class="searched-topic">
+
+                    You searched for:
+
+                    <strong>
+                        ${escapeHTML(
+                            originalSearch
+                        )}
+                    </strong>
+
+                </div>
+
+
+
+                <h2>
+
+                    ${escapeHTML(
+                        data.title
+                    )}
+
+                </h2>
+
+
+
+                ${
+                    corrected
+                    ?
+                    `
+                    <div class="correction">
+
+                        Possible spelling/topic match:
+
+                        <strong>
+                            ${escapeHTML(
+                                data.title
+                            )}
+                        </strong>
+
+                    </div>
+                    `
+                    :
+                    ""
+                }
+
+
+
+                ${image}
+
+
+
+                <div class="ai-answer">
+
+                    ${formatAI(aiAnswer)}
+
+                </div>
+
+
+
+                <div
+                    style="
+                        margin-top:30px;
+                        padding-top:20px;
+                        border-top:1px solid #eeeeee;
+                        text-align:center;
+                    "
+                >
+
+
+                    <button
+                        onclick="openFollowUp()"
+                        style="
+                            border:none;
+                            background:#eef0ff;
+                            color:#4f46e5;
+                            padding:11px 18px;
+                            border-radius:25px;
+                            font-size:14px;
+                            font-weight:bold;
+                            cursor:pointer;
+                        "
+                    >
+
+                        💬 Ask a Follow-up
+
+                    </button>
+
+
+
+                    <div
+                        id="followUpBox"
+                        style="
+                            display:none;
+                            margin-top:14px;
+                        "
+                    >
+
+
+                        <input
+                            id="followUpInput"
+                            type="text"
+                            placeholder="Ask something about this topic..."
+                            style="
+                                width:90%;
+                                max-width:550px;
+                                padding:12px 15px;
+                                border:1px solid #ddd;
+                                border-radius:12px;
+                                font-size:15px;
+                                outline:none;
+                            "
+                        >
+
+
+                        <button
+                            onclick="submitFollowUp()"
+                            style="
+                                margin-top:8px;
+                                border:none;
+                                background:#635bff;
+                                color:white;
+                                padding:10px 18px;
+                                border-radius:20px;
+                                font-weight:bold;
+                                cursor:pointer;
+                            "
+                        >
+
+                            Ask MEWLIX
+
+                        </button>
+
+
+                        <div
+                            id="followUpAnswer"
+                            style="
+                                max-width:650px;
+                                margin:15px auto 0;
+                                text-align:left;
+                                line-height:1.6;
+                            "
+                        ></div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="source">
+
+                    Information source:
+                    Wikipedia + MEWLIX AI
+
+                </div>
+
+
+            </article>
+
+        `;
+
+
+    }
+    catch(error) {
+
+
+        console.error(error);
+
+
+        results.innerHTML = `
+
+            <div class="error-card">
+
+                <h2>
+                    MEWLIX couldn't connect
+                </h2>
+
+                <p>
+                    The AI couldn't answer right now.
+                    Please try again in a moment.
+                </p>
+
+                <p style="
+                    font-size:13px;
+                    opacity:.7;
+                ">
+
+                    ${escapeHTML(
+                        error.message
+                    )}
+
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   WIKIPEDIA PAGE
+===================================================== */
+
+
+async function getWikipediaPage(topic) {
+
+
     const url =
-      "https://en.wikipedia.org/api/rest_v1/page/summary/" +
-      encodeURIComponent(topic.replace(/ /g, "_"));
+        "https://en.wikipedia.org/api/rest_v1/page/summary/" +
+        encodeURIComponent(
+            topic.replace(/ /g,"_")
+        );
 
-    const response = await fetch(url, {
-      headers: {
-        Accept: "application/json"
-      }
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-
-      if (data.extract && data.type !== "disambiguation") {
-        wiki = data;
-      }
-    }
-  } catch (error) {
-    /* Continue to the AI fallback if Wikipedia is unavailable. */
-  }
-
-  if (wiki) {
-    activeTopic = wiki.title || topic;
-    activeSummary = wiki.extract || "";
 
     try {
-      answer = await callAI(
-        'You are the friendly educational guide for MEWLIX SEARCH. ' +
-        'Explain "' + activeTopic + '" for a curious student in clear, ' +
-        'accurate language. Include a simple explanation, 3 key points, ' +
-        'why it matters, one surprising detail, and 2 next topics. ' +
-        'Use short headings and concise bullets; avoid unsupported claims. ' +
-        'Wikipedia background: ' + activeSummary
-      );
-    } catch (error) {
-      answer =
-        activeSummary +
-        "\n\nYou can ask a follow-up to explore any part of this topic.";
+
+
+        const response =
+            await fetch(url);
+
+
+        if (!response.ok) {
+
+            return null;
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !data.extract ||
+            data.type === "disambiguation"
+        ) {
+
+            return null;
+
+        }
+
+
+        return data;
+
     }
-  } else {
+    catch {
+
+        return null;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   WIKIPEDIA SEARCH
+===================================================== */
+
+
+async function getWikipediaSuggestions(
+    query
+) {
+
+
+    const url =
+        "https://en.wikipedia.org/w/api.php" +
+        "?action=query" +
+        "&list=search" +
+        "&srsearch=" +
+        encodeURIComponent(query) +
+        "&srlimit=10" +
+        "&format=json" +
+        "&origin=*";
+
+
     try {
-      answer = await callAI(
-        'You are MEWLIX SEARCH, a careful educational search assistant. ' +
-        'The user searched for exactly: "' + topic + '". ' +
-        'Explain what it likely refers to if you can identify it. ' +
-        'If unclear or ambiguous, say so and ask a helpful clarifying ' +
-        'question. Do not silently replace the query with an unrelated ' +
-        'topic. Keep it student-friendly and concise.'
-      );
-    } catch (error) {
-      answer =
-        "I couldn't load an AI explanation just now. " +
-        "Check your connection and try again. " +
-        "You can still open Ask Follow-up and retry your question.";
+
+
+        const response =
+            await fetch(url);
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !data.query ||
+            !data.query.search
+        ) {
+
+            return [];
+
+        }
+
+
+        return data.query.search.map(
+            item => item.title
+        );
+
     }
-  }
+    catch {
 
-  renderResult(
-    activeTopic,
-    answer,
-    wiki ? "TOPIC OVERVIEW" : "MEWLIX DISCOVERY",
-    wiki
-  );
+        return [];
+
+    }
+
 }
 
-/* Render the search result and its follow-up button. */
-function renderResult(topic, answer, label, wiki) {
-  activeTopic = topic;
 
-  const image = wiki?.thumbnail?.source
-    ? '<img src="' + escapeHTML(wiki.thumbnail.source) +
-      '" alt="" loading="lazy" ' +
-      'style="width:100%;max-height:250px;object-fit:cover;' +
-      'border-radius:15px;margin:3px 0 17px">'
-    : "";
 
-  const source = wiki?.content_urls?.desktop?.page
-    ? '<a class="secondary" href="' +
-      escapeHTML(wiki.content_urls.desktop.page) +
-      '" target="_blank" rel="noopener noreferrer">Read source ↗</a>'
-    : "";
+/* =====================================================
+   SPELLING MATCH
+===================================================== */
 
-  results.innerHTML =
-    '<article class="result-card">' +
-      '<span class="pill">✦ ' + escapeHTML(label) + '</span>' +
-      '<h2>' + escapeHTML(topic) + '</h2>' +
-      image +
-      '<div class="answer" id="resultAnswer">' +
-        formatText(answer) +
-      '</div>' +
-      '<div class="result-actions">' +
-        '<button class="primary" id="askFollowUpBtn" type="button">' +
-          'Ask Follow-up ↗' +
-        '</button>' +
-        source +
-        '<button class="secondary" id="retrySearchBtn" type="button">' +
-          'Search again' +
-        '</button>' +
-      '</div>' +
-    '</article>';
 
-  resultsSection.hidden = false;
-  resultStatus.textContent = "Ready to explore";
+function findClosestTopic(
+    input,
+    suggestions
+) {
 
-  document.getElementById("askFollowUpBtn")
-    .addEventListener("click", openFollowUp);
 
-  document.getElementById("retrySearchBtn")
-    .addEventListener("click", () => searchTopic(topic));
+    const cleanInput =
+        input
+            .toLowerCase()
+            .replace(
+                /[^a-z0-9 ]/g,
+                " "
+            )
+            .replace(
+                /\s+/g,
+                " "
+            )
+            .trim();
 
-  resultsSection.scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
+
+    if (!cleanInput) {
+
+        return null;
+
+    }
+
+
+    let best = null;
+
+    let bestScore = 0;
+
+
+    for (
+        const suggestion of suggestions
+    ) {
+
+
+        const cleanSuggestion =
+            suggestion
+                .toLowerCase()
+                .replace(
+                    /[^a-z0-9 ]/g,
+                    " "
+                )
+                .replace(
+                    /\s+/g,
+                    " "
+                )
+                .trim();
+
+
+        const distance =
+            levenshtein(
+                cleanInput,
+                cleanSuggestion
+            );
+
+
+        const maxLength =
+            Math.max(
+                cleanInput.length,
+                cleanSuggestion.length
+            );
+
+
+        const similarity =
+            maxLength
+            ?
+            1 -
+            (
+                distance /
+                maxLength
+            )
+            :
+            0;
+
+
+        const inputWords =
+            cleanInput.split(" ");
+
+
+        const suggestionWords =
+            cleanSuggestion.split(" ");
+
+
+        let matchingWords = 0;
+
+
+        inputWords.forEach(
+            word => {
+
+
+                if (
+                    word.length >= 3 &&
+                    suggestionWords.some(
+                        s =>
+                            s === word ||
+                            s.startsWith(word) ||
+                            word.startsWith(s)
+                    )
+                ) {
+
+                    matchingWords++;
+
+                }
+
+            }
+        );
+
+
+        const wordScore =
+            matchingWords /
+            Math.max(
+                inputWords.length,
+                1
+            );
+
+
+        const score =
+            similarity * .65 +
+            wordScore * .35;
+
+
+        if (
+            score > bestScore
+        ) {
+
+            bestScore =
+                score;
+
+            best =
+                suggestion;
+
+        }
+
+    }
+
+
+    if (
+        best &&
+        bestScore >= .65
+    ) {
+
+        return best;
+
+    }
+
+
+    return null;
+
 }
 
-/* Open a dedicated chat screen and hide the home page. */
+
+
+/* =====================================================
+   LEVENSHTEIN
+===================================================== */
+
+
+function levenshtein(a,b) {
+
+
+    const matrix = [];
+
+
+    for (
+        let i = 0;
+        i <= b.length;
+        i++
+    ) {
+
+        matrix[i] = [i];
+
+    }
+
+
+    for (
+        let j = 0;
+        j <= a.length;
+        j++
+    ) {
+
+        matrix[0][j] = j;
+
+    }
+
+
+    for (
+        let i = 1;
+        i <= b.length;
+        i++
+    ) {
+
+
+        for (
+            let j = 1;
+            j <= a.length;
+            j++
+        ) {
+
+
+            if (
+                b.charAt(i-1) ===
+                a.charAt(j-1)
+            ) {
+
+                matrix[i][j] =
+                    matrix[i-1][j-1];
+
+            }
+            else {
+
+                matrix[i][j] =
+                    Math.min(
+
+                        matrix[i-1][j-1] + 1,
+
+                        matrix[i][j-1] + 1,
+
+                        matrix[i-1][j] + 1
+
+                    );
+
+            }
+
+        }
+
+    }
+
+
+    return matrix[b.length][a.length];
+
+}
+
+
+
+/* =====================================================
+   FOLLOW-UP
+===================================================== */
+
+
 function openFollowUp() {
-  if (!activeTopic) return;
 
-  returnScrollY = window.scrollY;
-  conversation = [];
-  chatLog.replaceChildren();
 
-  document.getElementById("chatTopicTitle").textContent = activeTopic;
+    const box =
+        document.getElementById(
+            "followUpBox"
+        );
 
-  homeScreen.hidden = true;
-  chatScreen.hidden = false;
-  document.getElementById("siteHeader").hidden = true;
 
-  const context =
-    document.getElementById("resultAnswer")?.innerText ||
-    activeSummary;
+    if (!box) return;
 
-  addMessage(
-    "assistant",
-    "Let's explore: " + activeTopic +
-    (context
-      ? "\n\nYour search result:\n" + context
-      : "\n\nI'll use this topic as our starting point.")
-  );
 
-  conversation.push({
-    role: "assistant",
-    content: "Topic: " + activeTopic + "\nSearch context: " + context
-  });
+    if (
+        box.style.display === "none" ||
+        box.style.display === ""
+    ) {
 
-  window.scrollTo(0, 0);
-  chatInput.focus();
+        box.style.display =
+            "block";
+
+        document
+            .getElementById(
+                "followUpInput"
+            )
+            .focus();
+
+    }
+    else {
+
+        box.style.display =
+            "none";
+
+    }
+
 }
 
-/* Add a message bubble to the chat. */
-function addMessage(role, text) {
-  const bubble = document.createElement("div");
-  bubble.className = "message " + role;
 
-  const label = document.createElement("span");
-  label.className = "message-label";
-  label.textContent = role === "user" ? "You" : "MEWLIX";
 
-  const body = document.createElement("div");
-  body.textContent = text;
+/* =====================================================
+   FOLLOW-UP AI
+===================================================== */
 
-  bubble.append(label, body);
-  chatLog.appendChild(bubble);
 
-  bubble.scrollIntoView({
-    behavior: "smooth",
-    block: "end"
-  });
+async function submitFollowUp() {
 
-  return bubble;
+
+    const input =
+        document.getElementById(
+            "followUpInput"
+        );
+
+
+    const answer =
+        document.getElementById(
+            "followUpAnswer"
+        );
+
+
+    const question =
+        input.value.trim();
+
+
+    const article =
+        document.querySelector(
+            ".result-card[data-topic]"
+        );
+
+
+    const currentTopic =
+        article
+        ?
+        article.getAttribute(
+            "data-topic"
+        )
+        :
+        "the topic";
+
+
+    if (!question) {
+
+
+        answer.innerHTML = `
+
+            <div style="
+                background:#fff4e5;
+                padding:14px;
+                border-radius:14px;
+            ">
+
+                Please type a question first.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    answer.innerHTML = `
+
+        <div style="
+            background:#f4f6ff;
+            padding:14px;
+            border-radius:14px;
+        ">
+
+            🧠 MEWLIX is thinking...
+
+        </div>
+
+    `;
+
+
+
+    try {
+
+
+        const response =
+            await askAI(`
+
+You are the follow-up tutor for MEWLIX LEARNING.
+
+The student was learning about:
+
+"${currentTopic}"
+
+Their follow-up question is:
+
+"${question}"
+
+Answer the student's EXACT question.
+
+Do not simply repeat the original topic explanation.
+
+Use a clear, direct answer first.
+
+Then add a short explanation or example if useful.
+
+If the question asks "why", explain the reason.
+
+If it asks "how", explain the process.
+
+If it asks "when", provide the relevant time/context.
+
+If it asks "where", explain the location/context.
+
+If it asks for a comparison, clearly distinguish the two things.
+
+Keep the answer under 250 words.
+
+            `);
+
+
+        answer.innerHTML = `
+
+            <div style="
+                background:#f4f6ff;
+                padding:16px;
+                border-radius:14px;
+            ">
+
+                ${formatAI(response)}
+
+            </div>
+
+        `;
+
+    }
+    catch(error) {
+
+
+        answer.innerHTML = `
+
+            <div style="
+                background:#fff4e5;
+                padding:14px;
+                border-radius:14px;
+            ">
+
+                Sorry, MEWLIX couldn't answer
+                that right now.
+
+            </div>
+
+        `;
+
+    }
+
 }
 
-/* Send a follow-up question with previous conversation context. */
-async function sendFollowUp(question) {
-  const query = String(question || "").trim();
 
-  if (!query || chatBusy) return;
 
-  chatBusy = true;
-  document.getElementById("sendChat").disabled = true;
-  chatInput.value = "";
+/* =====================================================
+   RANDOM FACTS
+===================================================== */
 
-  addMessage("user", query);
 
-  conversation.push({
-    role: "user",
-    content: query
-  });
+async function randomFact() {
 
-  const loading = addMessage("assistant", "Thinking…");
 
-  try {
-    const history = conversation
-      .slice(-14)
-      .map(message =>
-        (message.role === "user" ? "USER" : "ASSISTANT") +
-        ": " + message.content
-      )
-      .join("\n\n");
+    const factBox =
+        document.getElementById(
+            "factText"
+        );
 
-    const answer = await callAI(
-      'You are continuing a multi-turn follow-up conversation in ' +
-      'MEWLIX SEARCH. Preserve context and use earlier messages when ' +
-      'useful. Topic: "' + activeTopic + '". ' +
-      'Original background: ' + activeSummary +
-      '\n\nConversation so far:\n' + history +
-      '\n\nAnswer the latest user question clearly and accurately. ' +
-      'If it refers to "that", "it", or an earlier answer, use the ' +
-      'context. Be student-friendly and concise.'
+
+    factBox.innerHTML = `
+
+        <div style="
+            padding:18px;
+            text-align:center;
+        ">
+
+            🧠 MEWLIX is finding
+            some unusual facts...
+
+        </div>
+
+    `;
+
+
+
+    try {
+
+
+        const answer =
+            await askAI(`
+
+You are the "Amazing Facts" feature of MEWLIX LEARNING.
+
+Generate 3 interesting, accurate educational facts.
+
+Use THREE DIFFERENT subjects.
+
+Do NOT use the same subject twice.
+
+Do not write generic facts such as
+"water is important for life."
+
+Each fact should be surprising or memorable.
+
+Format:
+
+FACT 1:
+[short fact]
+
+FACT 2:
+[short fact]
+
+FACT 3:
+[short fact]
+
+Keep each fact under 45 words.
+
+            `);
+
+
+        factBox.innerHTML = `
+
+            <div style="
+                padding:16px;
+                background:#f4f6ff;
+                border-radius:17px;
+                line-height:1.6;
+            ">
+
+                ${formatAI(answer)}
+
+            </div>
+
+        `;
+
+    }
+    catch {
+
+
+        factBox.innerHTML = `
+
+            <div style="
+                padding:15px;
+                background:#fff4e5;
+                border-radius:15px;
+            ">
+
+                Couldn't load facts right now.
+                Try again in a moment.
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   RANDOM FACT SCROLL
+===================================================== */
+
+
+function randomFactAndScroll() {
+
+
+    document
+        .getElementById("facts")
+        .scrollIntoView({
+
+            behavior:"smooth",
+
+            block:"start"
+
+        });
+
+
+    setTimeout(
+        randomFact,
+        500
     );
 
-    loading.replaceChildren();
-
-    const label = document.createElement("span");
-    label.className = "message-label";
-    label.textContent = "MEWLIX";
-
-    const body = document.createElement("div");
-    body.textContent = answer;
-
-    loading.append(label, body);
-
-    conversation.push({
-      role: "assistant",
-      content: answer
-    });
-  } catch (error) {
-    loading.replaceChildren();
-
-    const label = document.createElement("span");
-    label.className = "message-label";
-    label.textContent = "MEWLIX";
-
-    const body = document.createElement("div");
-    body.textContent =
-      "I couldn't get a reply just now. " +
-      "Please try sending your question again.";
-
-    loading.append(label, body);
-
-    /* The question remains in history for the next attempt. */
-  } finally {
-    chatBusy = false;
-    document.getElementById("sendChat").disabled = false;
-    chatInput.focus();
-  }
 }
 
-/* Chat form submission. */
-document.getElementById("chatForm").addEventListener("submit", event => {
-  event.preventDefault();
-  sendFollowUp(chatInput.value);
-});
 
-/* Enter sends a message; Shift+Enter adds a new line. */
-chatInput.addEventListener("keydown", event => {
-  if (event.key === "Enter" && !event.shiftKey) {
-    event.preventDefault();
-    document.getElementById("chatForm").requestSubmit();
-  }
-});
 
-/* Return to the exact previous page scroll position. */
-function leaveChat() {
-  chatScreen.hidden = true;
-  homeScreen.hidden = false;
-  document.getElementById("siteHeader").hidden = false;
+/* =====================================================
+   SURPRISE ME
+===================================================== */
 
-  window.scrollTo({
-    top: returnScrollY,
-    behavior: "auto"
-  });
+
+async function surpriseMe() {
+
+
+    const output =
+        document.getElementById(
+            "surpriseOutput"
+        );
+
+
+    output.innerHTML = `
+
+        <div style="
+            padding:18px;
+            background:rgba(
+                255,
+                255,
+                255,
+                .12
+            );
+            border-radius:17px;
+            text-align:center;
+        ">
+
+            ✨ Finding something
+            unexpected...
+
+        </div>
+
+    `;
+
+
+
+    try {
+
+
+        const answer =
+            await askAI(`
+
+You are the "Surprise Me" feature of
+MEWLIX LEARNING.
+
+Choose ONE fascinating educational topic
+from science, nature, history, technology,
+space, geography, mathematics, art or culture.
+
+Choose something that is NOT an extremely
+obvious topic.
+
+Give:
+
+TITLE:
+A catchy topic name.
+
+WHAT IT IS:
+2-3 sentences.
+
+WHY IT IS INTERESTING:
+2 short sentences.
+
+AMAZING DETAIL:
+One memorable fact.
+
+LEARN NEXT:
+2 related topics.
+
+Do not repeat common filler.
+Keep everything under 180 words.
+
+            `);
+
+
+        output.innerHTML = `
+
+            <div style="
+                padding:18px;
+                background:
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        .12
+                    );
+                border-radius:18px;
+            ">
+
+                <div style="
+                    font-size:12px;
+                    letter-spacing:2px;
+                    opacity:.75;
+                ">
+
+                    YOUR SURPRISE
+
+                </div>
+
+
+                <div
+                    class="ai-answer"
+                    style="margin-top:10px;"
+                >
+
+                    ${formatAI(answer)}
+
+                </div>
+
+
+                <button
+                    onclick="learnSurpriseFromText()"
+                    style="
+                        border:none;
+                        background:#ffffff;
+                        color:#4535c1;
+                        padding:10px 17px;
+                        border-radius:22px;
+                        font-weight:bold;
+                        cursor:pointer;
+                    "
+                >
+
+                    Learn More →
+
+                </button>
+
+
+            </div>
+
+        `;
+
+
+        window.lastSurprise =
+            answer;
+
+    }
+    catch {
+
+
+        output.innerHTML = `
+
+            <div style="
+                padding:15px;
+                background:rgba(
+                    255,
+                    255,
+                    255,
+                    .12
+                );
+                border-radius:15px;
+            ">
+
+                Couldn't find a surprise.
+                Try again!
+
+            </div>
+
+        `;
+
+    }
+
 }
 
-document.getElementById("backToResults")
-  .addEventListener("click", leaveChat);
 
-window.addEventListener("keydown", event => {
-  if (event.key === "Escape" && !chatScreen.hidden) {
-    leaveChat();
-  }
-});
 
-/* Random facts. */
-const facts = [
-  "A day on Venus is longer than its year.",
-  "Octopuses have three hearts.",
-  "Light from the Sun takes about eight minutes to reach Earth.",
-  "Some bamboo species can grow very quickly under the right conditions.",
-  "Earth's oceans are home to an extraordinary range of life."
+/* =====================================================
+   SURPRISE → SEARCH
+===================================================== */
+
+
+async function learnSurpriseFromText() {
+
+
+    if (
+        !window.lastSurprise
+    ) return;
+
+
+    const answer =
+        window.lastSurprise;
+
+
+    const match =
+        answer.match(
+            /TITLE:\s*(.+)/i
+        );
+
+
+    if (!match) {
+
+        return;
+
+    }
+
+
+    const topic =
+        match[1]
+            .replace(
+                /\*\*/g,
+                ""
+            )
+            .trim();
+
+
+    const searchBox =
+        document.getElementById(
+            "searchBox"
+        );
+
+
+    searchBox.value =
+        topic;
+
+
+    document
+        .getElementById("home")
+        .scrollIntoView({
+
+            behavior:"smooth",
+
+            block:"start"
+
+        });
+
+
+    setTimeout(
+        searchTopic,
+        700
+    );
+
+}
+
+
+
+/* =====================================================
+   EXPLORE TOPICS
+===================================================== */
+
+
+async function showTrending() {
+
+
+    const results =
+        document.getElementById(
+            "results"
+        );
+
+
+    results.innerHTML = `
+
+        <article class="result-card">
+
+            <div class="result-label">
+
+                🔥 EXPLORE
+
+            </div>
+
+
+            <h2>
+
+                What should we learn today?
+
+            </h2>
+
+
+            <p>
+
+                Choose a topic and let
+                MEWLIX explain it.
+
+            </p>
+
+
+            <div
+                id="exploreTopicButtons"
+                class="topic-scroll"
+            >
+
+                Loading topics...
+
+            </div>
+
+        </article>
+
+    `;
+
+
+    scrollToResults();
+
+
+
+    try {
+
+
+        const answer =
+            await askAI(`
+
+Create a list of 12 interesting educational
+topics for MEWLIX LEARNING.
+
+Mix science, space, animals, history,
+technology, geography, mathematics,
+art and culture.
+
+Avoid extremely generic categories.
+
+Return ONLY the topic names,
+one per line.
+
+            `);
+
+
+        const topics =
+            answer
+                .split("\n")
+                .map(
+                    x =>
+                        x
+                            .replace(
+                                /^[-•*\d.)\s]+/,
+                                ""
+                            )
+                            .trim()
+                )
+                .filter(
+                    x =>
+                        x.length > 2
+                )
+                .slice(0,12);
+
+
+        const container =
+            document.getElementById(
+                "exploreTopicButtons"
+            );
+
+
+        container.innerHTML =
+            topics
+                .map(
+                    topic => `
+
+                        <button
+                            class="topic-chip"
+                            onclick="
+                                searchFromButton(
+                                    '${escapeAttribute(topic)}'
+                                )
+                            "
+                        >
+
+                            ${escapeHTML(topic)}
+
+                        </button>
+
+                    `
+                )
+                .join("");
+
+
+    }
+    catch {
+
+
+        document.getElementById(
+            "exploreTopicButtons"
+        ).innerHTML = `
+
+            <p>
+                Couldn't load topics right now.
+            </p>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CATEGORY SEARCH
+===================================================== */
+
+
+function searchFromButton(topic) {
+
+
+    document
+        .getElementById(
+            "searchBox"
+        )
+        .value =
+            topic;
+
+
+    searchTopic();
+
+}
+
+
+
+/* =====================================================
+   RESULTS SCROLL
+===================================================== */
+
+
+function scrollToResults() {
+
+
+    setTimeout(
+        function() {
+
+
+            document
+                .getElementById(
+                    "results-section"
+                )
+                .scrollIntoView({
+
+                    behavior:"smooth",
+
+                    block:"start"
+
+                });
+
+
+        },
+        100
+    );
+
+}
+
+
+
+/* =====================================================
+   SURPRISE SCROLL
+===================================================== */
+
+
+function surpriseAndScroll() {
+
+
+    document
+        .getElementById(
+            "surprise"
+        )
+        .scrollIntoView({
+
+            behavior:"smooth",
+
+            block:"start"
+
+        });
+
+
+    setTimeout(
+        surpriseMe,
+        500
+    );
+
+}
+
+
+
+/* =====================================================
+   TOPIC CAROUSEL
+===================================================== */
+
+
+const carouselTopics = [
+
+    "Black hole",
+    "Dinosaur",
+    "Mars",
+    "Ocean",
+
+    "Aurora",
+    "Volcano",
+    "Octopus",
+    "Jupiter",
+
+    "Milky Way",
+    "Moon",
+    "Coral reef",
+    "Penguin",
+
+    "Lightning",
+    "Ancient Egypt",
+    "Human brain",
+    "Great Barrier Reef",
+
+    "Saturn",
+    "Butterfly",
+    "Shark",
+    "Space",
+
+    "Tornado",
+    "Deep sea",
+    "Robot",
+    "Pyramid",
+
+    "Neutron star",
+    "Rainforest",
+    "Ant",
+    "DNA",
+
+    "Solar eclipse",
+    "Fossil",
+    "Coral",
+    "Quantum physics",
+
+    "Galaxy",
+    "Whale",
+    "Machu Picchu",
+    "Volcanoes",
+
+    "Time",
+    "Gravity",
+    "Clouds",
+    "Penguin",
+
+    "Supernova",
+    "Jellyfish",
+    "Roman Empire",
+    "Electricity"
+
 ];
 
-document.getElementById("randomFactBtn").addEventListener("click", () => {
-  const fact = facts[Math.floor(Math.random() * facts.length)];
 
-  activeSummary = fact;
 
-  renderResult(
-    "A random fact",
-    fact,
-    "QUICK FACT",
-    null
-  );
-});
+let carouselOrder = [];
 
-/* Surprise Me opens a randomly selected topic. */
-document.getElementById("surpriseBtn").addEventListener("click", () => {
-  const topics = [
-    "Why the sky changes colour",
-    "How bees communicate",
-    "The largest volcano in the Solar System",
-    "How memory works",
-    "The deepest part of the ocean",
-    "Why we dream"
-  ];
+let carouselPosition = 0;
 
-  const topic = topics[Math.floor(Math.random() * topics.length)];
+let carouselTimer = null;
 
-  searchTopic(topic);
-});
+
+
+const carouselImageCache = {};
+
+
+
+/* =====================================================
+   SHUFFLE
+===================================================== */
+
+
+function shuffleArray(array) {
+
+
+    const copy =
+        [...array];
+
+
+    for (
+        let i =
+            copy.length - 1;
+        i > 0;
+        i--
+    ) {
+
+
+        const j =
+            Math.floor(
+                Math.random() *
+                (i + 1)
+            );
+
+
+        [
+            copy[i],
+            copy[j]
+        ] =
+        [
+            copy[j],
+            copy[i]
+        ];
+
+    }
+
+
+    return copy;
+
+}
+
+
+
+/* =====================================================
+   LOAD CAROUSEL IMAGE
+===================================================== */
+
+
+async function getCarouselImage(
+    topic
+) {
+
+
+    if (
+        carouselImageCache[topic]
+    ) {
+
+        return carouselImageCache[topic];
+
+    }
+
+
+    if (
+        topic === "Ocean"
+    ) {
+
+
+        carouselImageCache[topic] =
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Ocean_image.jpg/330px-Ocean_image.jpg";
+
+
+        return carouselImageCache[topic];
+
+    }
+
+
+    try {
+
+
+        const data =
+            await getWikipediaPage(
+                topic
+            );
+
+
+        if (
+            data &&
+            data.thumbnail &&
+            data.thumbnail.source
+        ) {
+
+
+            carouselImageCache[topic] =
+                data.thumbnail.source;
+
+
+            return data.thumbnail.source;
+
+        }
+
+    }
+    catch {
+
+    }
+
+
+    return "";
+
+}
+
+
+
+/* =====================================================
+   SHOW CAROUSEL GROUP
+===================================================== */
+
+
+async function showCarouselGroup(
+    animate = true
+) {
+
+
+    const track =
+        document.getElementById(
+            "topicCarouselTrack"
+        );
+
+
+    if (!track) return;
+
+
+
+    const group =
+        carouselOrder.slice(
+            carouselPosition,
+            carouselPosition + 4
+        );
+
+
+
+    if (
+        group.length < 4
+    ) {
+
+
+        carouselOrder =
+            shuffleArray(
+                carouselTopics
+            );
+
+
+        carouselPosition = 0;
+
+
+        return showCarouselGroup(
+            animate
+        );
+
+    }
+
+
+
+    if (animate) {
+
+
+        track.style.opacity =
+            "0";
+
+
+        track.style.transform =
+            "translateY(8px)";
+
+    }
+
+
+
+    if (animate) {
+
+
+        await new Promise(
+            resolve =>
+                setTimeout(
+                    resolve,
+                    450
+                )
+        );
+
+    }
+
+
+
+    const images =
+        await Promise.all(
+
+            group.map(
+                topic =>
+                    getCarouselImage(
+                        topic
+                    )
+            )
+
+        );
+
+
+
+    let html = "";
+
+
+
+    group.forEach(
+        (
+            topic,
+            index
+        ) => {
+
+
+            const image =
+                images[index];
+
+
+            html += `
+
+                <button
+
+                    onclick="
+                        searchFromButton(
+                            '${escapeAttribute(topic)}'
+                        )
+                    "
+
+                    style="
+                        border:none;
+                        outline:none;
+                        background:transparent;
+                        padding:0;
+                        width:105px;
+                        min-width:105px;
+                        cursor:pointer;
+                        color:white;
+                        text-align:center;
+                        font-family:inherit;
+                    "
+                >
+
+
+                    <div
+
+                        style="
+                            width:56px;
+                            height:56px;
+                            margin:0 auto 6px;
+                            border-radius:50%;
+                            overflow:hidden;
+                            background:
+                                rgba(
+                                    255,
+                                    255,
+                                    255,
+                                    .12
+                                );
+                            box-shadow:
+                                0 0 0 1px
+                                rgba(
+                                    255,
+                                    255,
+                                    255,
+                                    .22
+                                ),
+                                0 7px 22px
+                                rgba(
+                                    0,
+                                    0,
+                                    0,
+                                    .28
+                                );
+                            transition:
+                                transform .2s ease;
+                        "
+
+                        onmouseenter="
+                            this.style.transform='scale(1.1)';
+                        "
+
+                        onmouseleave="
+                            this.style.transform='scale(1)';
+                        "
+                    >
+
+                        ${
+                            image
+                            ?
+                            `
+                            <img
+
+                                src="${escapeHTML(
+                                    image
+                                )}"
+
+                                alt="${escapeHTML(
+                                    topic
+                                )}"
+
+                                style="
+                                    width:100%;
+                                    height:100%;
+                                    object-fit:cover;
+                                    display:block;
+                                "
+
+                            >
+                            `
+                            :
+                            `
+                            <div style="
+                                width:100%;
+                                height:100%;
+                                display:flex;
+                                align-items:center;
+                                justify-content:center;
+                                font-size:22px;
+                            ">
+
+                                ✦
+
+                            </div>
+                            `
+                        }
+
+                    </div>
+
+
+                    <div style="
+                        font-size:12px;
+                        font-weight:500;
+                        white-space:nowrap;
+                        overflow:hidden;
+                        text-overflow:ellipsis;
+                        text-shadow:
+                            0 2px 7px
+                            rgba(
+                                0,
+                                0,
+                                0,
+                                .45
+                            );
+                    ">
+
+                        ${escapeHTML(
+                            topic
+                        )}
+
+                    </div>
+
+
+                </button>
+
+            `;
+
+        }
+    );
+
+
+
+    track.innerHTML =
+        html;
+
+
+
+    requestAnimationFrame(
+        function() {
+
+
+            track.style.opacity =
+                "1";
+
+
+            track.style.transform =
+                "translateY(0)";
+
+
+        }
+    );
+
+
+
+    carouselPosition += 4;
+
+
+
+    if (
+        carouselPosition >=
+        carouselOrder.length
+    ) {
+
+
+        carouselOrder =
+            shuffleArray(
+                carouselTopics
+            );
+
+
+        carouselPosition = 0;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   START CAROUSEL
+===================================================== */
+
+
+async function startCarousel() {
+
+
+    carouselOrder =
+        shuffleArray(
+            carouselTopics
+        );
+
+
+    carouselPosition =
+        0;
+
+
+    await showCarouselGroup(
+        false
+    );
+
+
+
+    carouselTimer =
+        setInterval(
+            function() {
+
+                showCarouselGroup(
+                    true
+                );
+
+            },
+            4500
+        );
+
+}
+
+
+
+/* =====================================================
+   ENTER KEY
+===================================================== */
+
+
+document
+    .getElementById(
+        "searchBox"
+    )
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                searchTopic();
+
+            }
+
+        }
+    );
+
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+
+        if (
+            event.key === "Enter" &&
+            document.activeElement &&
+            document.activeElement.id ===
+            "followUpInput"
+        ) {
+
+
+            submitFollowUp();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+
+function escapeHTML(text) {
+
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+
+/* =====================================================
+   ESCAPE ATTRIBUTE
+===================================================== */
+
+
+function escapeAttribute(text) {
+
+
+    return String(text)
+        .replace(
+            /\\/g,
+            "\\\\"
+        )
+        .replace(
+            /'/g,
+            "\\'"
+        );
+
+}
+
+
+
+/* =====================================================
+   START EVERYTHING
+===================================================== */
+
+
+startCarousel();
+
+
 </script>
+
+
 </body>
+
 </html>
