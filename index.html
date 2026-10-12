@@ -1,3151 +1,433 @@
-
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta name="google-site-verification" content="jo1qjtLomZBus2ZtBi5Hy_XLfRJVfRCMhC2aMu7q_RE" />
-   
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MEWLIX SEARCH</title>
-
-<link rel="stylesheet"
-href="styles/style.css">
-
-
+<link rel="stylesheet" href="styles/style.css">
 <style>
-
-/* =====================================================
-   MOBILE TOPIC CAROUSEL
-   Keeps the existing small round images,
-   but allows sideways finger scrolling on small screens.
-===================================================== */
-
-#topicCarousel {
-    overflow-x: hidden;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+#topicCarousel { overflow-x:hidden; overflow-y:hidden; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+#topicCarousel::-webkit-scrollbar { display:none; }
+#topicCarouselTrack { width:max-content; min-width:100%; }
+.carousel-description { margin:2px auto 8px; text-align:center; color:rgba(255,255,255,.72); font-size:12px; line-height:1.4; }
+.light-content { position:relative; overflow:hidden; }
+.study-watermarks { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.study-watermarks span { position:absolute; color:#d5d9e5; opacity:.24; filter:grayscale(1); font-size:25px; user-select:none; }
+.light-content > section { position:relative; z-index:1; }
+.powered-by { margin-top:5px; font-size:12px; opacity:.65; }
+@media (max-width:600px) {
+#topicCarousel { overflow-x:auto; overflow-y:hidden; touch-action:pan-x; overscroll-behavior-x:contain; }
+#topicCarouselTrack { justify-content:flex-start !important; }
+.carousel-description { padding:0 18px; }
 }
-
-#topicCarousel::-webkit-scrollbar {
-    display: none;
-}
-
-#topicCarouselTrack {
-    width: max-content;
-    min-width: 100%;
-}
-
-
-/* =====================================================
-   TOPIC CAROUSEL DESCRIPTION
-===================================================== */
-
-.carousel-description {
-    margin: 2px auto 8px;
-    text-align: center;
-    color: rgba(255,255,255,.72);
-    font-size: 12px;
-    line-height: 1.4;
-}
-
-
-/* =====================================================
-   LIGHT CONTENT AREA
-===================================================== */
-
-.light-content {
-    position: relative;
-    overflow: hidden;
-}
-
-
-/* =====================================================
-   FAINT STUDY / SEARCH WATERMARKS
-===================================================== */
-
-.study-watermarks {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.study-watermarks span {
-    position: absolute;
-    color: #d5d9e5;
-    opacity: .24;
-    filter: grayscale(1);
-    font-size: 25px;
-    user-select: none;
-}
-
-
-/* Keep actual content above the watermarks */
-
-.light-content > section {
-    position: relative;
-    z-index: 1;
-}
-
-
-/* =====================================================
-   POWERED BY
-===================================================== */
-
-.powered-by {
-    margin-top: 5px;
-    font-size: 12px;
-    opacity: .65;
-}
-
-
-/* =====================================================
-   MOBILE SIDEWAYS SCROLL
-===================================================== */
-
-@media (max-width: 600px) {
-
-    #topicCarousel {
-        overflow-x: auto;
-        overflow-y: hidden;
-        touch-action: pan-x;
-        overscroll-behavior-x: contain;
-    }
-
-    #topicCarouselTrack {
-        justify-content: flex-start !important;
-    }
-
-    .carousel-description {
-        padding: 0 18px;
-    }
-
-}
-
 </style>
-
 </head>
-
-
 <body>
-
-
-<!-- =========================
-     NAVIGATION
-========================= -->
-
 <nav>
-
-    <div class="logo">
-        ✦ MEWLIX <span>SEARCH</span>
-    </div>
-
-    <div class="navlinks">
-
-        <a href="#home">Home</a>
-
-        <a href="#explore">Explore</a>
-
-        <a href="#categories">Categories</a>
-
-        <a href="#facts">Facts</a>
-
-    </div>
-
+<div class="logo">✦ MEWLIX <span>SEARCH</span></div>
+<div class="navlinks"><a href="#home">Home</a><a href="#explore">Explore</a><a href="#categories">Categories</a><a href="#facts">Facts</a></div>
 </nav>
-
-
-
-<!-- =========================
-     HERO
-========================= -->
-
 <section class="hero" id="home">
-
-
-    <div class="planet planet1"></div>
-
-    <div class="planet planet2"></div>
-
-
-    <div class="hero-content">
-
-
-        <div class="small-title">
-
-            EXPLORE • DISCOVER • GROW
-
-        </div>
-
-
-        <h1>
-
-            MEWLIX <span>SEARCH</span>
-
-        </h1>
-
-
-        <p>
-
-            Search anything. Discover something new.
-
-        </p>
-
-
-
-        <div class="search-area">
-
-
-            <input
-                type="text"
-                id="searchBox"
-                placeholder="What are you curious about?"
-                autocomplete="off"
-            >
-
-
-            <button onclick="searchTopic()">
-
-                Explore
-
-            </button>
-
-
-        </div>
-
-
-
-        <!-- =========================
-             TOPIC CAROUSEL
-        ========================= -->
-
-        <div
-            id="topicCarousel"
-            style="
-                width:100%;
-                max-width:620px;
-                margin:8px auto 0;
-                overflow:hidden;
-                position:relative;
-                min-height:90px;
-            "
-        >
-
-            <div
-                id="topicCarouselTrack"
-                style="
-                    display:flex;
-                    justify-content:center;
-                    align-items:flex-start;
-                    gap:14px;
-                    opacity:1;
-                    transform:translateY(0);
-                    transition:
-                        opacity .55s ease,
-                        transform .55s ease;
-                "
-            ></div>
-
-        </div>
-
-
-        <div class="carousel-description">
-
-            Tap a picture to quickly explore that topic.
-
-        </div>
-
-
-
-        <div class="quick-buttons">
-
-
-            <button onclick="randomFactAndScroll()">
-
-                💡 Random Facts
-
-            </button>
-
-
-            <button onclick="surpriseAndScroll()">
-
-                ✨ Surprise Me!
-
-            </button>
-
-
-            <button onclick="showTrending()">
-
-                🔥 Explore Topics
-
-            </button>
-
-
-        </div>
-
-
-    </div>
-
+<div class="planet planet1"></div><div class="planet planet2"></div>
+<div class="hero-content">
+<div class="small-title">EXPLORE • DISCOVER • GROW</div>
+<h1>MEWLIX <span>SEARCH</span></h1>
+<p>Search anything. Discover something new.</p>
+<div class="search-area">
+<input type="text" id="searchBox" placeholder="What are you curious about?" autocomplete="off">
+<button onclick="searchTopic()">Explore</button>
+</div>
+<div id="topicCarousel" style="width:100%;max-width:620px;margin:8px auto 0;overflow:hidden;position:relative;min-height:90px;">
+<div id="topicCarouselTrack" style="display:flex;justify-content:center;align-items:flex-start;gap:14px;opacity:1;transform:translateY(0);transition:opacity .55s ease,transform .55s ease;"></div>
+</div>
+<div class="carousel-description">Tap a picture to quickly explore that topic.</div>
+<div class="quick-buttons">
+<button onclick="randomFactAndScroll()">💡 Random Facts</button>
+<button onclick="surpriseAndScroll()">✨ Surprise Me!</button>
+<button onclick="showTrending()">🔥 Explore Topics</button>
+</div>
+</div>
 </section>
-
-
-
-<!-- =========================
-     LIGHT CONTENT AREA
-========================= -->
-
 <main class="light-content">
-
-
-    <!-- =========================
-         FAINT WATERMARKS
-    ========================= -->
-
-    <div class="study-watermarks"
-         aria-hidden="true">
-
-        <span style="top:4%;left:3%;">🔎</span>
-
-        <span style="top:9%;right:7%;">📖</span>
-
-        <span style="top:18%;left:10%;">💡</span>
-
-        <span style="top:27%;right:4%;">✏️</span>
-
-        <span style="top:36%;left:3%;">🔬</span>
-
-        <span style="top:45%;right:10%;">🧠</span>
-
-        <span style="top:55%;left:8%;">📚</span>
-
-        <span style="top:64%;right:3%;">🔭</span>
-
-        <span style="top:74%;left:3%;">💡</span>
-
-        <span style="top:83%;right:8%;">🔎</span>
-
-        <span style="top:92%;left:11%;">📖</span>
-
-        <span style="top:97%;right:4%;">✏️</span>
-
-    </div>
-
-
-
-<!-- =========================
-     SEARCH RESULTS
-========================= -->
-
-<section id="results-section">
-
-    <div id="results"></div>
-
-</section>
-
-
-
-<!-- =========================
-     EXPLORE
-========================= -->
-
+<div class="study-watermarks" aria-hidden="true">
+<span style="top:4%;left:3%;">🔎</span><span style="top:9%;right:7%;">📖</span><span style="top:18%;left:10%;">💡</span><span style="top:27%;right:4%;">✏️</span><span style="top:36%;left:3%;">🔬</span><span style="top:45%;right:10%;">🧠</span><span style="top:55%;left:8%;">📚</span><span style="top:64%;right:3%;">🔭</span><span style="top:74%;left:3%;">💡</span><span style="top:83%;right:8%;">🔎</span><span style="top:92%;left:11%;">📖</span><span style="top:97%;right:4%;">✏️</span>
+</div>
+<section id="results-section"><div id="results"></div></section>
 <section class="section" id="explore">
-
-
-    <h2>
-
-        Explore & Learn
-
-    </h2>
-
-
-    <p class="section-subtitle">
-
-        Pick something interesting or follow your curiosity.
-
-    </p>
-
-
-
-    <div class="cards" id="categories">
-
-
-
-        <div
-            class="card science"
-            onclick="searchFromButton('Science')"
-        >
-
-            <div class="card-icon">⚗</div>
-
-            <h3>Science</h3>
-
-            <p>
-                Space, physics, chemistry,
-                nature and more.
-            </p>
-
-        </div>
-
-
-
-        <div
-            class="card nature"
-            onclick="searchFromButton('Animals')"
-        >
-
-            <div class="card-icon">◉</div>
-
-            <h3>Nature & Animals</h3>
-
-            <p>
-                Wildlife, oceans, plants
-                and ecosystems.
-            </p>
-
-        </div>
-
-
-
-        <div
-            class="card history"
-            onclick="searchFromButton('History')"
-        >
-
-            <div class="card-icon">◆</div>
-
-            <h3>History</h3>
-
-            <p>
-                Civilizations, people,
-                events and discoveries.
-            </p>
-
-        </div>
-
-
-
-        <div
-            class="card technology"
-            onclick="searchFromButton('Technology')"
-        >
-
-            <div class="card-icon">▣</div>
-
-            <h3>Technology</h3>
-
-            <p>
-                Computers, inventions,
-                AI and the future.
-            </p>
-
-        </div>
-
-
-
-        <div
-            class="card geography"
-            onclick="searchFromButton('Geography')"
-        >
-
-            <div class="card-icon">◎</div>
-
-            <h3>Geography</h3>
-
-            <p>
-                Countries, places,
-                Earth and our world.
-            </p>
-
-        </div>
-
-
-
-        <div
-            class="card universe"
-            onclick="searchFromButton('Universe')"
-        >
-
-            <div class="card-icon">✦</div>
-
-            <h3>Universe</h3>
-
-            <p>
-                Stars, galaxies, planets
-                and black holes.
-            </p>
-
-        </div>
-
-
-
-        <div
-            class="card math"
-            onclick="searchFromButton('Mathematics')"
-            style="
-                background:
-                linear-gradient(
-                    135deg,
-                    #dc2626,
-                    #ef4444
-                );
-            "
-        >
-
-            <div class="card-icon">∑</div>
-
-            <h3>Math & Logic</h3>
-
-            <p>
-                Numbers, patterns,
-                puzzles and problem-solving.
-            </p>
-
-        </div>
-
-
-
-        <div
-            class="card art"
-            onclick="searchFromButton('Art')"
-            style="
-                background:
-                linear-gradient(
-                    135deg,
-                    #db2777,
-                    #f472b6
-                );
-            "
-        >
-
-            <div class="card-icon">✎</div>
-
-            <h3>Art & Culture</h3>
-
-            <p>
-                Art, music, traditions
-                and human creativity.
-            </p>
-
-        </div>
-
-
-    </div>
-
+<h2>Explore &amp; Learn</h2>
+<p class="section-subtitle">Pick something interesting or follow your curiosity.</p>
+<div class="cards" id="categories">
+<div class="card science" onclick="searchFromButton('Science')"><div class="card-icon">⚗</div><h3>Science</h3><p>Space, physics, chemistry, nature and more.</p></div>
+<div class="card nature" onclick="searchFromButton('Animals')"><div class="card-icon">◉</div><h3>Nature &amp; Animals</h3><p>Wildlife, oceans, plants and ecosystems.</p></div>
+<div class="card history" onclick="searchFromButton('History')"><div class="card-icon">◆</div><h3>History</h3><p>Civilizations, people, events and discoveries.</p></div>
+<div class="card technology" onclick="searchFromButton('Technology')"><div class="card-icon">▣</div><h3>Technology</h3><p>Computers, inventions, AI and the future.</p></div>
+<div class="card geography" onclick="searchFromButton('Geography')"><div class="card-icon">◎</div><h3>Geography</h3><p>Countries, places, Earth and our world.</p></div>
+<div class="card universe" onclick="searchFromButton('Universe')"><div class="card-icon">✦</div><h3>Universe</h3><p>Stars, galaxies, planets and black holes.</p></div>
+<div class="card math" onclick="searchFromButton('Mathematics')" style="background:linear-gradient(135deg,#dc2626,#ef4444);"><div class="card-icon">∑</div><h3>Math &amp; Logic</h3><p>Numbers, patterns, puzzles and problem-solving.</p></div>
+<div class="card art" onclick="searchFromButton('Art')" style="background:linear-gradient(135deg,#db2777,#f472b6);"><div class="card-icon">✎</div><h3>Art &amp; Culture</h3><p>Art, music, traditions and human creativity.</p></div>
+</div>
 </section>
-
-
-
-<!-- =========================
-     FACTS + SURPRISE
-========================= -->
-
 <section class="bottom-section" id="facts">
-
-
-    <div class="fact-box">
-
-
-        <h2>
-
-            💡 Amazing Facts
-
-        </h2>
-
-
-        <p>
-
-            Discover something you probably
-            didn't know.
-
-        </p>
-
-
-        <div id="factText">
-
-            <div style="
-                padding:18px;
-                background:#f4f6ff;
-                border-radius:16px;
-                margin:15px 0;
-                text-align:center;
-            ">
-
-                Tap the button below to discover
-                something amazing!
-
-            </div>
-
-        </div>
-
-
-        <button onclick="randomFact()">
-
-            ✨ More Facts
-
-        </button>
-
-
-    </div>
-
-
-
-    <div class="surprise-box" id="surprise">
-
-
-        <h2>
-
-            ✨ Surprise Me!
-
-        </h2>
-
-
-        <p>
-
-            Don't know what to learn?
-            Let curiosity choose for you.
-
-        </p>
-
-
-        <button onclick="surpriseMe()">
-
-            Discover Something
-
-        </button>
-
-
-        <div
-            id="surpriseOutput"
-            style="margin-top:20px;"
-        ></div>
-
-
-    </div>
-
-
+<div class="fact-box">
+<h2>💡 Amazing Facts</h2><p>Discover something you probably didn't know.</p>
+<div id="factText"><div style="padding:18px;background:#f4f6ff;border-radius:16px;margin:15px 0;text-align:center;">Tap the button below to discover something amazing!</div></div>
+<button onclick="randomFact()">✨ More Facts</button>
+</div>
+<div class="surprise-box" id="surprise">
+<h2>✨ Surprise Me!</h2><p>Don't know what to learn? Let curiosity choose for you.</p>
+<button onclick="surpriseMe()">Discover Something</button>
+<div id="surpriseOutput" style="margin-top:20px;"></div>
+</div>
 </section>
-
-
 </main>
-
-
-
-<footer>
-
-    <p>
-
-         • Stay curious. Keep discovering.
-
-    </p>
-
-    <p class="powered-by">
-
-        Powered by OpenRouter
-
-    </p>
-
-</footer>
-
-
-
+<footer><p> • Stay curious. Keep discovering.</p><p class="powered-by">Powered by OpenRouter</p></footer>
 <script>
-
-
-/* =====================================================
-   
-   AI-POWERED WEBSITE
-===================================================== */
-
-
-
-/* =====================================================
-   AI BACKEND
-===================================================== */
-
-
+/* AI BACKEND */
 async function askAI(prompt) {
-
-
-    const response = await fetch(
-        "/.netlify/functions/ai",
-        {
-
-            method: "POST",
-
-            headers: {
-
-                "Content-Type":
-                    "application/json"
-
-            },
-
-            body: JSON.stringify({
-
-                prompt: prompt
-
-            })
-
-        }
-    );
-
-
+    const response = await fetch("/.netlify/functions/ai", {
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({prompt})
+    });
     let data;
-
-
-    try {
-
-        data =
-            await response.json();
-
-    }
-    catch {
-
-        throw new Error(
-            "The AI server returned an invalid response."
-        );
-
-    }
-
-
-    if (!response.ok) {
-
-        throw new Error(
-            data.error ||
-            "AI request failed."
-        );
-
-    }
-
-
-    if (!data.answer) {
-
-        throw new Error(
-            "The AI did not return an answer."
-        );
-
-    }
-
-
+    try { data = await response.json(); }
+    catch { throw new Error("The AI server returned an invalid response."); }
+    if (!response.ok) throw new Error(data.error || "AI request failed.");
+    if (!data.answer) throw new Error("The AI did not return an answer.");
     return data.answer;
-
 }
 
-
-
-/* =====================================================
-   SIMPLE MARKDOWN → HTML
-===================================================== */
-
-
-function formatAI(text) {
-
-
-    let html =
-        escapeHTML(text);
-
-
-    html =
-        html.replace(
-            /\*\*(.*?)\*\*/g,
-            "<strong>$1</strong>"
-        );
-
-
-    html =
-        html.replace(
-            /^### (.*)$/gm,
-            "<h4>$1</h4>"
-        );
-
-
-    html =
-        html.replace(
-            /^## (.*)$/gm,
-            "<h3>$1</h3>"
-        );
-
-
-    html =
-        html.replace(
-            /^# (.*)$/gm,
-            "<h2>$1</h2>"
-        );
-
-
-    html =
-        html.replace(
-            /^\s*[-•]\s+(.*)$/gm,
-            "<li>$1</li>"
-        );
-
-
-    html =
-        html.replace(
-            /(<li>.*<\/li>)/gs,
-            "<ul>$1</ul>"
-        );
-
-
-    html =
-        html.replace(
-            /\n\n+/g,
-            "</p><p>"
-        );
-
-
-    html =
-        html.replace(
-            /\n/g,
-            "<br>"
-        );
-
-
-    return "<p>" + html + "</p>";
-
-}
-
-
-
-/* =====================================================
-   MAIN SEARCH
-===================================================== */
-
-
-async function searchTopic() {
-
-
-    const input =
-        document.getElementById(
-            "searchBox"
-        );
-
-
-    const results =
-        document.getElementById(
-            "results"
-        );
-
-
-    const originalSearch =
-        input.value.trim();
-
-
-    if (!originalSearch) {
-
-
-        results.innerHTML = `
-
-            <div class="error-card">
-
-                <h2>
-                    What are you curious about?
-                </h2>
-
-                <p>
-                    Type a topic into the search box
-                    and let's learn about it.
-                </p>
-
-            </div>
-
-        `;
-
-
-        scrollToResults();
-
-        return;
-
-    }
-
-
-
-    results.innerHTML = `
-
-        <div class="loading">
-
-            🧠 MEWLIX is learning about
-
-            <strong>
-                ${escapeHTML(originalSearch)}
-            </strong>
-
-            ...
-
-        </div>
-
-    `;
-
-
-    scrollToResults();
-
-
-
-    try {
-
-
-        /*
-           First use Wikipedia to identify
-           the topic and get an image.
-        */
-
-        let data =
-            await getWikipediaPage(
-                originalSearch
-            );
-
-
-        let corrected =
-            false;
-
-
-
-        /*
-           If exact topic isn't found,
-           use Wikipedia search.
-        */
-
-        if (!data) {
-    const suggestions = await getWikipediaSuggestions(
-        originalSearch
-    );
-
-    const correction = findClosestTopic(
-        originalSearch,
-        suggestions
-    );
-
-    if (correction) {
-        const originalWords = originalSearch
-            .toLowerCase()
-            .replace(/[^a-z0-9 ]/g, " ")
-            .split(/\s+/)
-            .filter(word => word.length >= 4);
-
-        const correctedWords = correction
-            .toLowerCase()
-            .replace(/[^a-z0-9 ]/g, " ")
-            .split(/\s+/);
-
-        // Require at least one matching word or
-        // a very close spelling match.
-        const sharesWord = originalWords.some(word =>
-            correctedWords.includes(word)
-        );
-
-        const cleanOriginal = originalSearch
-            .toLowerCase()
-            .replace(/[^a-z0-9]/g, "");
-
-        const cleanCorrection = correction
-            .toLowerCase()
-            .replace(/[^a-z0-9]/g, "");
-
-        const closeSpelling =
-            cleanOriginal.length >= 4 &&
-            levenshtein(cleanOriginal, cleanCorrection) <=
-                Math.max(1, Math.floor(cleanOriginal.length * 0.2));
-
-        if (closeSpelling) {
-            const correctedPage =
-                await getWikipediaPage(correction);
-
-            if (correctedPage) {
-                data = correctedPage;
-                corrected = true;
-            }
-        }
-    }
-}
-
-        if (!data) {
-
-
-            /*
-               Let AI determine whether
-               it understands the topic.
-            */
-
-            const aiAnswer =
-await askAI(`
-
-You are the educational search assistant for .
-
-The user's exact search is:
-"${originalSearch}"
-
-First, determine whether this exact topic can be identified confidently.
-
-If you are confident about the exact topic, explain it briefly and accurately.
-
-If it appears to be a spelling mistake, suggest a correction only when the intended topic is unmistakable. Start with:
-"Possible topic: [corrected topic]"
-
-If you cannot confidently identify the exact topic, respond:
-"I couldn't find an exact match for your topic. Please check the spelling or try a more specific search phrase."
-
-Do not substitute a related topic.
-Do not guess based merely on similar words.
-Do not invent facts.
-Do not output internal labels or safety classifications.
-
-Keep the response under 180 words.
-
-        `);
-
-
-            results.innerHTML = `
-
-                <article class="result-card">
-
-                    <div class="result-label">
-                        MEWLIX DISCOVERY
-                    </div>
-
-                    <div class="searched-topic">
-
-                        You searched for:
-
-                        <strong>
-                            ${escapeHTML(originalSearch)}
-                        </strong>
-
-                    </div>
-
-                    <h2>
-                        ${escapeHTML(originalSearch)}
-                    </h2>
-
-                    <div class="ai-answer">
-                        ${formatAI(aiAnswer)}
-                    </div>
-
-                </article>
-
-            `;
-
-
-            return;
-
-        }
-
-
-
-        /*
-           AI creates the actual learning result.
-        */
-
-        const aiAnswer =
-            await askAI(`
-
-You are the main educational writer for .
-
-The user searched for:
-
-"${data.title}"
-
-Wikipedia's introductory information is:
-
-"${data.extract}"
-
-Create a high-quality educational result.
-
-Create a high-quality educational result with accurate, useful information.
-
-IMPORTANT:
-
-- Explain the topic in your own words.
-- Do not repeat the same information across sections.
-- Every key point must add a genuinely new fact or idea.
-- Use specific details and examples whenever reliable.
-- If the supplied information is insufficient, be honest rather than inventing facts.
-
-Return EXACTLY these sections:
-
-SHORT EXPLANATION:
-Write 2-3 clear sentences explaining the topic in your own words.
-
-KEY POINTS:
-Give exactly 4 genuinely different points.
-Each point must add NEW information.
-Do not repeat the short explanation.
-
-WHY IT MATTERS:
-Explain why this topic is useful, important, interesting, or significant.
-
-INTERESTING DETAIL:
-Give one memorable detail.
-
-LEARN NEXT:
-Suggest 4 related topics the student could explore.
-
-Keep the language clear and student-friendly.
-Do not make up facts that aren't supported by the supplied information or your general knowledge.
-
-            `);
-
-
-
-        let image = "";
-
-
-        if (
-            data.thumbnail &&
-            data.thumbnail.source
-        ) {
-
-
-            image = `
-
-                <img
-                    src="${escapeHTML(
-                        data.thumbnail.source
-                    )}"
-                    alt="${escapeHTML(
-                        data.title
-                    )}"
-                    onerror="
-                        this.style.display='none';
-                    "
-                >
-
-            `;
-
-        }
-
-
-
-        results.innerHTML = `
-
-            <article
-                class="result-card"
-                data-topic="${escapeHTML(
-                    data.title
-                )}"
-            >
-
-
-                <div class="result-label">
-
-                    MEWLIX DISCOVERY
-
-                </div>
-
-
-                <div class="searched-topic">
-
-                    You searched for:
-
-                    <strong>
-                        ${escapeHTML(
-                            originalSearch
-                        )}
-                    </strong>
-
-                </div>
-
-
-
-                <h2>
-
-                    ${escapeHTML(
-                        data.title
-                    )}
-
-                </h2>
-
-
-
-                ${
-                    corrected
-                    ?
-                    `
-                    <div class="correction">
-
-                        Possible spelling/topic match:
-
-                        <strong>
-                            ${escapeHTML(
-                                data.title
-                            )}
-                        </strong>
-
-                    </div>
-                    `
-                    :
-                    ""
-                }
-
-
-
-                ${image}
-
-
-
-                <div class="ai-answer">
-
-                    ${formatAI(aiAnswer)}
-
-                </div>
-
-
-
-                <div
-                    style="
-                        margin-top:30px;
-                        padding-top:20px;
-                        border-top:1px solid #eeeeee;
-                        text-align:center;
-                    "
-                >
-
-
-                    <button
-                        onclick="openFollowUp()"
-                        style="
-                            border:none;
-                            background:#eef0ff;
-                            color:#4f46e5;
-                            padding:11px 18px;
-                            border-radius:25px;
-                            font-size:14px;
-                            font-weight:bold;
-                            cursor:pointer;
-                        "
-                    >
-
-                        💬 Ask a Follow-up
-
-                    </button>
-
-
-
-                    <div
-                        id="followUpBox"
-                        style="
-                            display:none;
-                            margin-top:14px;
-                        "
-                    >
-
-
-                        <input
-                            id="followUpInput"
-                            type="text"
-                            placeholder="Ask something about this topic..."
-                            style="
-                                width:90%;
-                                max-width:550px;
-                                padding:12px 15px;
-                                border:1px solid #ddd;
-                                border-radius:12px;
-                                font-size:15px;
-                                outline:none;
-                            "
-                        >
-
-
-                        <button
-                            onclick="submitFollowUp()"
-                            style="
-                                margin-top:8px;
-                                border:none;
-                                background:#635bff;
-                                color:white;
-                                padding:10px 18px;
-                                border-radius:20px;
-                                font-weight:bold;
-                                cursor:pointer;
-                            "
-                        >
-
-                            Ask MEWLIX
-
-                        </button>
-
-
-                        <div
-                            id="followUpAnswer"
-                            style="
-                                max-width:650px;
-                                margin:15px auto 0;
-                                text-align:left;
-                                line-height:1.6;
-                            "
-                        ></div>
-
-
-                    </div>
-
-
-                </div>
-
-
-
-                <div class="source">
-
-                    Information source:
-                    Wikipedia + MEWLIX AI
-
-                </div>
-
-
-            </article>
-
-        `;
-
-
-    }
-    catch(error) {
-
-
-        console.error(error);
-
-
-        results.innerHTML = `
-
-            <div class="error-card">
-
-                <h2>
-                    MEWLIX couldn't connect
-                </h2>
-
-                <p>
-                    The AI couldn't answer right now.
-                    Please try again in a moment.
-                </p>
-
-                <p style="
-                    font-size:13px;
-                    opacity:.7;
-                ">
-
-                    ${escapeHTML(
-                        error.message
-                    )}
-
-                </p>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-
-/* =====================================================
-   WIKIPEDIA PAGE
-===================================================== */
-
-
-async function getWikipediaPage(topic) {
-
-
-    const url =
-        "https://en.wikipedia.org/api/rest_v1/page/summary/" +
-        encodeURIComponent(
-            topic.replace(/ /g,"_")
-        );
-
-
-    try {
-
-
-        const response =
-            await fetch(url);
-
-
-        if (!response.ok) {
-
-            return null;
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        if (
-            !data.extract ||
-            data.type === "disambiguation"
-        ) {
-
-            return null;
-
-        }
-
-
-        return data;
-
-    }
-    catch {
-
-        return null;
-
-    }
-
-}
-
-
-
-/* =====================================================
-   WIKIPEDIA SEARCH
-===================================================== */
-
-
-async function getWikipediaSuggestions(
-    query
-) {
-
-
-    const url =
-        "https://en.wikipedia.org/w/api.php" +
-        "?action=query" +
-        "&list=search" +
-        "&srsearch=" +
-        encodeURIComponent(query) +
-        "&srlimit=10" +
-        "&format=json" +
-        "&origin=*";
-
-
-    try {
-
-
-        const response =
-            await fetch(url);
-
-
-        const data =
-            await response.json();
-
-
-        if (
-            !data.query ||
-            !data.query.search
-        ) {
-
-            return [];
-
-        }
-
-
-        return data.query.search.map(
-            item => item.title
-        );
-
-    }
-    catch {
-
-        return [];
-
-    }
-
-}
-
-
-
-/* =====================================================
-   SPELLING MATCH
-===================================================== */
-
-
-function findClosestTopic(
-    input,
-    suggestions
-) {
-
-
-    const cleanInput =
-        input
-            .toLowerCase()
-            .replace(
-                /[^a-z0-9 ]/g,
-                " "
-            )
-            .replace(
-                /\s+/g,
-                " "
-            )
-            .trim();
-
-
-    if (!cleanInput) {
-
-        return null;
-
-    }
-
-
-    let best = null;
-
-    let bestScore = 0;
-
-
-    for (
-        const suggestion of suggestions
-    ) {
-
-
-        const cleanSuggestion =
-            suggestion
-                .toLowerCase()
-                .replace(
-                    /[^a-z0-9 ]/g,
-                    " "
-                )
-                .replace(
-                    /\s+/g,
-                    " "
-                )
-                .trim();
-
-
-        const distance =
-            levenshtein(
-                cleanInput,
-                cleanSuggestion
-            );
-
-
-        const maxLength =
-            Math.max(
-                cleanInput.length,
-                cleanSuggestion.length
-            );
-
-
-        const similarity =
-            maxLength
-            ?
-            1 -
-            (
-                distance /
-                maxLength
-            )
-            :
-            0;
-
-
-        const inputWords =
-            cleanInput.split(" ");
-
-
-        const suggestionWords =
-            cleanSuggestion.split(" ");
-
-
-        let matchingWords = 0;
-
-
-        inputWords.forEach(
-            word => {
-
-
-                if (
-                    word.length >= 3 &&
-                    suggestionWords.some(
-                        s =>
-                            s === word ||
-                            s.startsWith(word) ||
-                            word.startsWith(s)
-                    )
-                ) {
-
-                    matchingWords++;
-
-                }
-
-            }
-        );
-
-
-        const wordScore =
-            matchingWords /
-            Math.max(
-                inputWords.length,
-                1
-            );
-
-
-        const score =
-            similarity * .65 +
-            wordScore * .35;
-
-
-        if (
-            score > bestScore
-        ) {
-
-            bestScore =
-                score;
-
-            best =
-                suggestion;
-
-        }
-
-    }
-
-
-    if (
-        best &&
-        bestScore >= .65
-    ) {
-
-        return best;
-
-    }
-
-
-    return null;
-
-}
-
-
-
-/* =====================================================
-   LEVENSHTEIN
-===================================================== */
-
-
-function levenshtein(a,b) {
-
-
-    const matrix = [];
-
-
-    for (
-        let i = 0;
-        i <= b.length;
-        i++
-    ) {
-
-        matrix[i] = [i];
-
-    }
-
-
-    for (
-        let j = 0;
-        j <= a.length;
-        j++
-    ) {
-
-        matrix[0][j] = j;
-
-    }
-
-
-    for (
-        let i = 1;
-        i <= b.length;
-        i++
-    ) {
-
-
-        for (
-            let j = 1;
-            j <= a.length;
-            j++
-        ) {
-
-
-            if (
-                b.charAt(i-1) ===
-                a.charAt(j-1)
-            ) {
-
-                matrix[i][j] =
-                    matrix[i-1][j-1];
-
-            }
-            else {
-
-                matrix[i][j] =
-                    Math.min(
-
-                        matrix[i-1][j-1] + 1,
-
-                        matrix[i][j-1] + 1,
-
-                        matrix[i-1][j] + 1
-
-                    );
-
-            }
-
-        }
-
-    }
-
-
-    return matrix[b.length][a.length];
-
-}
-
-
-
-/* =====================================================
-   FOLLOW-UP
-===================================================== */
-
-
-function openFollowUp() {
-
-
-    const box =
-        document.getElementById(
-            "followUpBox"
-        );
-
-
-    if (!box) return;
-
-
-    if (
-        box.style.display === "none" ||
-        box.style.display === ""
-    ) {
-
-        box.style.display =
-            "block";
-
-        document
-            .getElementById(
-                "followUpInput"
-            )
-            .focus();
-
-    }
-    else {
-
-        box.style.display =
-            "none";
-
-    }
-
-}
-
-
-
-/* =====================================================
-   FOLLOW-UP AI
-===================================================== */
-
-
-async function submitFollowUp() {
-
-
-    const input =
-        document.getElementById(
-            "followUpInput"
-        );
-
-
-    const answer =
-        document.getElementById(
-            "followUpAnswer"
-        );
-
-
-    const question =
-        input.value.trim();
-
-
-    const article =
-        document.querySelector(
-            ".result-card[data-topic]"
-        );
-
-
-    const currentTopic =
-        article
-        ?
-        article.getAttribute(
-            "data-topic"
-        )
-        :
-        "the topic";
-
-
-    if (!question) {
-
-
-        answer.innerHTML = `
-
-            <div style="
-                background:#fff4e5;
-                padding:14px;
-                border-radius:14px;
-            ">
-
-                Please type a question first.
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-
-    answer.innerHTML = `
-
-        <div style="
-            background:#f4f6ff;
-            padding:14px;
-            border-radius:14px;
-        ">
-
-            🧠 MEWLIX is thinking...
-
-        </div>
-
-    `;
-
-
-
-    try {
-
-
-        const response =
-            await askAI(`
-
-You are the follow-up tutor for .
-
-The student was learning about:
-
-"${currentTopic}"
-
-Their follow-up question is:
-
-"${question}"
-
-Answer the student's EXACT question.
-
-Do not simply repeat the original topic explanation.
-
-Use a clear, direct answer first.
-
-Then add a short explanation or example if useful.
-
-If the question asks "why", explain the reason.
-
-If it asks "how", explain the process.
-
-If it asks "when", provide the relevant time/context.
-
-If it asks "where", explain the location/context.
-
-If it asks for a comparison, clearly distinguish the two things.
-
-Keep the answer under 250 words.
-
-            `);
-
-
-        answer.innerHTML = `
-
-            <div style="
-                background:#f4f6ff;
-                padding:16px;
-                border-radius:14px;
-            ">
-
-                ${formatAI(response)}
-
-            </div>
-
-        `;
-
-    }
-    catch(error) {
-
-
-        answer.innerHTML = `
-
-            <div style="
-                background:#fff4e5;
-                padding:14px;
-                border-radius:14px;
-            ">
-
-                Sorry, MEWLIX couldn't answer
-                that right now.
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-
-/* =====================================================
-   RANDOM FACTS
-===================================================== */
-
-
-async function randomFact() {
-
-
-    const factBox =
-        document.getElementById(
-            "factText"
-        );
-
-
-    factBox.innerHTML = `
-
-        <div style="
-            padding:18px;
-            text-align:center;
-        ">
-
-            🧠 MEWLIX is finding
-            some unusual facts...
-
-        </div>
-
-    `;
-
-
-
-    try {
-
-
-        const answer =
-            await askAI(`
-
-You are the "Amazing Facts" feature of .
-
-Generate 3 interesting, accurate educational facts.
-
-Use THREE DIFFERENT subjects.
-
-Do NOT use the same subject twice.
-
-Do not write generic facts such as
-"water is important for life."
-
-Each fact should be surprising or memorable.
-
-Format:
-
-FACT 1:
-[short fact]
-
-FACT 2:
-[short fact]
-
-FACT 3:
-[short fact]
-
-Keep each fact under 45 words.
-
-            `);
-
-
-        factBox.innerHTML = `
-
-            <div style="
-                padding:16px;
-                background:#f4f6ff;
-                border-radius:17px;
-                line-height:1.6;
-            ">
-
-                ${formatAI(answer)}
-
-            </div>
-
-        `;
-
-    }
-    catch {
-
-
-        factBox.innerHTML = `
-
-            <div style="
-                padding:15px;
-                background:#fff4e5;
-                border-radius:15px;
-            ">
-
-                Couldn't load facts right now.
-                Try again in a moment.
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-
-/* =====================================================
-   RANDOM FACT SCROLL
-===================================================== */
-
-
-function randomFactAndScroll() {
-
-
-    document
-        .getElementById("facts")
-        .scrollIntoView({
-
-            behavior:"smooth",
-
-            block:"start"
-
-        });
-
-
-    setTimeout(
-        randomFact,
-        500
-    );
-
-}
-
-
-
-/* =====================================================
-   SURPRISE ME
-===================================================== */
-
-
-async function surpriseMe() {
-
-
-    const output =
-        document.getElementById(
-            "surpriseOutput"
-        );
-
-
-    output.innerHTML = `
-
-        <div style="
-            padding:18px;
-            background:rgba(
-                255,
-                255,
-                255,
-                .12
-            );
-            border-radius:17px;
-            text-align:center;
-        ">
-
-            ✨ Finding something
-            unexpected...
-
-        </div>
-
-    `;
-
-
-
-    try {
-
-
-        const answer =
-            await askAI(`
-
-You are the "Surprise Me" feature of
-.
-
-Choose ONE fascinating educational topic
-from science, nature, history, technology,
-space, geography, mathematics, art or culture.
-
-Choose something that is NOT an extremely
-obvious topic.
-
-Give:
-
-TITLE:
-A catchy topic name.
-
-WHAT IT IS:
-2-3 sentences.
-
-WHY IT IS INTERESTING:
-2 short sentences.
-
-AMAZING DETAIL:
-One memorable fact.
-
-LEARN NEXT:
-2 related topics.
-
-Do not repeat common filler.
-Keep everything under 180 words.
-
-            `);
-
-
-        output.innerHTML = `
-
-            <div style="
-                padding:18px;
-                background:
-                    rgba(
-                        255,
-                        255,
-                        255,
-                        .12
-                    );
-                border-radius:18px;
-            ">
-
-                <div style="
-                    font-size:12px;
-                    letter-spacing:2px;
-                    opacity:.75;
-                ">
-
-                    YOUR SURPRISE
-
-                </div>
-
-
-                <div
-                    class="ai-answer"
-                    style="margin-top:10px;"
-                >
-
-                    ${formatAI(answer)}
-
-                </div>
-
-
-                <button
-                    onclick="learnSurpriseFromText()"
-                    style="
-                        border:none;
-                        background:#ffffff;
-                        color:#4535c1;
-                        padding:10px 17px;
-                        border-radius:22px;
-                        font-weight:bold;
-                        cursor:pointer;
-                    "
-                >
-
-                    Learn More →
-
-                </button>
-
-
-            </div>
-
-        `;
-
-
-        window.lastSurprise =
-            answer;
-
-    }
-    catch {
-
-
-        output.innerHTML = `
-
-            <div style="
-                padding:15px;
-                background:rgba(
-                    255,
-                    255,
-                    255,
-                    .12
-                );
-                border-radius:15px;
-            ">
-
-                Couldn't find a surprise.
-                Try again!
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-
-/* =====================================================
-   SURPRISE → SEARCH
-===================================================== */
-
-
-async function learnSurpriseFromText() {
-
-
-    if (
-        !window.lastSurprise
-    ) return;
-
-
-    const answer =
-        window.lastSurprise;
-
-
-    const match =
-        answer.match(
-            /TITLE:\s*(.+)/i
-        );
-
-
-    if (!match) {
-
-        return;
-
-    }
-
-
-    const topic =
-        match[1]
-            .replace(
-                /\*\*/g,
-                ""
-            )
-            .trim();
-
-
-    const searchBox =
-        document.getElementById(
-            "searchBox"
-        );
-
-
-    searchBox.value =
-        topic;
-
-
-    document
-        .getElementById("home")
-        .scrollIntoView({
-
-            behavior:"smooth",
-
-            block:"start"
-
-        });
-
-
-    setTimeout(
-        searchTopic,
-        700
-    );
-
-}
-
-
-
-/* =====================================================
-   EXPLORE TOPICS
-===================================================== */
-
-
-async function showTrending() {
-
-
-    const results =
-        document.getElementById(
-            "results"
-        );
-
-
-    results.innerHTML = `
-
-        <article class="result-card">
-
-            <div class="result-label">
-
-                🔥 EXPLORE
-
-            </div>
-
-
-            <h2>
-
-                What should we learn today?
-
-            </h2>
-
-
-            <p>
-
-                Choose a topic and let
-                MEWLIX explain it.
-
-            </p>
-
-
-            <div
-                id="exploreTopicButtons"
-                class="topic-scroll"
-            >
-
-                Loading topics...
-
-            </div>
-
-        </article>
-
-    `;
-
-
-    scrollToResults();
-
-
-
-    try {
-
-
-        const answer =
-            await askAI(`
-
-Create a list of 12 interesting educational
-topics for .
-
-Mix science, space, animals, history,
-technology, geography, mathematics,
-art and culture.
-
-Avoid extremely generic categories.
-
-Return ONLY the topic names,
-one per line.
-
-            `);
-
-
-        const topics =
-            answer
-                .split("\n")
-                .map(
-                    x =>
-                        x
-                            .replace(
-                                /^[-•*\d.)\s]+/,
-                                ""
-                            )
-                            .trim()
-                )
-                .filter(
-                    x =>
-                        x.length > 2
-                )
-                .slice(0,12);
-
-
-        const container =
-            document.getElementById(
-                "exploreTopicButtons"
-            );
-
-
-        container.innerHTML =
-            topics
-                .map(
-                    topic => `
-
-                        <button
-                            class="topic-chip"
-                            onclick="
-                                searchFromButton(
-                                    '${escapeAttribute(topic)}'
-                                )
-                            "
-                        >
-
-                            ${escapeHTML(topic)}
-
-                        </button>
-
-                    `
-                )
-                .join("");
-
-
-    }
-    catch {
-
-
-        document.getElementById(
-            "exploreTopicButtons"
-        ).innerHTML = `
-
-            <p>
-                Couldn't load topics right now.
-            </p>
-
-        `;
-
-    }
-
-}
-
-
-
-/* =====================================================
-   CATEGORY SEARCH
-===================================================== */
-
-
-function searchFromButton(topic) {
-
-
-    document
-        .getElementById(
-            "searchBox"
-        )
-        .value =
-            topic;
-
-
-    searchTopic();
-
-}
-
-
-
-/* =====================================================
-   RESULTS SCROLL
-===================================================== */
-
-
-function scrollToResults() {
-
-
-    setTimeout(
-        function() {
-
-
-            document
-                .getElementById(
-                    "results-section"
-                )
-                .scrollIntoView({
-
-                    behavior:"smooth",
-
-                    block:"start"
-
-                });
-
-
-        },
-        100
-    );
-
-}
-
-
-
-/* =====================================================
-   SURPRISE SCROLL
-===================================================== */
-
-
-function surpriseAndScroll() {
-
-
-    document
-        .getElementById(
-            "surprise"
-        )
-        .scrollIntoView({
-
-            behavior:"smooth",
-
-            block:"start"
-
-        });
-
-
-    setTimeout(
-        surpriseMe,
-        500
-    );
-
-}
-
-
-
-/* =====================================================
-   TOPIC CAROUSEL
-===================================================== */
-
-
-const carouselTopics = [
-
-    "Black hole",
-    "Dinosaur",
-    "Mars",
-    "Ocean",
-
-    "Aurora",
-    "Volcano",
-    "Octopus",
-    "Jupiter",
-
-    "Milky Way",
-    "Moon",
-    "Coral reef",
-    "Penguin",
-
-    "Lightning",
-    "Ancient Egypt",
-    "Human brain",
-    "Great Barrier Reef",
-
-    "Saturn",
-    "Butterfly",
-    "Shark",
-    "Space",
-
-    "Tornado",
-    "Deep sea",
-    "Robot",
-    "Pyramid",
-
-    "Neutron star",
-    "Rainforest",
-    "Ant",
-    "DNA",
-
-    "Solar eclipse",
-    "Fossil",
-    "Coral",
-    "Quantum physics",
-
-    "Galaxy",
-    "Whale",
-    "Machu Picchu",
-    "Volcanoes",
-
-    "Time",
-    "Gravity",
-    "Clouds",
-    "Penguin",
-
-    "Supernova",
-    "Jellyfish",
-    "Roman Empire",
-    "Electricity"
-
-];
-
-
-
-let carouselOrder = [];
-
-let carouselPosition = 0;
-
-let carouselTimer = null;
-
-
-
-const carouselImageCache = {};
-
-
-
-/* =====================================================
-   SHUFFLE
-===================================================== */
-
-
-function shuffleArray(array) {
-
-
-    const copy =
-        [...array];
-
-
-    for (
-        let i =
-            copy.length - 1;
-        i > 0;
-        i--
-    ) {
-
-
-        const j =
-            Math.floor(
-                Math.random() *
-                (i + 1)
-            );
-
-
-        [
-            copy[i],
-            copy[j]
-        ] =
-        [
-            copy[j],
-            copy[i]
-        ];
-
-    }
-
-
-    return copy;
-
-}
-
-
-
-/* =====================================================
-   LOAD CAROUSEL IMAGE
-===================================================== */
-
-
-async function getCarouselImage(
-    topic
-) {
-
-
-    if (
-        carouselImageCache[topic]
-    ) {
-
-        return carouselImageCache[topic];
-
-    }
-
-
-    if (
-        topic === "Ocean"
-    ) {
-
-
-        carouselImageCache[topic] =
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Ocean_image.jpg/330px-Ocean_image.jpg";
-
-
-        return carouselImageCache[topic];
-
-    }
-
-
-    try {
-
-
-        const data =
-            await getWikipediaPage(
-                topic
-            );
-
-
-        if (
-            data &&
-            data.thumbnail &&
-            data.thumbnail.source
-        ) {
-
-
-            carouselImageCache[topic] =
-                data.thumbnail.source;
-
-
-            return data.thumbnail.source;
-
-        }
-
-    }
-    catch {
-
-    }
-
-
-    return "";
-
-}
-
-
-
-/* =====================================================
-   SHOW CAROUSEL GROUP
-===================================================== */
-
-
-async function showCarouselGroup(
-    animate = true
-) {
-
-
-    const track =
-        document.getElementById(
-            "topicCarouselTrack"
-        );
-
-
-    if (!track) return;
-
-
-
-    const group =
-        carouselOrder.slice(
-            carouselPosition,
-            carouselPosition + 4
-        );
-
-
-
-    if (
-        group.length < 4
-    ) {
-
-
-        carouselOrder =
-            shuffleArray(
-                carouselTopics
-            );
-
-
-        carouselPosition = 0;
-
-
-        return showCarouselGroup(
-            animate
-        );
-
-    }
-
-
-
-    if (animate) {
-
-
-        track.style.opacity =
-            "0";
-
-
-        track.style.transform =
-            "translateY(8px)";
-
-    }
-
-
-
-    if (animate) {
-
-
-        await new Promise(
-            resolve =>
-                setTimeout(
-                    resolve,
-                    450
-                )
-        );
-
-    }
-
-
-
-    const images =
-        await Promise.all(
-
-            group.map(
-                topic =>
-                    getCarouselImage(
-                        topic
-                    )
-            )
-
-        );
-
-
-
-    let html = "";
-
-
-
-    group.forEach(
-        (
-            topic,
-            index
-        ) => {
-
-
-            const image =
-                images[index];
-
-
-            html += `
-
-                <button
-
-                    onclick="
-                        searchFromButton(
-                            '${escapeAttribute(topic)}'
-                        )
-                    "
-
-                    style="
-                        border:none;
-                        outline:none;
-                        background:transparent;
-                        padding:0;
-                        width:105px;
-                        min-width:105px;
-                        cursor:pointer;
-                        color:white;
-                        text-align:center;
-                        font-family:inherit;
-                    "
-                >
-
-
-                    <div
-
-                        style="
-                            width:56px;
-                            height:56px;
-                            margin:0 auto 6px;
-                            border-radius:50%;
-                            overflow:hidden;
-                            background:
-                                rgba(
-                                    255,
-                                    255,
-                                    255,
-                                    .12
-                                );
-                            box-shadow:
-                                0 0 0 1px
-                                rgba(
-                                    255,
-                                    255,
-                                    255,
-                                    .22
-                                ),
-                                0 7px 22px
-                                rgba(
-                                    0,
-                                    0,
-                                    0,
-                                    .28
-                                );
-                            transition:
-                                transform .2s ease;
-                        "
-
-                        onmouseenter="
-                            this.style.transform='scale(1.1)';
-                        "
-
-                        onmouseleave="
-                            this.style.transform='scale(1)';
-                        "
-                    >
-
-                        ${
-                            image
-                            ?
-                            `
-                            <img
-
-                                src="${escapeHTML(
-                                    image
-                                )}"
-
-                                alt="${escapeHTML(
-                                    topic
-                                )}"
-
-                                style="
-                                    width:100%;
-                                    height:100%;
-                                    object-fit:cover;
-                                    display:block;
-                                "
-
-                            >
-                            `
-                            :
-                            `
-                            <div style="
-                                width:100%;
-                                height:100%;
-                                display:flex;
-                                align-items:center;
-                                justify-content:center;
-                                font-size:22px;
-                            ">
-
-                                ✦
-
-                            </div>
-                            `
-                        }
-
-                    </div>
-
-
-                    <div style="
-                        font-size:12px;
-                        font-weight:500;
-                        white-space:nowrap;
-                        overflow:hidden;
-                        text-overflow:ellipsis;
-                        text-shadow:
-                            0 2px 7px
-                            rgba(
-                                0,
-                                0,
-                                0,
-                                .45
-                            );
-                    ">
-
-                        ${escapeHTML(
-                            topic
-                        )}
-
-                    </div>
-
-
-                </button>
-
-            `;
-
-        }
-    );
-
-
-
-    track.innerHTML =
-        html;
-
-
-
-    requestAnimationFrame(
-        function() {
-
-
-            track.style.opacity =
-                "1";
-
-
-            track.style.transform =
-                "translateY(0)";
-
-
-        }
-    );
-
-
-
-    carouselPosition += 4;
-
-
-
-    if (
-        carouselPosition >=
-        carouselOrder.length
-    ) {
-
-
-        carouselOrder =
-            shuffleArray(
-                carouselTopics
-            );
-
-
-        carouselPosition = 0;
-
-    }
-
-}
-
-
-
-/* =====================================================
-   START CAROUSEL
-===================================================== */
-
-
-async function startCarousel() {
-
-
-    carouselOrder =
-        shuffleArray(
-            carouselTopics
-        );
-
-
-    carouselPosition =
-        0;
-
-
-    await showCarouselGroup(
-        false
-    );
-
-
-
-    carouselTimer =
-        setInterval(
-            function() {
-
-                showCarouselGroup(
-                    true
-                );
-
-            },
-            4500
-        );
-
-}
-
-
-
-/* =====================================================
-   ENTER KEY
-===================================================== */
-
-
-document
-    .getElementById(
-        "searchBox"
-    )
-    .addEventListener(
-        "keydown",
-        function(event) {
-
-
-            if (
-                event.key === "Enter"
-            ) {
-
-                searchTopic();
-
-            }
-
-        }
-    );
-
-
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-
-        if (
-            event.key === "Enter" &&
-            document.activeElement &&
-            document.activeElement.id ===
-            "followUpInput"
-        ) {
-
-
-            submitFollowUp();
-
-        }
-
-    }
-);
-
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-
+/* SAFE TEXT / MARKDOWN */
 function escapeHTML(text) {
-
-
-    return String(text)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
+    return String(text).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 }
-
-
-
-/* =====================================================
-   ESCAPE ATTRIBUTE
-===================================================== */
-
-
 function escapeAttribute(text) {
-
-
-    return String(text)
-        .replace(
-            /\\/g,
-            "\\\\"
-        )
-        .replace(
-            /'/g,
-            "\\'"
-        );
-
+    return String(text).replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+}
+function formatAI(text) {
+    // Escape first; only add a small, controlled set of formatting tags.
+    let html = escapeHTML(text);
+    html = html.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>");
+    html = html.replace(/^### (.*)$/gm,"<h4>$1</h4>");
+    html = html.replace(/^## (.*)$/gm,"<h3>$1</h3>");
+    html = html.replace(/^# (.*)$/gm,"<h2>$1</h2>");
+    html = html.replace(/^\s*[-•]\s+(.*)$/gm,"<li>$1</li>");
+    html = html.replace(/(?:<li>.*?<\/li>\s*)+/gs, m => "<ul>"+m+"</ul>");
+    html = html.replace(/\n\n+/g,"</p><p>");
+    html = html.replace(/\n/g,"<br>");
+    return "<p>"+html+"</p>";
 }
 
+/* TOPIC MEMORY: follow-ups retain recent conversation for this result. */
+let followUpHistory = [];
+let activeFollowUpTopic = "";
+let followUpBusy = false;
+let latestSearchToken = 0;
+let latestFactToken = 0;
+let latestSurpriseToken = 0;
+let recentFactOutputs = [];
+let recentSurpriseTopics = [];
+let recentExploreLists = [];
 
+/* WIKIPEDIA */
+async function getWikipediaPage(topic) {
+    const url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(topic.replace(/ /g,"_"));
+    try {
+        const response = await fetch(url);
+        if (!response.ok) return null;
+        const data = await response.json();
+        if (!data.extract || data.type === "disambiguation" || data.type === "https://mediawiki.org/wiki/HyperSwitch/errors/not_found") return null;
+        return data;
+    } catch { return null; }
+}
+async function getWikipediaSuggestions(query) {
+    const url = "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch="+encodeURIComponent(query)+"&srlimit=10&format=json&origin=*";
+    try {
+        const response = await fetch(url);
+        if (!response.ok) return [];
+        const data = await response.json();
+        return data.query && data.query.search ? data.query.search.map(item => item.title) : [];
+    } catch { return []; }
+}
+function levenshtein(a,b) {
+    const previous = Array.from({length:b.length+1},(_,i)=>i);
+    for (let i=1;i<=a.length;i++) {
+        const current=[i];
+        for (let j=1;j<=b.length;j++) current[j]=Math.min(current[j-1]+1,previous[j]+1,previous[j-1]+(a[i-1]===b[j-1]?0:1));
+        previous.splice(0,previous.length,...current);
+    }
+    return previous[b.length];
+}
+function cleanTopic(text) {
+    return String(text).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+}
+function findClosestTopic(input,suggestions) {
+    const cleaned = cleanTopic(input);
+    if (!cleaned || cleaned.length < 4) return null;
+    let best = null, bestDistance = Infinity;
+    for (const suggestion of suggestions) {
+        const candidate = cleanTopic(suggestion);
+        if (!candidate) continue;
+        // Do not compare unrelated long article titles as if they were misspellings.
+        const words = candidate.split(" ");
+        const exactWordCount = cleaned.split(" ").filter(w => words.includes(w)).length;
+        const compactA = cleaned.replace(/ /g,"");
+        const compactB = candidate.replace(/ /g,"");
+        const distance = levenshtein(compactA,compactB);
+        const maxLen = Math.max(compactA.length,compactB.length);
+        const threshold = compactA.length <= 5 ? 1 : Math.max(1,Math.floor(compactA.length*0.18));
+        const shortTitle = words.length <= cleaned.split(" ").length + 1;
+        if (shortTitle && (distance <= threshold || exactWordCount === cleaned.split(" ").length && exactWordCount > 0) && distance < bestDistance) {
+            best = suggestion;
+            bestDistance = distance;
+        }
+    }
+    return best;
+}
 
-/* =====================================================
-   START EVERYTHING
-===================================================== */
+/* SEARCH */
+async function searchTopic() {
+    const input = document.getElementById("searchBox");
+    const results = document.getElementById("results");
+    const originalSearch = input.value.trim();
+    const token = ++latestSearchToken;
+    if (!originalSearch) {
+        results.innerHTML = `<div class="error-card"><h2>What are you curious about?</h2><p>Type a topic into the search box and let's learn about it.</p></div>`;
+        scrollToResults();
+        return;
+    }
+    followUpHistory = [];
+    activeFollowUpTopic = "";
+    results.innerHTML = `<div class="loading">🧠 MEWLIX is learning about <strong>${escapeHTML(originalSearch)}</strong> ...</div>`;
+    scrollToResults();
+    try {
+        let data = await getWikipediaPage(originalSearch);
+        let corrected = false;
+        if (token !== latestSearchToken) return;
 
+        if (!data) {
+            const suggestions = await getWikipediaSuggestions(originalSearch);
+            if (token !== latestSearchToken) return;
+            const correction = findClosestTopic(originalSearch,suggestions);
+            if (correction) {
+                const correctedPage = await getWikipediaPage(correction);
+                if (token !== latestSearchToken) return;
+                if (correctedPage) { data = correctedPage; corrected = true; }
+            }
+        }
 
+        if (!data) {
+            const aiAnswer = await askAI(`You are MEWLIX SEARCH, an educational search assistant.\nThe user's exact search is: "${originalSearch}"\nDetermine whether this exact topic can be identified confidently. If yes, explain that exact topic briefly. If it is an unmistakable spelling mistake, start with "Possible topic: [corrected topic]" and explain it. If the exact topic cannot be identified confidently, respond exactly: "I couldn't find an exact match for your topic. Please check the spelling or try a more specific search phrase."\nDo not substitute a related topic. Do not guess based on loose word similarity. Do not invent facts. Keep the response under 180 words.`);
+            if (token !== latestSearchToken) return;
+            results.innerHTML = `<article class="result-card"><div class="result-label">MEWLIX DISCOVERY</div><div class="searched-topic">You searched for: <strong>${escapeHTML(originalSearch)}</strong></div><h2>${escapeHTML(originalSearch)}</h2><div class="ai-answer">${formatAI(aiAnswer)}</div></article>`;
+            return;
+        }
+
+        const aiAnswer = await askAI(`You are the educational writer for MEWLIX SEARCH. The exact topic is "${data.title}". Wikipedia introductory information: "${data.extract}"\nCreate a clear, accurate, student-friendly learning result in your own words. Do not repeat information between sections. If unsure, be honest rather than inventing facts.\nReturn these sections:\nSHORT EXPLANATION: 2-3 clear sentences.\nKEY POINTS: exactly 4 distinct points, each adding new information.\nWHY IT MATTERS: why it is useful, interesting or significant.\nINTERESTING DETAIL: one memorable detail.\nLEARN NEXT: 4 related topics.\nKeep the language clear. Do not invent unsupported specifics.`);
+        if (token !== latestSearchToken) return;
+        activeFollowUpTopic = data.title;
+        followUpHistory = [{role:"assistant",content:"We are learning about "+data.title+". "+data.extract+"\n"+aiAnswer}];
+        const image = data.thumbnail && data.thumbnail.source ? `<img src="${escapeHTML(data.thumbnail.source)}" alt="${escapeHTML(data.title)}" onerror="this.style.display='none'">` : "";
+        results.innerHTML = `<article class="result-card" data-topic="${escapeHTML(data.title)}">
+            <div class="result-label">MEWLIX DISCOVERY</div>
+            <div class="searched-topic">You searched for: <strong>${escapeHTML(originalSearch)}</strong></div>
+            <h2>${escapeHTML(data.title)}</h2>
+            ${corrected ? `<div class="correction">Possible spelling/topic match: <strong>${escapeHTML(data.title)}</strong></div>` : ""}
+            ${image}
+            <div class="ai-answer">${formatAI(aiAnswer)}</div>
+            <div style="margin-top:30px;padding-top:20px;border-top:1px solid #eeeeee;text-align:center;">
+                <button onclick="openFollowUp()" style="border:none;background:#eef0ff;color:#4f46e5;padding:11px 18px;border-radius:25px;font-size:14px;font-weight:bold;cursor:pointer;">💬 Ask a Follow-up</button>
+                <div id="followUpBox" style="display:none;margin-top:14px;">
+                    <input id="followUpInput" type="text" placeholder="Ask something about this topic..." style="width:90%;max-width:550px;padding:12px 15px;border:1px solid #ddd;border-radius:12px;font-size:15px;outline:none;">
+                    <button onclick="submitFollowUp()" style="margin-top:8px;border:none;background:#635bff;color:white;padding:10px 18px;border-radius:20px;font-weight:bold;cursor:pointer;">Ask MEWLIX</button>
+                    <div id="followUpAnswer" style="max-width:650px;margin:15px auto 0;text-align:left;line-height:1.6;"></div>
+                </div>
+            </div>
+            <div class="source">Information source: Wikipedia + MEWLIX AI</div>
+        </article>`;
+    } catch(error) {
+        if (token !== latestSearchToken) return;
+        console.error(error);
+        results.innerHTML = `<div class="error-card"><h2>MEWLIX couldn't connect</h2><p>The AI couldn't answer right now. Please try again in a moment.</p><p style="font-size:13px;opacity:.7;">${escapeHTML(error.message)}</p></div>`;
+    }
+}
+
+/* FOLLOW-UP: keeps prior turns in memory while this result remains open. */
+function openFollowUp() {
+    const box = document.getElementById("followUpBox");
+    if (!box) return;
+    box.style.display = box.style.display === "none" || box.style.display === "" ? "block" : "none";
+    if (box.style.display === "block") document.getElementById("followUpInput").focus();
+}
+async function submitFollowUp() {
+    const input = document.getElementById("followUpInput");
+    const answer = document.getElementById("followUpAnswer");
+    const question = input.value.trim();
+    if (!question || followUpBusy) {
+        if (!question && answer) answer.innerHTML = `<div style="background:#fff4e5;padding:14px;border-radius:14px;">Please type a question first.</div>`;
+        return;
+    }
+    const topic = activeFollowUpTopic || "the topic";
+    followUpBusy = true;
+    answer.innerHTML = `<div style="background:#f4f6ff;padding:14px;border-radius:14px;">🧠 MEWLIX is thinking...</div>`;
+    try {
+        const conversation = followUpHistory.slice(-10).map(m => `${m.role === "user" ? "Student" : "Tutor"}: ${m.content}`).join("\n");
+        const response = await askAI(`You are the follow-up tutor for MEWLIX SEARCH. The student is learning about "${topic}".\nConversation so far:\n${conversation}\nStudent's latest question: "${question}"\nAnswer the latest question directly, using prior conversation only as context. Do not simply repeat the original topic explanation. If it asks why/how/when/where, answer that specifically. Keep under 250 words and be accurate.`);
+        followUpHistory.push({role:"user",content:question},{role:"assistant",content:response});
+        followUpHistory = followUpHistory.slice(-12);
+        answer.innerHTML = `<div style="background:#f4f6ff;padding:16px;border-radius:14px;">${formatAI(response)}</div>`;
+        input.value = "";
+    } catch(error) {
+        answer.innerHTML = `<div style="background:#fff4e5;padding:14px;border-radius:14px;">Sorry, MEWLIX couldn't answer that right now. Please try again.</div>`;
+    } finally { followUpBusy = false; }
+}
+
+/* FACTS: request fresh facts and discourage repetition across clicks. */
+async function randomFact() {
+    const factBox = document.getElementById("factText");
+    const token = ++latestFactToken;
+    factBox.innerHTML = `<div style="padding:18px;text-align:center;">🧠 MEWLIX is finding some unusual facts...</div>`;
+    try {
+        const previous = recentFactOutputs.slice(-8).join("\n---\n");
+        const answer = await askAI(`You are the Amazing Facts feature of MEWLIX SEARCH. Generate 3 interesting, accurate educational facts on THREE DIFFERENT subjects. Avoid generic facts and avoid repeating or paraphrasing these recent outputs:\n${previous || "(none yet)"}\nFormat exactly FACT 1:, FACT 2:, FACT 3:, one short fact each under 45 words. Choose new subjects this time. Do not invent facts.`);
+        if (token !== latestFactToken) return;
+        recentFactOutputs.push(answer);
+        recentFactOutputs = recentFactOutputs.slice(-8);
+        factBox.innerHTML = `<div style="padding:16px;background:#f4f6ff;border-radius:17px;line-height:1.6;">${formatAI(answer)}</div>`;
+    } catch {
+        if (token !== latestFactToken) return;
+        factBox.innerHTML = `<div style="padding:15px;background:#fff4e5;border-radius:15px;">Couldn't load facts right now. Try again in a moment.</div>`;
+    }
+}
+function randomFactAndScroll() {
+    document.getElementById("facts").scrollIntoView({behavior:"smooth",block:"start"});
+    setTimeout(randomFact,500);
+}
+
+/* SURPRISE: ask for a different topic each time. */
+async function surpriseMe() {
+    const output = document.getElementById("surpriseOutput");
+    const token = ++latestSurpriseToken;
+    output.innerHTML = `<div style="padding:18px;background:rgba(255,255,255,.12);border-radius:17px;text-align:center;">✨ Finding something unexpected...</div>`;
+    try {
+        const previous = recentSurpriseTopics.slice(-10).join(", ");
+        const answer = await askAI(`You are the Surprise Me feature of MEWLIX SEARCH. Choose ONE fascinating, specific educational topic from science, nature, history, technology, space, geography, mathematics, art or culture. Avoid obvious topics and do not repeat these recent topics: ${previous || "(none yet)"}.\nGive exactly these labels:\nTITLE: one short topic name\nWHAT IT IS: 2-3 sentences\nWHY IT IS INTERESTING: 2 short sentences\nAMAZING DETAIL: one memorable accurate fact\nLEARN NEXT: 2 related topics\nKeep under 180 words. Choose a topic different from recent outputs. Do not invent facts.`);
+        if (token !== latestSurpriseToken) return;
+        const match = answer.match(/TITLE:\s*(.+)/i);
+        if (match) {
+            const chosen = match[1].replace(/\*\*/g,"").trim();
+            if (recentSurpriseTopics.some(t => cleanTopic(t) === cleanTopic(chosen))) {
+                // Ask again rather than knowingly repeat a recent title.
+                const retry = await askAI(`Pick a DIFFERENT specific educational topic. Do not use any of these: ${recentSurpriseTopics.slice(-10).join(", ")}. Return only a title.`);
+                if (token !== latestSurpriseToken) return;
+                const retryTitle = retry.trim().replace(/^TITLE:\s*/i,"").replace(/\*\*/g,"").split("\n")[0].trim();
+                if (retryTitle) {
+                    recentSurpriseTopics.push(retryTitle);
+                    recentSurpriseTopics = recentSurpriseTopics.slice(-10);
+                    window.lastSurprise = answer.replace(/^TITLE:\s*.+$/im,"TITLE: "+retryTitle);
+                } else window.lastSurprise = answer;
+            } else {
+                recentSurpriseTopics.push(chosen);
+                recentSurpriseTopics = recentSurpriseTopics.slice(-10);
+                window.lastSurprise = answer;
+            }
+        } else window.lastSurprise = answer;
+        output.innerHTML = `<div style="padding:18px;background:rgba(255,255,255,.12);border-radius:18px;"><div style="font-size:12px;letter-spacing:2px;opacity:.75;">YOUR SURPRISE</div><div class="ai-answer" style="margin-top:10px;">${formatAI(window.lastSurprise)}</div><button onclick="learnSurpriseFromText()" style="border:none;background:#ffffff;color:#4535c1;padding:10px 17px;border-radius:22px;font-weight:bold;cursor:pointer;">Learn More →</button></div>`;
+    } catch {
+        if (token !== latestSurpriseToken) return;
+        output.innerHTML = `<div style="padding:15px;background:rgba(255,255,255,.12);border-radius:15px;">Couldn't find a surprise. Try again!</div>`;
+    }
+}
+async function learnSurpriseFromText() {
+    if (!window.lastSurprise) return;
+    const match = window.lastSurprise.match(/TITLE:\s*(.+)/i);
+    if (!match) return;
+    document.getElementById("searchBox").value = match[1].replace(/\*\*/g,"").trim();
+    document.getElementById("home").scrollIntoView({behavior:"smooth",block:"start"});
+    setTimeout(searchTopic,700);
+}
+function surpriseAndScroll() {
+    document.getElementById("surprise").scrollIntoView({behavior:"smooth",block:"start"});
+    setTimeout(surpriseMe,500);
+}
+
+/* EXPLORE TOPICS */
+async function showTrending() {
+    const results = document.getElementById("results");
+    results.innerHTML = `<article class="result-card"><div class="result-label">🔥 EXPLORE</div><h2>What should we learn today?</h2><p>Choose a topic and let MEWLIX explain it.</p><div id="exploreTopicButtons" class="topic-scroll">Loading topics...</div></article>`;
+    scrollToResults();
+    try {
+        const previous = recentExploreLists.slice(-4).flat().join(", ");
+        const answer = await askAI(`Create 12 specific interesting educational topics for MEWLIX SEARCH, mixing science, space, animals, history, technology, geography, mathematics, art and culture. Avoid these recent topics: ${previous || "(none yet)"}. Return ONLY one topic per line, no numbering or bullets. Avoid generic categories.`);
+        const topics = answer.split("\n").map(x=>x.replace(/^[-•*\d.)\s]+/,"").trim()).filter(x=>x.length>2).slice(0,12);
+        if (topics.length) { recentExploreLists.push(topics); recentExploreLists = recentExploreLists.slice(-4); }
+        const container = document.getElementById("exploreTopicButtons");
+        if (!container) return;
+        container.innerHTML = topics.map(topic=>`<button class="topic-chip" onclick="searchFromButton('${escapeAttribute(topic)}')">${escapeHTML(topic)}</button>`).join("");
+    } catch {
+        const container = document.getElementById("exploreTopicButtons");
+        if (container) container.innerHTML = `<p>Couldn't load topics right now.</p>`;
+    }
+}
+function searchFromButton(topic) {
+    document.getElementById("searchBox").value = topic;
+    searchTopic();
+}
+function scrollToResults() {
+    setTimeout(()=>document.getElementById("results-section").scrollIntoView({behavior:"smooth",block:"start"}),100);
+}
+
+/* TOPIC CAROUSEL */
+const carouselTopics = ["Black hole","Dinosaur","Mars","Ocean","Aurora","Volcano","Octopus","Jupiter","Milky Way","Moon","Coral reef","Penguin","Lightning","Ancient Egypt","Human brain","Great Barrier Reef","Saturn","Butterfly","Shark","Space","Tornado","Deep sea","Robot","Pyramid","Neutron star","Rainforest","Ant","DNA","Solar eclipse","Fossil","Coral","Quantum physics","Galaxy","Whale","Machu Picchu","Volcanoes","Time","Gravity","Clouds","Penguin","Supernova","Jellyfish","Roman Empire","Electricity"];
+let carouselOrder = [], carouselPosition = 0, carouselTimer = null;
+const carouselImageCache = {};
+function shuffleArray(array) {
+    const copy=[...array];
+    for (let i=copy.length-1;i>0;i--) { const j=Math.floor(Math.random()*(i+1)); [copy[i],copy[j]]=[copy[j],copy[i]]; }
+    return copy;
+}
+async function getCarouselImage(topic) {
+    if (carouselImageCache[topic]) return carouselImageCache[topic];
+    try {
+        const data=await getWikipediaPage(topic);
+        if (data && data.thumbnail && data.thumbnail.source) { carouselImageCache[topic]=data.thumbnail.source; return data.thumbnail.source; }
+    } catch {}
+    carouselImageCache[topic]="";
+    return "";
+}
+async function showCarouselGroup(animate=true) {
+    const track=document.getElementById("topicCarouselTrack");
+    if (!track) return;
+    const group=carouselOrder.slice(carouselPosition,carouselPosition+4);
+    if (group.length<4) { carouselOrder=shuffleArray(carouselTopics); carouselPosition=0; return showCarouselGroup(animate); }
+    if (animate) { track.style.opacity="0"; track.style.transform="translateY(8px)"; await new Promise(resolve=>setTimeout(resolve,450)); }
+    const images=await Promise.all(group.map(topic=>getCarouselImage(topic)));
+    let html="";
+    group.forEach((topic,index)=>{
+        const image=images[index];
+        html+=`<button onclick="searchFromButton('${escapeAttribute(topic)}')" style="border:none;outline:none;background:transparent;padding:0;width:105px;min-width:105px;cursor:pointer;color:white;text-align:center;font-family:inherit;">
+        <div style="width:56px;height:56px;margin:0 auto 6px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,.12);box-shadow:0 0 0 1px rgba(255,255,255,.22),0 7px 22px rgba(0,0,0,.28);transition:transform .2s ease;" onmouseenter="this.style.transform='scale(1.1)'" onmouseleave="this.style.transform='scale(1)'">
+        ${image?`<img src="${escapeHTML(image)}" alt="${escapeHTML(topic)}" style="width:100%;height:100%;object-fit:cover;display:block;">`:`<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:22px;">✦</div>`}
+        </div><div style="font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 7px rgba(0,0,0,.45);">${escapeHTML(topic)}</div></button>`;
+    });
+    track.innerHTML=html;
+    requestAnimationFrame(()=>{track.style.opacity="1";track.style.transform="translateY(0)";});
+    carouselPosition+=4;
+    if (carouselPosition>=carouselOrder.length) { carouselOrder=shuffleArray(carouselTopics); carouselPosition=0; }
+}
+async function startCarousel() {
+    carouselOrder=shuffleArray(carouselTopics);
+    carouselPosition=0;
+    await showCarouselGroup(false);
+    carouselTimer=setInterval(()=>showCarouselGroup(true),4500);
+}
+
+/* KEYBOARD */
+document.getElementById("searchBox").addEventListener("keydown",event=>{if(event.key==="Enter") searchTopic();});
+document.addEventListener("keydown",event=>{if(event.key==="Enter" && document.activeElement && document.activeElement.id==="followUpInput") submitFollowUp();});
+
+/* INIT */
 startCarousel();
-
-
 </script>
-
-
 </body>
-
 </html>
