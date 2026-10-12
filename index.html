@@ -911,71 +911,57 @@ async function searchTopic() {
         */
 
         if (!data) {
+    const suggestions = await getWikipediaSuggestions(
+        originalSearch
+    );
 
+    const correction = findClosestTopic(
+        originalSearch,
+        suggestions
+    );
 
-            const suggestions =
-                await getWikipediaSuggestions(
-                    originalSearch
-                );
-
-
-            const correction = findClosestTopic(
-    originalSearch,
-    suggestions
-);
-
-/* Only accept a strong spelling match. */
-if (correction) {
-    data = await getWikipediaPage(correction);
-
-    if (data) {
+    if (correction) {
         const originalWords = originalSearch
             .toLowerCase()
-            .trim()
-            .split(/\s+/);
+            .replace(/[^a-z0-9 ]/g, " ")
+            .split(/\s+/)
+            .filter(word => word.length >= 4);
 
         const correctedWords = correction
             .toLowerCase()
-            .trim()
+            .replace(/[^a-z0-9 ]/g, " ")
             .split(/\s+/);
 
-        /*
-         * Do not silently replace a multiword search
-         * with a completely different subject.
-         */
+        // Require at least one matching word or
+        // a very close spelling match.
         const sharesWord = originalWords.some(word =>
-            word.length >= 4 &&
-            correctedWords.some(corrected =>
-                corrected === word
-            )
+            correctedWords.includes(word)
         );
 
-        if (!sharesWord) {
-            data = null;
-        } else {
-            corrected = true;
+        const cleanOriginal = originalSearch
+            .toLowerCase()
+            .replace(/[^a-z0-9]/g, "");
+
+        const cleanCorrection = correction
+            .toLowerCase()
+            .replace(/[^a-z0-9]/g, "");
+
+        const closeSpelling =
+            cleanOriginal.length >= 4 &&
+            levenshtein(cleanOriginal, cleanCorrection) <=
+                Math.max(1, Math.floor(cleanOriginal.length * 0.2));
+
+        if (sharesWord || closeSpelling) {
+            const correctedPage =
+                await getWikipediaPage(correction);
+
+            if (correctedPage) {
+                data = correctedPage;
+                corrected = true;
+            }
         }
     }
 }
-
-
-            if (correction) {
-
-
-                data =
-                    await getWikipediaPage(
-                        correction
-                    );
-
-
-                corrected =
-                    true;
-
-            }
-
-        }
-
-
 
         if (!data) {
 
