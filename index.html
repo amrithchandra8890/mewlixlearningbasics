@@ -12,15 +12,21 @@
 #topicCarousel::-webkit-scrollbar{display:none}
 #topicCarouselTrack{width:max-content;min-width:100%}
 .carousel-description{margin:2px auto 8px;text-align:center;color:rgba(255,255,255,.72);font-size:12px;line-height:1.4}
-.light-content{position:relative;overflow:hidden;background-color:#f7f6f2;background-image:radial-gradient(circle at 12% 18%,rgba(224,190,151,.13),transparent 25%),radial-gradient(circle at 88% 72%,rgba(184,174,151,.12),transparent 27%),linear-gradient(135deg,rgba(255,255,255,.72),rgba(247,246,242,.96))}
+.light-content{position:relative;isolation:isolate;overflow:hidden;background-color:#fff8ed;background-image:radial-gradient(ellipse at 6% 7%,rgba(255,156,104,.42),transparent 25%),radial-gradient(ellipse at 91% 13%,rgba(174,145,255,.34),transparent 27%),radial-gradient(ellipse at 78% 55%,rgba(255,204,91,.34),transparent 29%),radial-gradient(ellipse at 12% 82%,rgba(104,205,157,.30),transparent 28%),radial-gradient(ellipse at 52% 34%,rgba(255,174,205,.23),transparent 32%),radial-gradient(circle,rgba(151,105,65,.16) 1.15px,transparent 1.7px),linear-gradient(135deg,#fff9ef,#fff4e8 48%,#fff9f2);background-size:auto,auto,auto,auto,auto,20px 20px,auto}
+.light-content:before,.light-content:after{content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(3px)}.light-content:before{width:390px;height:390px;top:8%;right:-175px;background:radial-gradient(circle,rgba(248,150,186,.30),rgba(248,150,186,0) 70%)}.light-content:after{width:430px;height:430px;bottom:4%;left:-205px;background:radial-gradient(circle,rgba(104,201,160,.27),rgba(104,201,160,0) 70%)}
+.light-content .section:after,.light-content .bottom-section:before{content:"✦  ·  ✧  ·  ✦";display:block;text-align:center;letter-spacing:18px;color:rgba(180,117,74,.25);font-size:18px;margin:18px auto 0;pointer-events:none}
+.light-content:before,.light-content:after{content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(2px)}.light-content:before{width:330px;height:330px;top:9%;right:-150px;background:radial-gradient(circle,rgba(248,174,196,.25),rgba(248,174,196,0) 70%)}.light-content:after{width:390px;height:390px;bottom:5%;left:-190px;background:radial-gradient(circle,rgba(139,211,181,.22),rgba(139,211,181,0) 70%)}
 .study-watermarks{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
-.study-watermarks span{position:absolute;color:#c8c5bb;opacity:.22;filter:grayscale(1);font-size:25px;user-select:none}
+.study-watermarks span{position:absolute;color:#9b795c;opacity:.34;filter:none;font-size:27px;user-select:none;text-shadow:0 3px 10px rgba(140,105,75,.12)}.study-watermarks span:nth-child(3n){color:#c17b55;opacity:.30}.study-watermarks span:nth-child(3n+1){color:#729b7c;opacity:.30}.study-watermarks span:nth-child(3n+2){color:#9a83bd;opacity:.31}
 .light-content>section{position:relative;z-index:1}.powered-by{margin-top:5px;font-size:12px;opacity:.65}
 .search-area{position:relative;z-index:20}
-#searchSuggestions{display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;max-height:260px;overflow-y:auto;overscroll-behavior:contain;background:#fff;color:#20243a;border:1px solid rgba(90,90,120,.15);border-radius:16px;box-shadow:0 14px 35px rgba(10,15,40,.2);padding:7px;text-align:left;z-index:100}
-#searchSuggestions.show{display:block}.suggestion-hint{padding:7px 12px 5px;color:#85879a;font-size:11px}
-.suggestion-item{display:block;width:100%;border:0;background:transparent;color:#252a40;padding:11px 13px;border-radius:10px;text-align:left;font:inherit;cursor:pointer}
-.suggestion-item:hover,.suggestion-item:focus{background:#f0efff;outline:none}
+#searchSuggestions{display:none;position:absolute;top:calc(100% + 11px);left:0;right:0;max-height:310px;overflow-y:auto;overscroll-behavior:contain;background:linear-gradient(145deg,#fffdf9 0%,#fff 48%,#f8f5ff 100%);color:#20243a;border:1px solid rgba(126,92,205,.24);border-radius:21px;box-shadow:0 18px 42px rgba(34,24,83,.24),0 3px 10px rgba(255,157,104,.12);padding:9px;text-align:left;z-index:100;backdrop-filter:blur(16px);scrollbar-width:thin;scrollbar-color:#b7a5f1 #f3efff}
+#searchSuggestions.show{display:block;animation:suggestionPop .18s ease-out}@keyframes suggestionPop{from{opacity:0;transform:translateY(-5px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+.suggestion-hint{padding:9px 12px 10px;color:#7865c7;font-size:10px;font-weight:800;letter-spacing:1.5px;border-bottom:1px solid rgba(125,101,199,.13);margin-bottom:5px}
+.suggestion-item{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;color:#292640;padding:12px 13px;margin:2px 0;border-radius:13px;text-align:left;font:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:background .16s ease,transform .16s ease,color .16s ease}
+.suggestion-item:before{content:"✦";display:inline-flex;align-items:center;justify-content:center;flex:0 0 27px;height:27px;border-radius:9px;color:#fff;background:linear-gradient(135deg,#7655df,#ec79b5);font-size:13px;box-shadow:0 3px 9px rgba(118,85,223,.2)}
+.suggestion-item:nth-of-type(3n):before{background:linear-gradient(135deg,#f08a48,#f6bd54)}.suggestion-item:nth-of-type(3n+1):before{background:linear-gradient(135deg,#17a77b,#55c89c)}
+.suggestion-item:hover,.suggestion-item:focus{background:linear-gradient(90deg,#f0ebff,#fff0e7);color:#5140b8;outline:none;transform:translateX(2px)}
 #categories{transition:opacity .45s ease,transform .45s ease}#categories.cards-fading{opacity:0;transform:translateY(8px)}.cards .card{cursor:pointer}
 .discovery-with-image{display:flex;align-items:flex-start;gap:14px;text-align:left;padding:13px;background:#fff;border-radius:15px;margin:10px 0;box-shadow:0 3px 12px rgba(40,40,60,.05)}
 .discovery-with-image img{width:104px;height:104px;flex:0 0 104px;object-fit:cover;border-radius:14px;box-shadow:0 5px 16px rgba(0,0,0,.12)}.discovery-copy{min-width:0;flex:1}
@@ -37,6 +43,7 @@
 .chat-compose{display:flex;align-items:flex-end;gap:9px;max-width:850px;margin:0 auto;padding:8px;background:#fff;border:1px solid #e4e1ef;border-radius:19px;box-shadow:0 5px 20px rgba(40,35,80,.07)}
 #chatInput{flex:1;min-width:0;max-height:130px;resize:none;border:0;outline:0;padding:10px 9px;color:#24263b;background:transparent;font:inherit}
 #chatSend{border:0;border-radius:13px;padding:11px 16px;color:#fff;background:#635bdb;font-weight:700;cursor:pointer}#chatSend:disabled{opacity:.55;cursor:wait}.chat-note{text-align:center;color:#9695a5;font-size:11px;margin:7px 0 0}
+.conversation-checkpoint{max-width:760px;margin:12px auto 22px;padding:12px 15px;border:1px solid rgba(124,95,205,.22);border-left:4px solid #8065dc;border-radius:13px;background:linear-gradient(110deg,rgba(241,235,255,.94),rgba(255,245,232,.96));color:#51466f;box-shadow:0 4px 14px rgba(75,57,130,.06)}.conversation-checkpoint strong{display:block;font-size:12px;letter-spacing:.35px;color:#6651b5}.conversation-checkpoint p{margin:5px 0 0;font-size:12px;line-height:1.55;color:#625d70}
 @media(max-width:600px){#topicCarousel{overflow-x:auto;touch-action:pan-x;overscroll-behavior-x:contain}#topicCarouselTrack{justify-content:flex-start!important}.carousel-description{padding:0 18px}.discovery-with-image{gap:10px}.discovery-with-image img{width:82px;height:82px;flex-basis:82px}.chat-topbar{padding:11px 12px}#chatMessages{padding:18px 12px 24px}.chat-bubble{max-width:88%}}
 </style>
 </head>
@@ -134,7 +141,32 @@ let chatBusy=false;
 function addChatMessage(role,content,isHTML=false){const row=document.createElement("div");row.className="chat-message "+role;const bubble=document.createElement("div");bubble.className="chat-bubble";if(isHTML)bubble.innerHTML=content;else bubble.textContent=content;row.appendChild(bubble);chatMessages.appendChild(row);chatMessages.scrollTop=chatMessages.scrollHeight;return row;}
 function openFollowUpChat(){if(!activeFollowUpTopic)return;document.getElementById("chatTopicLabel").textContent="Topic: "+activeFollowUpTopic;if(!chatMessages.dataset.started){chatMessages.innerHTML="<div class='chat-welcome'><div class='chat-mark'>✦</div><strong>Continue exploring "+escapeHTML(activeFollowUpTopic)+"</strong><p>Ask anything about this topic. MEWLIX will keep the conversation context.</p></div>";chatMessages.dataset.started="true";}chatScreen.style.display="flex";chatScreen.setAttribute("aria-hidden","false");requestAnimationFrame(()=>chatScreen.classList.add("open"));document.body.style.overflow="hidden";setTimeout(()=>chatInput.focus(),180);}
 function closeFollowUpChat(){chatScreen.classList.remove("open");chatScreen.setAttribute("aria-hidden","true");document.body.style.overflow="";setTimeout(()=>{if(!chatScreen.classList.contains("open"))chatScreen.style.display="none";},300);}
-async function sendChatMessage(){const question=chatInput.value.trim();if(!question||chatBusy||!activeFollowUpTopic)return;chatBusy=true;chatSend.disabled=true;chatInput.value="";const welcome=chatMessages.querySelector(".chat-welcome");if(welcome)welcome.remove();addChatMessage("user",question);const typing=addChatMessage("assistant","MEWLIX is thinking...");try{const history=activeChatHistory.slice(-16).map(item=>(item.role==="user"?"Student":"MEWLIX")+": "+item.content).join("\n");const reply=await askAI("You are MEWLIX AI, a friendly educational chat tutor. The original topic is '"+activeFollowUpTopic+"'. Continue this conversation and use its history to understand references. Answer the newest message directly without restarting the article. Be accurate, clear and age-appropriate. If unsure, say so. Keep under 250 words unless more detail is needed.\nCONVERSATION:\n"+history+"\nStudent: "+question+"\nMEWLIX:");typing.remove();addChatMessage("assistant",formatAI(reply),true);activeChatHistory.push({role:"user",content:question},{role:"assistant",content:reply});activeChatHistory=activeChatHistory.slice(-18);}catch{typing.remove();addChatMessage("assistant","Sorry, I couldn't connect just now. Please try sending that message again.");}finally{chatBusy=false;chatSend.disabled=false;chatInput.focus();}}
+async function sendChatMessage(){
+    const question=chatInput.value.trim();
+    if(!question||chatBusy||!activeFollowUpTopic)return;
+    chatBusy=true;chatSend.disabled=true;chatInput.value="";
+    const welcome=chatMessages.querySelector(".chat-welcome");if(welcome)welcome.remove();
+    addChatMessage("user",question);
+    const typing=addChatMessage("assistant","MEWLIX is thinking...");
+    try{
+        const history=activeChatHistory.slice(-18).map(item=>(item.role==="user"?"Student":item.role==="checkpoint"?"Conversation checkpoint":"MEWLIX")+": "+item.content).join("\n");
+        const reply=await askAI("You are MEWLIX AI, a friendly educational chat tutor. The original topic is '"+activeFollowUpTopic+"'. Continue this exact conversation and use its history AND the latest conversation checkpoint. Do not restart the explanation or forget earlier discussed details. Answer the newest message directly, accurately and in age-appropriate language. Keep under 250 words unless more detail is needed. IMPORTANT: End every answer with a separate final line in exactly this format: CONVERSATION CHECKPOINT: [1-2 concise sentences recording the original topic, the latest subtopic, key facts already established, and any unresolved question or reference that may matter next. Do not write a vague summary.]\nCONVERSATION SO FAR:\n"+history+"\nStudent: "+question+"\nMEWLIX:");
+        typing.remove();
+        const marker="CONVERSATION CHECKPOINT:";
+        const markerIndex=reply.lastIndexOf(marker);
+        let answer=reply.trim(),checkpoint="";
+        if(markerIndex>=0){answer=reply.slice(0,markerIndex).trim();checkpoint=reply.slice(markerIndex+marker.length).trim();}
+        if(!checkpoint)checkpoint="The conversation is about "+activeFollowUpTopic+". The latest question was: "+question;
+        addChatMessage("assistant",formatAI(answer||reply),true);
+        const checkpointRow=document.createElement("div");checkpointRow.className="conversation-checkpoint";
+        const checkpointLabel=document.createElement("strong");checkpointLabel.textContent="✦ Conversation checkpoint";
+        const checkpointText=document.createElement("p");checkpointText.textContent=checkpoint;
+        checkpointRow.append(checkpointLabel,checkpointText);chatMessages.appendChild(checkpointRow);chatMessages.scrollTop=chatMessages.scrollHeight;
+        activeChatHistory.push({role:"user",content:question},{role:"assistant",content:answer||reply},{role:"checkpoint",content:checkpoint});
+        activeChatHistory=activeChatHistory.slice(-24);
+    }catch(error){typing.remove();addChatMessage("assistant","Sorry, I couldn't connect just now. Please try sending that message again.");}
+    finally{chatBusy=false;chatSend.disabled=false;chatInput.focus();}
+}
 chatInput.addEventListener("keydown",event=>{if(event.key==="Enter"&&!event.shiftKey){event.preventDefault();sendChatMessage();}});
 
 /* Eight rotating Explore & Learn cards. AI supplies the next batch. */
@@ -149,7 +181,41 @@ const starterCards=[
  {title:"Art & Culture",description:"Art, music, traditions and human creativity.",icon:"✎",search:"Art"}
 ];
 const cardColors=[["#5140c8","#7654e8"],["#087b58","#21a878"],["#b65a22","#e28b31"],["#1852a8","#2879d5"],["#078da1","#21b3c4"],["#48237f","#7543b8"],["#dc2626","#ef4444"],["#db2777","#f472b6"]];
-let rotatingCardsBusy=false,exploreTopicPool=[],explorePoolPosition=0;
+let rotatingCardsBusy=false,explorePoolPosition=0,explorePoolLoading=false,nextExploreTopicPool=[];
+let exploreTopicPool=[
+ {title:"Coral Reefs",description:"Explore the colourful cities beneath the sea.",icon:"🪸",search:"Coral reefs"},
+ {title:"Ancient Egypt",description:"Discover pharaohs, pyramids and daily life.",icon:"🏺",search:"Ancient Egypt"},
+ {title:"Volcanoes",description:"Learn how mountains of fire are formed.",icon:"🌋",search:"Volcano"},
+ {title:"Deep Sea Life",description:"Meet unusual creatures from ocean depths.",icon:"🦑",search:"Deep sea creature"},
+ {title:"The Human Brain",description:"Discover how memory, senses and thoughts work.",icon:"🧠",search:"Human brain"},
+ {title:"Ancient Astronomy",description:"See how early people studied the night sky.",icon:"🔭",search:"History of astronomy"},
+ {title:"World Architecture",description:"Explore remarkable buildings across history.",icon:"🏛️",search:"Architecture"},
+ {title:"Fungi Kingdom",description:"Meet organisms that recycle nature's nutrients.",icon:"🍄",search:"Fungus"},
+ {title:"Weather Wonders",description:"Understand storms, clouds and unusual weather.",icon:"🌦️",search:"Weather"},
+ {title:"The Solar System",description:"Travel among planets, moons and the Sun.",icon:"🪐",search:"Solar System"},
+ {title:"Ocean Currents",description:"Follow the rivers flowing through the sea.",icon:"🌊",search:"Ocean current"},
+ {title:"Bird Migration",description:"Learn why birds travel thousands of kilometres.",icon:"🕊️",search:"Bird migration"},
+ {title:"Ancient Inventions",description:"Discover clever ideas from early civilizations.",icon:"⚙️",search:"Ancient technology"},
+ {title:"Optical Illusions",description:"Explore how your eyes and brain interpret images.",icon:"👁️",search:"Optical illusion"},
+ {title:"Earthquakes",description:"Understand the movement beneath Earth's surface.",icon:"🌍",search:"Earthquake"},
+ {title:"Incredible Insects",description:"Discover the tiny animals all around us.",icon:"🦋",search:"Insect"},
+ {title:"Renewable Energy",description:"Explore cleaner ways to power our world.",icon:"☀️",search:"Renewable energy"},
+ {title:"Human Evolution",description:"Trace the story of our ancient ancestors.",icon:"🦴",search:"Human evolution"},
+ {title:"Mathematical Patterns",description:"Find surprising patterns hidden in numbers.",icon:"➗",search:"Mathematical pattern"},
+ {title:"The Amazon Rainforest",description:"Explore one of Earth's richest ecosystems.",icon:"🌳",search:"Amazon rainforest"},
+ {title:"Robotics",description:"See how machines sense, move and help people.",icon:"🤖",search:"Robotics"},
+ {title:"Polar Worlds",description:"Discover life in Earth's icy regions.",icon:"🐧",search:"Polar regions"},
+ {title:"Ancient Greece",description:"Explore ideas, art and life in Greece.",icon:"🏛️",search:"Ancient Greece"},
+ {title:"Sound & Music",description:"Learn how vibrations become sounds and songs.",icon:"🎵",search:"Acoustics"},
+ {title:"Space Telescopes",description:"See how we observe distant galaxies.",icon:"🔭",search:"Space telescope"},
+ {title:"Plant Communication",description:"Discover how plants respond to their surroundings.",icon:"🌱",search:"Plant communication"},
+ {title:"Famous Explorers",description:"Follow journeys that changed world maps.",icon:"🧭",search:"Exploration"},
+ {title:"Microorganisms",description:"Meet the tiny life invisible to our eyes.",icon:"🦠",search:"Microorganism"},
+ {title:"Bridges & Structures",description:"Explore the science behind amazing structures.",icon:"🌉",search:"Bridge"},
+ {title:"The Ice Age",description:"Discover a colder chapter of Earth's past.",icon:"🧊",search:"Ice age"},
+ {title:"Ocean Giants",description:"Learn about whales and other huge sea animals.",icon:"🐋",search:"Whale"},
+ {title:"World Languages",description:"Explore how human languages grow and change.",icon:"🗣️",search:"Language"}
+];
 function renderExploreCards(topics){
     const container=document.getElementById("categories");
     container.innerHTML=topics.slice(0,8).map((topic,index)=>{
@@ -164,24 +230,37 @@ async function loadExploreTopicPool(){
         if(!match)throw Error("Invalid topic list");
         const data=JSON.parse(match[0]);
         if(!Array.isArray(data)||data.length<8)throw Error("Incomplete topic list");
-        exploreTopicPool=data.map(item=>({title:String(item.title||"New discovery").slice(0,42),description:String(item.description||"Explore a fascinating new subject.").slice(0,100),icon:String(item.icon||"✦").slice(0,4),search:String(item.search||item.title||"Science").slice(0,80)}));
-        explorePoolPosition=0;
-        return true;
-    }catch(error){console.warn("Explore topics:",error);return false;}
+        return data.map(item=>({title:String(item.title||"New discovery").slice(0,42),description:String(item.description||"Explore a fascinating new subject.").slice(0,100),icon:String(item.icon||"✦").slice(0,4),search:String(item.search||item.title||"Science").slice(0,80)}));
+    }catch(error){console.warn("Explore topics:",error);return [];}
+}
+async function preloadExploreTopicPool(){
+    if(explorePoolLoading||nextExploreTopicPool.length>=8)return;
+    explorePoolLoading=true;
+    const fresh=await loadExploreTopicPool();
+    if(fresh.length>=8)nextExploreTopicPool=fresh;
+    explorePoolLoading=false;
 }
 async function rotateExploreCards(){
     if(rotatingCardsBusy)return;
-    rotatingCardsBusy=true;
     const container=document.getElementById("categories");
+    if(explorePoolPosition+8>exploreTopicPool.length){
+        if(nextExploreTopicPool.length>=8){
+            exploreTopicPool=nextExploreTopicPool;
+            nextExploreTopicPool=[];
+            explorePoolPosition=0;
+        }else{
+            /* Never leave the grid waiting for a slow AI request: recycle a shuffled local pool. */
+            exploreTopicPool=shuffleArray(exploreTopicPool);
+            explorePoolPosition=0;
+            preloadExploreTopicPool();
+        }
+    }
+    rotatingCardsBusy=true;
     container.classList.add("cards-fading");
     try{
-        if(explorePoolPosition+8>exploreTopicPool.length){
-            const loaded=await loadExploreTopicPool();
-            if(!loaded&&exploreTopicPool.length===0)return;
-        }
         const nextBatch=exploreTopicPool.slice(explorePoolPosition,explorePoolPosition+8);
         if(nextBatch.length===8){
-            await new Promise(resolve=>setTimeout(resolve,450));
+            await new Promise(resolve=>setTimeout(resolve,300));
             renderExploreCards(nextBatch);
             explorePoolPosition+=8;
         }
@@ -189,6 +268,7 @@ async function rotateExploreCards(){
         container.classList.remove("cards-fading");
         rotatingCardsBusy=false;
     }
+    if(exploreTopicPool.length-explorePoolPosition<=16)preloadExploreTopicPool();
 }
 /* AI-suggested home carousel with four topic pictures at a time. */
 let carouselTopics=["Clouds","Roman Empire","Lightning","Robot","Black hole","Dinosaur","Aurora","Octopus"],carouselPosition=0;
@@ -217,8 +297,8 @@ showCarouselGroup(false);
 setInterval(()=>showCarouselGroup(true),4500);
 setTimeout(refreshCarouselTopics,1300);
 setInterval(refreshCarouselTopics,90000);
-setTimeout(rotateExploreCards,3800);
 setInterval(rotateExploreCards,3800);
+setTimeout(preloadExploreTopicPool,250);
 </script>
 </body>
 </html>
