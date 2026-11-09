@@ -1,62 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="google-site-verification" content="jo1qjtLomZBus2ZtBi5Hy_XLfRJVfRCMhC2aMu7q_RE" />
 <meta charset="UTF-8">
+<meta name="google-site-verification" content="jo1qjtLomZBus2ZtBi5Hy_XLfRJVfRCMhC2aMu7q_RE">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MEWLIX SEARCH</title>
 <link rel="stylesheet" href="styles/style.css">
 <style>
-#topicCarousel { overflow-x:hidden; overflow-y:hidden; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
-#topicCarousel::-webkit-scrollbar { display:none; }
-#topicCarouselTrack { width:max-content; min-width:100%; }
-.carousel-description { margin:2px auto 8px; text-align:center; color:rgba(255,255,255,.72); font-size:12px; line-height:1.4; }
-.light-content { position:relative; overflow:hidden; }
-.study-watermarks { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
-.study-watermarks span { position:absolute; color:#d5d9e5; opacity:.24; filter:grayscale(1); font-size:25px; user-select:none; }
-.light-content > section { position:relative; z-index:1; }
-.powered-by { margin-top:5px; font-size:12px; opacity:.65; }
-@media (max-width:600px) {
-#topicCarousel { overflow-x:auto; overflow-y:hidden; touch-action:pan-x; overscroll-behavior-x:contain; }
-#topicCarouselTrack { justify-content:flex-start !important; }
-.carousel-description { padding:0 18px; }
-}
+/* Keep the original page styling in styles/style.css. These are additions only. */
+#topicCarousel{overflow:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+#topicCarousel::-webkit-scrollbar{display:none}
+#topicCarouselTrack{width:max-content;min-width:100%}
+.carousel-description{margin:2px auto 8px;text-align:center;color:rgba(255,255,255,.72);font-size:12px;line-height:1.4}
+.light-content{position:relative;overflow:hidden;background-color:#f7f6f2;background-image:radial-gradient(circle at 12% 18%,rgba(224,190,151,.13),transparent 25%),radial-gradient(circle at 88% 72%,rgba(184,174,151,.12),transparent 27%),linear-gradient(135deg,rgba(255,255,255,.72),rgba(247,246,242,.96))}
+.study-watermarks{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.study-watermarks span{position:absolute;color:#c8c5bb;opacity:.22;filter:grayscale(1);font-size:25px;user-select:none}
+.light-content>section{position:relative;z-index:1}.powered-by{margin-top:5px;font-size:12px;opacity:.65}
+.search-area{position:relative;z-index:20}
+#searchSuggestions{display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;max-height:260px;overflow-y:auto;overscroll-behavior:contain;background:#fff;color:#20243a;border:1px solid rgba(90,90,120,.15);border-radius:16px;box-shadow:0 14px 35px rgba(10,15,40,.2);padding:7px;text-align:left;z-index:100}
+#searchSuggestions.show{display:block}.suggestion-hint{padding:7px 12px 5px;color:#85879a;font-size:11px}
+.suggestion-item{display:block;width:100%;border:0;background:transparent;color:#252a40;padding:11px 13px;border-radius:10px;text-align:left;font:inherit;cursor:pointer}
+.suggestion-item:hover,.suggestion-item:focus{background:#f0efff;outline:none}
+#categories{transition:opacity .45s ease,transform .45s ease}#categories.cards-fading{opacity:0;transform:translateY(8px)}.cards .card{cursor:pointer}
+.discovery-with-image{display:flex;align-items:flex-start;gap:14px;text-align:left;padding:13px;background:#fff;border-radius:15px;margin:10px 0;box-shadow:0 3px 12px rgba(40,40,60,.05)}
+.discovery-with-image img{width:104px;height:104px;flex:0 0 104px;object-fit:cover;border-radius:14px;box-shadow:0 5px 16px rgba(0,0,0,.12)}.discovery-copy{min-width:0;flex:1}
+/* Separate distraction-free follow-up chat */
+#mewlixChatScreen{position:fixed;inset:0;z-index:9999;display:none;flex-direction:column;color:#20243a;background:radial-gradient(circle at 10% 5%,rgba(232,221,255,.8),transparent 32%),radial-gradient(circle at 95% 90%,rgba(255,228,210,.55),transparent 34%),linear-gradient(145deg,#f8f7fb,#f1eff7 55%,#f8f5f1);opacity:0;transition:opacity .28s ease}
+#mewlixChatScreen.open{display:flex;opacity:1}.chat-topbar{display:flex;align-items:center;gap:12px;padding:15px 18px;background:rgba(255,255,255,.72);border-bottom:1px solid rgba(40,40,70,.08);backdrop-filter:blur(14px)}
+.chat-back{border:0;border-radius:50%;width:40px;height:40px;background:#ece9fa;color:#5145b8;font-size:21px;cursor:pointer}.chat-heading{min-width:0;flex:1}.chat-heading strong{display:block;font-size:17px}.chat-heading small{display:block;color:#85859a;margin-top:2px}
+#chatMessages{width:100%;max-width:850px;flex:1;overflow-y:auto;margin:0 auto;padding:24px 18px 30px;box-sizing:border-box;scroll-behavior:smooth}
+.chat-welcome{text-align:center;color:#77788d;margin:35px auto;max-width:420px}.chat-welcome .chat-mark{font-size:34px;margin-bottom:10px}.chat-message{display:flex;margin:14px 0}.chat-message.user{justify-content:flex-end}
+.chat-bubble{max-width:min(82%,650px);padding:13px 16px;border-radius:18px;line-height:1.65;overflow-wrap:anywhere;box-shadow:0 4px 15px rgba(40,35,80,.06)}
+.chat-message.user .chat-bubble{color:white;background:linear-gradient(135deg,#6558dc,#8170e8);border-bottom-right-radius:5px}.chat-message.assistant .chat-bubble{color:#292b40;background:rgba(255,255,255,.9);border:1px solid rgba(70,65,110,.07);border-bottom-left-radius:5px}
+.chat-message.assistant .chat-bubble p:first-child{margin-top:0}.chat-message.assistant .chat-bubble p:last-child{margin-bottom:0}
+.chat-compose-wrap{padding:12px 16px max(16px,env(safe-area-inset-bottom));background:rgba(255,255,255,.72);border-top:1px solid rgba(40,40,70,.08);backdrop-filter:blur(14px)}
+.chat-compose{display:flex;align-items:flex-end;gap:9px;max-width:850px;margin:0 auto;padding:8px;background:#fff;border:1px solid #e4e1ef;border-radius:19px;box-shadow:0 5px 20px rgba(40,35,80,.07)}
+#chatInput{flex:1;min-width:0;max-height:130px;resize:none;border:0;outline:0;padding:10px 9px;color:#24263b;background:transparent;font:inherit}
+#chatSend{border:0;border-radius:13px;padding:11px 16px;color:#fff;background:#635bdb;font-weight:700;cursor:pointer}#chatSend:disabled{opacity:.55;cursor:wait}.chat-note{text-align:center;color:#9695a5;font-size:11px;margin:7px 0 0}
+@media(max-width:600px){#topicCarousel{overflow-x:auto;touch-action:pan-x;overscroll-behavior-x:contain}#topicCarouselTrack{justify-content:flex-start!important}.carousel-description{padding:0 18px}.discovery-with-image{gap:10px}.discovery-with-image img{width:82px;height:82px;flex-basis:82px}.chat-topbar{padding:11px 12px}#chatMessages{padding:18px 12px 24px}.chat-bubble{max-width:88%}}
 </style>
 </head>
 <body>
-<nav>
-<div class="logo">✦ MEWLIX <span>SEARCH</span></div>
-<div class="navlinks"><a href="#home">Home</a><a href="#explore">Explore</a><a href="#categories">Categories</a><a href="#facts">Facts</a></div>
-</nav>
-<section class="hero" id="home">
-<div class="planet planet1"></div><div class="planet planet2"></div>
-<div class="hero-content">
-<div class="small-title">EXPLORE • DISCOVER • GROW</div>
-<h1>MEWLIX <span>SEARCH</span></h1>
-<p>Search anything. Discover something new.</p>
-<div class="search-area">
-<input type="text" id="searchBox" placeholder="What are you curious about?" autocomplete="off">
-<button onclick="searchTopic()">Explore</button>
-</div>
-<div id="topicCarousel" style="width:100%;max-width:620px;margin:8px auto 0;overflow:hidden;position:relative;min-height:90px;">
-<div id="topicCarouselTrack" style="display:flex;justify-content:center;align-items:flex-start;gap:14px;opacity:1;transform:translateY(0);transition:opacity .55s ease,transform .55s ease;"></div>
-</div>
+<nav><div class="logo">✦ MEWLIX <span>SEARCH</span></div><div class="navlinks"><a href="#home">Home</a><a href="#explore">Explore</a><a href="#categories">Categories</a><a href="#facts">Facts</a></div></nav>
+<section class="hero" id="home"><div class="planet planet1"></div><div class="planet planet2"></div><div class="hero-content">
+<div class="small-title">EXPLORE • DISCOVER • GROW</div><h1>MEWLIX <span>SEARCH</span></h1><p>Search anything. Discover something new.</p>
+<div class="search-area"><input type="text" id="searchBox" placeholder="What are you curious about?" autocomplete="off" aria-label="Search for a topic"><button type="button" onclick="searchTopic()">Explore</button><div id="searchSuggestions" role="listbox" aria-label="Search suggestions"></div></div>
+<div id="topicCarousel" style="width:100%;max-width:620px;margin:8px auto 0;overflow:hidden;position:relative;min-height:90px"><div id="topicCarouselTrack" style="display:flex;justify-content:center;align-items:flex-start;gap:14px;opacity:1;transform:translateY(0);transition:opacity .55s ease,transform .55s ease"></div></div>
 <div class="carousel-description">Tap a picture to quickly explore that topic.</div>
-<div class="quick-buttons">
-<button onclick="randomFactAndScroll()">💡 Random Facts</button>
-<button onclick="surpriseAndScroll()">✨ Surprise Me!</button>
-<button onclick="showTrending()">🔥 Explore Topics</button>
-</div>
-</div>
-</section>
+<div class="quick-buttons"><button type="button" onclick="randomFactAndScroll()">💡 Random Facts</button><button type="button" onclick="surpriseAndScroll()">✨ Surprise Me!</button><button type="button" onclick="showTrending()">🔥 Explore Topics</button></div>
+</div></section>
 <main class="light-content">
-<div class="study-watermarks" aria-hidden="true">
-<span style="top:4%;left:3%;">🔎</span><span style="top:9%;right:7%;">📖</span><span style="top:18%;left:10%;">💡</span><span style="top:27%;right:4%;">✏️</span><span style="top:36%;left:3%;">🔬</span><span style="top:45%;right:10%;">🧠</span><span style="top:55%;left:8%;">📚</span><span style="top:64%;right:3%;">🔭</span><span style="top:74%;left:3%;">💡</span><span style="top:83%;right:8%;">🔎</span><span style="top:92%;left:11%;">📖</span><span style="top:97%;right:4%;">✏️</span>
-</div>
+<div class="study-watermarks" aria-hidden="true"><span style="top:4%;left:3%">🔎</span><span style="top:9%;right:7%">📖</span><span style="top:18%;left:10%">💡</span><span style="top:27%;right:4%">✏️</span><span style="top:36%;left:3%">🔬</span><span style="top:45%;right:10%">🧠</span><span style="top:55%;left:8%">📚</span><span style="top:64%;right:3%">🔭</span><span style="top:74%;left:3%">💡</span><span style="top:83%;right:8%">🔎</span><span style="top:92%;left:11%">📖</span><span style="top:97%;right:4%">✏️</span></div>
 <section id="results-section"><div id="results"></div></section>
-<section class="section" id="explore">
-<h2>Explore &amp; Learn</h2>
-<p class="section-subtitle">Pick something interesting or follow your curiosity.</p>
+<section class="section" id="explore"><h2>Explore &amp; Learn</h2><p class="section-subtitle">Pick something interesting or follow your curiosity.</p>
 <div class="cards" id="categories">
 <div class="card science" onclick="searchFromButton('Science')"><div class="card-icon">⚗</div><h3>Science</h3><p>Space, physics, chemistry, nature and more.</p></div>
 <div class="card nature" onclick="searchFromButton('Animals')"><div class="card-icon">◉</div><h3>Nature &amp; Animals</h3><p>Wildlife, oceans, plants and ecosystems.</p></div>
@@ -64,370 +60,165 @@
 <div class="card technology" onclick="searchFromButton('Technology')"><div class="card-icon">▣</div><h3>Technology</h3><p>Computers, inventions, AI and the future.</p></div>
 <div class="card geography" onclick="searchFromButton('Geography')"><div class="card-icon">◎</div><h3>Geography</h3><p>Countries, places, Earth and our world.</p></div>
 <div class="card universe" onclick="searchFromButton('Universe')"><div class="card-icon">✦</div><h3>Universe</h3><p>Stars, galaxies, planets and black holes.</p></div>
-<div class="card math" onclick="searchFromButton('Mathematics')" style="background:linear-gradient(135deg,#dc2626,#ef4444);"><div class="card-icon">∑</div><h3>Math &amp; Logic</h3><p>Numbers, patterns, puzzles and problem-solving.</p></div>
-<div class="card art" onclick="searchFromButton('Art')" style="background:linear-gradient(135deg,#db2777,#f472b6);"><div class="card-icon">✎</div><h3>Art &amp; Culture</h3><p>Art, music, traditions and human creativity.</p></div>
-</div>
-</section>
-<section class="bottom-section" id="facts">
-<div class="fact-box">
-<h2>💡 Amazing Facts</h2><p>Discover something you probably didn't know.</p>
-<div id="factText"><div style="padding:18px;background:#f4f6ff;border-radius:16px;margin:15px 0;text-align:center;">Tap the button below to discover something amazing!</div></div>
-<button onclick="randomFact()">✨ More Facts</button>
-</div>
-<div class="surprise-box" id="surprise">
-<h2>✨ Surprise Me!</h2><p>Don't know what to learn? Let curiosity choose for you.</p>
-<button onclick="surpriseMe()">Discover Something</button>
-<div id="surpriseOutput" style="margin-top:20px;"></div>
-</div>
-</section>
+<div class="card math" onclick="searchFromButton('Mathematics')" style="background:linear-gradient(135deg,#dc2626,#ef4444)"><div class="card-icon">∑</div><h3>Math &amp; Logic</h3><p>Numbers, patterns, puzzles and problem-solving.</p></div>
+<div class="card art" onclick="searchFromButton('Art')" style="background:linear-gradient(135deg,#db2777,#f472b6)"><div class="card-icon">✎</div><h3>Art &amp; Culture</h3><p>Art, music, traditions and human creativity.</p></div>
+</div></section>
+<section class="bottom-section" id="facts"><div class="fact-box"><h2>💡 Amazing Facts</h2><p>Discover something you probably didn't know.</p><div id="factText"><div style="padding:18px;background:#f4f6ff;border-radius:16px;margin:15px 0;text-align:center">Tap the button below to discover something amazing!</div></div><button type="button" onclick="randomFact()">✨ More Facts</button></div>
+<div class="surprise-box" id="surprise"><h2>✨ Surprise Me!</h2><p>Don't know what to learn? Let curiosity choose for you.</p><button type="button" onclick="surpriseMe()">Discover Something</button><div id="surpriseOutput" style="margin-top:20px"></div></div></section>
 </main>
 <footer><p> • Stay curious. Keep discovering.</p><p class="powered-by">Powered by OpenRouter</p></footer>
+
+<section id="mewlixChatScreen" aria-label="MEWLIX follow-up chat" aria-hidden="true">
+<header class="chat-topbar"><button class="chat-back" type="button" onclick="closeFollowUpChat()" aria-label="Back to search">←</button><div class="chat-heading"><strong>✦ MEWLIX AI</strong><small id="chatTopicLabel">Continuing your topic</small></div></header>
+<div id="chatMessages" aria-live="polite"></div>
+<div class="chat-compose-wrap"><div class="chat-compose"><textarea id="chatInput" rows="1" placeholder="Message MEWLIX..." aria-label="Your message"></textarea><button id="chatSend" type="button" onclick="sendChatMessage()">Send</button></div><p class="chat-note">MEWLIX can make mistakes. Check important information.</p></div>
+</section>
+
 <script>
-/* AI BACKEND */
-async function askAI(prompt) {
-    const response = await fetch("/.netlify/functions/ai", {
-        method:"POST", headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({prompt})
-    });
-    let data;
-    try { data = await response.json(); }
-    catch { throw new Error("The AI server returned an invalid response."); }
-    if (!response.ok) throw new Error(data.error || "AI request failed.");
-    if (!data.answer) throw new Error("The AI did not return an answer.");
+"use strict";
+
+/* AI endpoint: keep your existing Netlify function and OpenRouter setup. */
+async function askAI(prompt){
+    const response=await fetch("/.netlify/functions/ai",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt})});
+    let data;try{data=await response.json();}catch{throw new Error("The AI server returned an invalid response.");}
+    if(!response.ok)throw new Error(data.error||"AI request failed.");
+    if(!data.answer)throw new Error("The AI did not return an answer.");
     return data.answer;
 }
 
-/* SAFE TEXT / MARKDOWN */
-function escapeHTML(text) {
-    return String(text).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-}
-function escapeAttribute(text) {
-    return String(text).replace(/\\/g,"\\\\").replace(/'/g,"\\'");
-}
-function formatAI(text) {
-    // Escape first; only add a small, controlled set of formatting tags.
-    let html = escapeHTML(text);
-    html = html.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>");
-    html = html.replace(/^### (.*)$/gm,"<h4>$1</h4>");
-    html = html.replace(/^## (.*)$/gm,"<h3>$1</h3>");
-    html = html.replace(/^# (.*)$/gm,"<h2>$1</h2>");
-    html = html.replace(/^\s*[-•]\s+(.*)$/gm,"<li>$1</li>");
-    html = html.replace(/(?:<li>.*?<\/li>\s*)+/gs, m => "<ul>"+m+"</ul>");
-    html = html.replace(/\n\n+/g,"</p><p>");
-    html = html.replace(/\n/g,"<br>");
-    return "<p>"+html+"</p>";
+/* Safe output helpers. */
+function escapeHTML(value){return String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");}
+function formatAI(value){let html=escapeHTML(value);html=html.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>").replace(/^### (.*)$/gm,"<h4>$1</h4>").replace(/^## (.*)$/gm,"<h3>$1</h3>").replace(/^# (.*)$/gm,"<h2>$1</h2>").replace(/^\s*[-•]\s+(.*)$/gm,"<li>$1</li>");html=html.replace(/(?:<li>.*?<\/li>\s*)+/gs,m=>"<ul>"+m+"</ul>").replace(/\n\n+/g,"</p><p>").replace(/\n/g,"<br>");return "<p>"+html+"</p>";}
+function cleanTopic(value){return String(value).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();}
+function escapeInline(value){return String(value).replace(/\\/g,"\\\\").replace(/'/g,"\\'");}
+
+/* Wikipedia search, topic suggestions and images. */
+async function getWikipediaPage(topic){try{const url="https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(topic.replace(/ /g,"_"));const response=await fetch(url);if(!response.ok)return null;const data=await response.json();if(!data.extract||data.type==="disambiguation"||String(data.type||"").includes("not_found"))return null;return data;}catch{return null;}}
+async function getWikipediaSuggestions(query){try{const url="https://en.wikipedia.org/w/api.php?action=opensearch&search="+encodeURIComponent(query)+"&limit=10&namespace=0&format=json&origin=*";const response=await fetch(url);if(!response.ok)return [];const data=await response.json();return Array.isArray(data[1])?data[1]:[];}catch{return [];}}
+async function getTopicImage(topic){const page=await getWikipediaPage(topic);return page&&page.thumbnail&&page.thumbnail.source?page.thumbnail.source:"";}
+
+/* Search box dropdown: scrolls inside its own panel. */
+const searchBox=document.getElementById("searchBox");
+const suggestionsBox=document.getElementById("searchSuggestions");
+let suggestionTimer=null,suggestionRequest=0;
+function hideSuggestions(){suggestionsBox.classList.remove("show");suggestionsBox.innerHTML="";}
+function chooseSuggestion(topic){searchBox.value=topic;hideSuggestions();searchTopic();}
+function showSuggestionItems(items){if(!items.length){hideSuggestions();return;}suggestionsBox.innerHTML="<div class='suggestion-hint'>SUGGESTED TOPICS</div>"+items.map(topic=>"<button type='button' class='suggestion-item' role='option' data-topic='"+escapeHTML(topic)+"'>⌕ &nbsp;"+escapeHTML(topic)+"</button>").join("");suggestionsBox.querySelectorAll(".suggestion-item").forEach(button=>button.addEventListener("click",()=>chooseSuggestion(button.dataset.topic)));suggestionsBox.classList.add("show");}
+searchBox.addEventListener("input",()=>{clearTimeout(suggestionTimer);const query=searchBox.value.trim();if(query.length<2){hideSuggestions();return;}suggestionTimer=setTimeout(async()=>{const requestId=++suggestionRequest;const topics=await getWikipediaSuggestions(query);if(requestId!==suggestionRequest||searchBox.value.trim()!==query)return;showSuggestionItems(topics.slice(0,10));},260);});
+document.addEventListener("click",event=>{if(!event.target.closest(".search-area"))hideSuggestions();});
+searchBox.addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();const first=suggestionsBox.querySelector(".suggestion-item");if(suggestionsBox.classList.contains("show")&&first)return chooseSuggestion(first.dataset.topic);searchTopic();}if(event.key==="Escape")hideSuggestions();});
+
+/* Main search result and its original topic context. */
+let latestSearchToken=0,activeFollowUpTopic="",activeChatHistory=[];
+function scrollToResults(){setTimeout(()=>document.getElementById("results-section").scrollIntoView({behavior:"smooth",block:"start"}),100);}
+function searchFromButton(topic){searchBox.value=topic;searchTopic();}
+async function searchTopic(){
+    const query=searchBox.value.trim(),results=document.getElementById("results"),token=++latestSearchToken;hideSuggestions();
+    if(!query){results.innerHTML="<div class='error-card'><h2>What are you curious about?</h2><p>Type a topic into the search box and let's learn about it.</p></div>";scrollToResults();return;}
+    results.innerHTML="<div class='loading'>🧠 MEWLIX is learning about <strong>"+escapeHTML(query)+"</strong> ...</div>";scrollToResults();activeFollowUpTopic="";activeChatHistory=[];
+    try{
+        let page=await getWikipediaPage(query);if(token!==latestSearchToken)return;
+        if(!page){const candidates=await getWikipediaSuggestions(query);if(token!==latestSearchToken)return;const exact=candidates.find(item=>cleanTopic(item)===cleanTopic(query));if(exact)page=await getWikipediaPage(exact);}
+        if(!page){const answer=await askAI("You are MEWLIX SEARCH, an educational search assistant. The user's exact search is '"+query+"'. If you can identify this exact topic confidently, explain it briefly. Otherwise say you couldn't find an exact match. Never substitute an unrelated topic or guess. Keep under 180 words.");if(token!==latestSearchToken)return;results.innerHTML="<article class='result-card'><div class='result-label'>MEWLIX DISCOVERY</div><div class='searched-topic'>You searched for: <strong>"+escapeHTML(query)+"</strong></div><div class='ai-answer'>"+formatAI(answer)+"</div></article>";return;}
+        const explanation=await askAI("You are the educational writer for MEWLIX SEARCH. Exact topic: '"+page.title+"'. Wikipedia introduction: '"+page.extract+"'. Write an accurate, student-friendly result with sections: SHORT EXPLANATION (2-3 sentences), KEY POINTS (exactly 4 distinct points), WHY IT MATTERS, INTERESTING DETAIL, LEARN NEXT (4 related topics). Avoid unsupported claims.");
+        if(token!==latestSearchToken)return;
+        activeFollowUpTopic=page.title;activeChatHistory=[{role:"assistant",content:"We are learning about "+page.title+". "+page.extract+"\n"+explanation}];
+        const image=page.thumbnail&&page.thumbnail.source?"<img src='"+escapeHTML(page.thumbnail.source)+"' alt='"+escapeHTML(page.title)+"' onerror=\"this.style.display='none'\">":"";
+        results.innerHTML="<article class='result-card'><div class='result-label'>MEWLIX DISCOVERY</div><div class='searched-topic'>You searched for: <strong>"+escapeHTML(query)+"</strong></div><h2>"+escapeHTML(page.title)+"</h2>"+image+"<div class='ai-answer'>"+formatAI(explanation)+"</div><div style='margin-top:30px;padding-top:20px;border-top:1px solid #eee;text-align:center'><button type='button' onclick='openFollowUpChat()' style='border:0;background:#eef0ff;color:#4f46e5;padding:11px 18px;border-radius:25px;font-size:14px;font-weight:bold;cursor:pointer'>💬 Ask a Follow-up</button></div><div class='source'>Information source: Wikipedia + MEWLIX AI</div></article>";
+    }catch(error){if(token!==latestSearchToken)return;console.error(error);results.innerHTML="<div class='error-card'><h2>MEWLIX couldn't connect</h2><p>The AI couldn't answer right now. Please try again in a moment.</p><p style='font-size:13px;opacity:.7'>"+escapeHTML(error.message)+"</p></div>";}
 }
 
-/* TOPIC MEMORY: follow-ups retain recent conversation for this result. */
-let followUpHistory = [];
-let activeFollowUpTopic = "";
-let followUpBusy = false;
-let latestSearchToken = 0;
-let latestFactToken = 0;
-let latestSurpriseToken = 0;
-let recentFactOutputs = [];
-let recentSurpriseTopics = [];
-let recentExploreLists = [];
+/* Full-screen chat; every question remains in this same conversation. */
+const chatScreen=document.getElementById("mewlixChatScreen"),chatMessages=document.getElementById("chatMessages"),chatInput=document.getElementById("chatInput"),chatSend=document.getElementById("chatSend");
+let chatBusy=false;
+function addChatMessage(role,content,isHTML=false){const row=document.createElement("div");row.className="chat-message "+role;const bubble=document.createElement("div");bubble.className="chat-bubble";if(isHTML)bubble.innerHTML=content;else bubble.textContent=content;row.appendChild(bubble);chatMessages.appendChild(row);chatMessages.scrollTop=chatMessages.scrollHeight;return row;}
+function openFollowUpChat(){if(!activeFollowUpTopic)return;document.getElementById("chatTopicLabel").textContent="Topic: "+activeFollowUpTopic;if(!chatMessages.dataset.started){chatMessages.innerHTML="<div class='chat-welcome'><div class='chat-mark'>✦</div><strong>Continue exploring "+escapeHTML(activeFollowUpTopic)+"</strong><p>Ask anything about this topic. MEWLIX will keep the conversation context.</p></div>";chatMessages.dataset.started="true";}chatScreen.style.display="flex";chatScreen.setAttribute("aria-hidden","false");requestAnimationFrame(()=>chatScreen.classList.add("open"));document.body.style.overflow="hidden";setTimeout(()=>chatInput.focus(),180);}
+function closeFollowUpChat(){chatScreen.classList.remove("open");chatScreen.setAttribute("aria-hidden","true");document.body.style.overflow="";setTimeout(()=>{if(!chatScreen.classList.contains("open"))chatScreen.style.display="none";},300);}
+async function sendChatMessage(){const question=chatInput.value.trim();if(!question||chatBusy||!activeFollowUpTopic)return;chatBusy=true;chatSend.disabled=true;chatInput.value="";const welcome=chatMessages.querySelector(".chat-welcome");if(welcome)welcome.remove();addChatMessage("user",question);const typing=addChatMessage("assistant","MEWLIX is thinking...");try{const history=activeChatHistory.slice(-16).map(item=>(item.role==="user"?"Student":"MEWLIX")+": "+item.content).join("\n");const reply=await askAI("You are MEWLIX AI, a friendly educational chat tutor. The original topic is '"+activeFollowUpTopic+"'. Continue this conversation and use its history to understand references. Answer the newest message directly without restarting the article. Be accurate, clear and age-appropriate. If unsure, say so. Keep under 250 words unless more detail is needed.\nCONVERSATION:\n"+history+"\nStudent: "+question+"\nMEWLIX:");typing.remove();addChatMessage("assistant",formatAI(reply),true);activeChatHistory.push({role:"user",content:question},{role:"assistant",content:reply});activeChatHistory=activeChatHistory.slice(-18);}catch{typing.remove();addChatMessage("assistant","Sorry, I couldn't connect just now. Please try sending that message again.");}finally{chatBusy=false;chatSend.disabled=false;chatInput.focus();}}
+chatInput.addEventListener("keydown",event=>{if(event.key==="Enter"&&!event.shiftKey){event.preventDefault();sendChatMessage();}});
 
-/* WIKIPEDIA */
-async function getWikipediaPage(topic) {
-    const url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(topic.replace(/ /g,"_"));
-    try {
-        const response = await fetch(url);
-        if (!response.ok) return null;
-        const data = await response.json();
-        if (!data.extract || data.type === "disambiguation" || data.type === "https://mediawiki.org/wiki/HyperSwitch/errors/not_found") return null;
-        return data;
-    } catch { return null; }
+/* Eight rotating Explore & Learn cards. AI supplies the next batch. */
+const starterCards=[
+ {title:"Science",description:"Space, physics, chemistry, nature and more.",icon:"⚗",search:"Science"},
+ {title:"Nature & Animals",description:"Wildlife, oceans, plants and ecosystems.",icon:"◉",search:"Animals"},
+ {title:"History",description:"Civilizations, people, events and discoveries.",icon:"◆",search:"History"},
+ {title:"Technology",description:"Computers, inventions, AI and the future.",icon:"▣",search:"Technology"},
+ {title:"Geography",description:"Countries, places, Earth and our world.",icon:"◎",search:"Geography"},
+ {title:"Universe",description:"Stars, galaxies, planets and black holes.",icon:"✦",search:"Universe"},
+ {title:"Math & Logic",description:"Numbers, patterns, puzzles and problem-solving.",icon:"∑",search:"Mathematics"},
+ {title:"Art & Culture",description:"Art, music, traditions and human creativity.",icon:"✎",search:"Art"}
+];
+const cardColors=[["#5140c8","#7654e8"],["#087b58","#21a878"],["#b65a22","#e28b31"],["#1852a8","#2879d5"],["#078da1","#21b3c4"],["#48237f","#7543b8"],["#dc2626","#ef4444"],["#db2777","#f472b6"]];
+let rotatingCardsBusy=false,exploreTopicPool=[],explorePoolPosition=0;
+function renderExploreCards(topics){
+    const container=document.getElementById("categories");
+    container.innerHTML=topics.slice(0,8).map((topic,index)=>{
+        const color=cardColors[index],title=escapeHTML(topic.title),description=escapeHTML(topic.description),search=escapeInline(topic.search||topic.title);
+        return "<div class='card' onclick=\"searchFromButton('"+search+"')\" style='background:linear-gradient(135deg,"+color[0]+","+color[1]+")'><div class='card-icon'>"+escapeHTML(topic.icon||"✦")+"</div><h3>"+title+"</h3><p>"+description+"</p></div>";
+    }).join("");
 }
-async function getWikipediaSuggestions(query) {
-    const url = "https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch="+encodeURIComponent(query)+"&srlimit=10&format=json&origin=*";
-    try {
-        const response = await fetch(url);
-        if (!response.ok) return [];
-        const data = await response.json();
-        return data.query && data.query.search ? data.query.search.map(item => item.title) : [];
-    } catch { return []; }
+async function loadExploreTopicPool(){
+    try{
+        const raw=await askAI("Create 32 distinct REAL knowledge-based learning topics for MEWLIX SEARCH. Mix science, nature, history, technology, geography, space, mathematics, art and culture. Return ONLY valid JSON array of 32 objects with keys title, description, icon, search. Titles 2-4 words; descriptions under 12 words; icon one emoji; search a clear Wikipedia-friendly topic name. Avoid fictional topics and duplicates.");
+        const match=raw.match(/\[[\s\S]*\]/);
+        if(!match)throw Error("Invalid topic list");
+        const data=JSON.parse(match[0]);
+        if(!Array.isArray(data)||data.length<8)throw Error("Incomplete topic list");
+        exploreTopicPool=data.map(item=>({title:String(item.title||"New discovery").slice(0,42),description:String(item.description||"Explore a fascinating new subject.").slice(0,100),icon:String(item.icon||"✦").slice(0,4),search:String(item.search||item.title||"Science").slice(0,80)}));
+        explorePoolPosition=0;
+        return true;
+    }catch(error){console.warn("Explore topics:",error);return false;}
 }
-function levenshtein(a,b) {
-    const previous = Array.from({length:b.length+1},(_,i)=>i);
-    for (let i=1;i<=a.length;i++) {
-        const current=[i];
-        for (let j=1;j<=b.length;j++) current[j]=Math.min(current[j-1]+1,previous[j]+1,previous[j-1]+(a[i-1]===b[j-1]?0:1));
-        previous.splice(0,previous.length,...current);
-    }
-    return previous[b.length];
-}
-function cleanTopic(text) {
-    return String(text).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
-}
-function findClosestTopic(input,suggestions) {
-    const cleaned = cleanTopic(input);
-    if (!cleaned || cleaned.length < 4) return null;
-    let best = null, bestDistance = Infinity;
-    for (const suggestion of suggestions) {
-        const candidate = cleanTopic(suggestion);
-        if (!candidate) continue;
-        // Do not compare unrelated long article titles as if they were misspellings.
-        const words = candidate.split(" ");
-        const exactWordCount = cleaned.split(" ").filter(w => words.includes(w)).length;
-        const compactA = cleaned.replace(/ /g,"");
-        const compactB = candidate.replace(/ /g,"");
-        const distance = levenshtein(compactA,compactB);
-        const maxLen = Math.max(compactA.length,compactB.length);
-        const threshold = compactA.length <= 5 ? 1 : Math.max(1,Math.floor(compactA.length*0.18));
-        const shortTitle = words.length <= cleaned.split(" ").length + 1;
-        if (shortTitle && (distance <= threshold || exactWordCount === cleaned.split(" ").length && exactWordCount > 0) && distance < bestDistance) {
-            best = suggestion;
-            bestDistance = distance;
+async function rotateExploreCards(){
+    if(rotatingCardsBusy)return;
+    rotatingCardsBusy=true;
+    const container=document.getElementById("categories");
+    container.classList.add("cards-fading");
+    try{
+        if(explorePoolPosition+8>exploreTopicPool.length){
+            const loaded=await loadExploreTopicPool();
+            if(!loaded&&exploreTopicPool.length===0)return;
         }
-    }
-    return best;
-}
-
-/* SEARCH */
-async function searchTopic() {
-    const input = document.getElementById("searchBox");
-    const results = document.getElementById("results");
-    const originalSearch = input.value.trim();
-    const token = ++latestSearchToken;
-    if (!originalSearch) {
-        results.innerHTML = `<div class="error-card"><h2>What are you curious about?</h2><p>Type a topic into the search box and let's learn about it.</p></div>`;
-        scrollToResults();
-        return;
-    }
-    followUpHistory = [];
-    activeFollowUpTopic = "";
-    results.innerHTML = `<div class="loading">🧠 MEWLIX is learning about <strong>${escapeHTML(originalSearch)}</strong> ...</div>`;
-    scrollToResults();
-    try {
-        let data = await getWikipediaPage(originalSearch);
-        let corrected = false;
-        if (token !== latestSearchToken) return;
-
-        if (!data) {
-            const suggestions = await getWikipediaSuggestions(originalSearch);
-            if (token !== latestSearchToken) return;
-            const correction = findClosestTopic(originalSearch,suggestions);
-            if (correction) {
-                const correctedPage = await getWikipediaPage(correction);
-                if (token !== latestSearchToken) return;
-                if (correctedPage) { data = correctedPage; corrected = true; }
-            }
+        const nextBatch=exploreTopicPool.slice(explorePoolPosition,explorePoolPosition+8);
+        if(nextBatch.length===8){
+            await new Promise(resolve=>setTimeout(resolve,450));
+            renderExploreCards(nextBatch);
+            explorePoolPosition+=8;
         }
-
-        if (!data) {
-            const aiAnswer = await askAI(`You are MEWLIX SEARCH, an educational search assistant.\nThe user's exact search is: "${originalSearch}"\nDetermine whether this exact topic can be identified confidently. If yes, explain that exact topic briefly. If it is an unmistakable spelling mistake, start with "Possible topic: [corrected topic]" and explain it. If the exact topic cannot be identified confidently, respond exactly: "I couldn't find an exact match for your topic. Please check the spelling or try a more specific search phrase."\nDo not substitute a related topic. Do not guess based on loose word similarity. Do not invent facts. Keep the response under 180 words.`);
-            if (token !== latestSearchToken) return;
-            results.innerHTML = `<article class="result-card"><div class="result-label">MEWLIX DISCOVERY</div><div class="searched-topic">You searched for: <strong>${escapeHTML(originalSearch)}</strong></div><h2>${escapeHTML(originalSearch)}</h2><div class="ai-answer">${formatAI(aiAnswer)}</div></article>`;
-            return;
-        }
-
-        const aiAnswer = await askAI(`You are the educational writer for MEWLIX SEARCH. The exact topic is "${data.title}". Wikipedia introductory information: "${data.extract}"\nCreate a clear, accurate, student-friendly learning result in your own words. Do not repeat information between sections. If unsure, be honest rather than inventing facts.\nReturn these sections:\nSHORT EXPLANATION: 2-3 clear sentences.\nKEY POINTS: exactly 4 distinct points, each adding new information.\nWHY IT MATTERS: why it is useful, interesting or significant.\nINTERESTING DETAIL: one memorable detail.\nLEARN NEXT: 4 related topics.\nKeep the language clear. Do not invent unsupported specifics.`);
-        if (token !== latestSearchToken) return;
-        activeFollowUpTopic = data.title;
-        followUpHistory = [{role:"assistant",content:"We are learning about "+data.title+". "+data.extract+"\n"+aiAnswer}];
-        const image = data.thumbnail && data.thumbnail.source ? `<img src="${escapeHTML(data.thumbnail.source)}" alt="${escapeHTML(data.title)}" onerror="this.style.display='none'">` : "";
-        results.innerHTML = `<article class="result-card" data-topic="${escapeHTML(data.title)}">
-            <div class="result-label">MEWLIX DISCOVERY</div>
-            <div class="searched-topic">You searched for: <strong>${escapeHTML(originalSearch)}</strong></div>
-            <h2>${escapeHTML(data.title)}</h2>
-            ${corrected ? `<div class="correction">Possible spelling/topic match: <strong>${escapeHTML(data.title)}</strong></div>` : ""}
-            ${image}
-            <div class="ai-answer">${formatAI(aiAnswer)}</div>
-            <div style="margin-top:30px;padding-top:20px;border-top:1px solid #eeeeee;text-align:center;">
-                <button onclick="openFollowUp()" style="border:none;background:#eef0ff;color:#4f46e5;padding:11px 18px;border-radius:25px;font-size:14px;font-weight:bold;cursor:pointer;">💬 Ask a Follow-up</button>
-                <div id="followUpBox" style="display:none;margin-top:14px;">
-                    <input id="followUpInput" type="text" placeholder="Ask something about this topic..." style="width:90%;max-width:550px;padding:12px 15px;border:1px solid #ddd;border-radius:12px;font-size:15px;outline:none;">
-                    <button onclick="submitFollowUp()" style="margin-top:8px;border:none;background:#635bff;color:white;padding:10px 18px;border-radius:20px;font-weight:bold;cursor:pointer;">Ask MEWLIX</button>
-                    <div id="followUpAnswer" style="max-width:650px;margin:15px auto 0;text-align:left;line-height:1.6;"></div>
-                </div>
-            </div>
-            <div class="source">Information source: Wikipedia + MEWLIX AI</div>
-        </article>`;
-    } catch(error) {
-        if (token !== latestSearchToken) return;
-        console.error(error);
-        results.innerHTML = `<div class="error-card"><h2>MEWLIX couldn't connect</h2><p>The AI couldn't answer right now. Please try again in a moment.</p><p style="font-size:13px;opacity:.7;">${escapeHTML(error.message)}</p></div>`;
+    }finally{
+        container.classList.remove("cards-fading");
+        rotatingCardsBusy=false;
     }
 }
+/* AI-suggested home carousel with four topic pictures at a time. */
+let carouselTopics=["Clouds","Roman Empire","Lightning","Robot","Black hole","Dinosaur","Aurora","Octopus"],carouselPosition=0;
+const carouselImageCache={};
+function shuffleArray(array){const copy=[...array];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];}return copy;}
+async function showCarouselGroup(animate=true){const track=document.getElementById("topicCarouselTrack");if(!track)return;if(carouselPosition>=carouselTopics.length)carouselPosition=0;const group=carouselTopics.slice(carouselPosition,carouselPosition+4);if(group.length<4){carouselPosition=0;return showCarouselGroup(animate);}if(animate){track.style.opacity="0";track.style.transform="translateY(8px)";await new Promise(resolve=>setTimeout(resolve,420));}const images=await Promise.all(group.map(async topic=>{if(!(topic in carouselImageCache))carouselImageCache[topic]=await getTopicImage(topic);return carouselImageCache[topic];}));track.innerHTML=group.map((topic,index)=>{const pic=images[index]?"<img src='"+escapeHTML(images[index])+"' alt='"+escapeHTML(topic)+"' style='width:100%;height:100%;object-fit:cover;display:block' onerror=\"this.style.display='none'\">":"<div style='width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:22px'>✦</div>";return "<button type='button' onclick=\"searchFromButton('"+escapeInline(topic)+"')\" style='border:0;outline:0;background:transparent;padding:0;width:105px;min-width:105px;cursor:pointer;color:white;text-align:center;font-family:inherit'><div style='width:56px;height:56px;margin:0 auto 6px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,.12);box-shadow:0 0 0 1px rgba(255,255,255,.22),0 7px 22px rgba(0,0,0,.28)'>"+pic+"</div><div style='font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 7px rgba(0,0,0,.45)'>"+escapeHTML(topic)+"</div></button>";}).join("");requestAnimationFrame(()=>{track.style.opacity="1";track.style.transform="translateY(0)";});carouselPosition+=4;if(carouselPosition>=carouselTopics.length)carouselPosition=0;}
+async function refreshCarouselTopics(){try{const raw=await askAI("Suggest exactly 16 varied, real, interesting educational topics for the MEWLIX SEARCH home picture carousel. Mix science, space, nature, history, technology and geography. Return ONLY one short Wikipedia-friendly topic per line, no numbering or explanations.");const list=raw.split("\n").map(line=>line.replace(/^\s*[-•*\d.)]+\s*/,"").trim()).filter(item=>item.length>2&&item.length<35);const unique=[...new Map(list.map(item=>[cleanTopic(item),item])).values()];if(unique.length>=8){carouselTopics=unique.slice(0,16);carouselPosition=0;showCarouselGroup(false);}}catch(error){console.warn("Carousel suggestions:",error);}}
 
-/* FOLLOW-UP: keeps prior turns in memory while this result remains open. */
-function openFollowUp() {
-    const box = document.getElementById("followUpBox");
-    if (!box) return;
-    box.style.display = box.style.display === "none" || box.style.display === "" ? "block" : "none";
-    if (box.style.display === "block") document.getElementById("followUpInput").focus();
-}
-async function submitFollowUp() {
-    const input = document.getElementById("followUpInput");
-    const answer = document.getElementById("followUpAnswer");
-    const question = input.value.trim();
-    if (!question || followUpBusy) {
-        if (!question && answer) answer.innerHTML = `<div style="background:#fff4e5;padding:14px;border-radius:14px;">Please type a question first.</div>`;
-        return;
-    }
-    const topic = activeFollowUpTopic || "the topic";
-    followUpBusy = true;
-    answer.innerHTML = `<div style="background:#f4f6ff;padding:14px;border-radius:14px;">🧠 MEWLIX is thinking...</div>`;
-    try {
-        const conversation = followUpHistory.slice(-10).map(m => `${m.role === "user" ? "Student" : "Tutor"}: ${m.content}`).join("\n");
-        const response = await askAI(`You are the follow-up tutor for MEWLIX SEARCH. The student is learning about "${topic}".\nConversation so far:\n${conversation}\nStudent's latest question: "${question}"\nAnswer the latest question directly, using prior conversation only as context. Do not simply repeat the original topic explanation. If it asks why/how/when/where, answer that specifically. Keep under 250 words and be accurate.`);
-        followUpHistory.push({role:"user",content:question},{role:"assistant",content:response});
-        followUpHistory = followUpHistory.slice(-12);
-        answer.innerHTML = `<div style="background:#f4f6ff;padding:16px;border-radius:14px;">${formatAI(response)}</div>`;
-        input.value = "";
-    } catch(error) {
-        answer.innerHTML = `<div style="background:#fff4e5;padding:14px;border-radius:14px;">Sorry, MEWLIX couldn't answer that right now. Please try again.</div>`;
-    } finally { followUpBusy = false; }
-}
+/* Random facts: three fresh subjects, each with a matching small image. */
+let factToken=0,recentFacts=[];
+async function randomFact(){const box=document.getElementById("factText"),token=++factToken;box.innerHTML="<div style='padding:18px;text-align:center'>🧠 MEWLIX is finding something amazing...</div>";try{const raw=await askAI("Create exactly 3 accurate, surprising educational facts on 3 DIFFERENT subjects. Avoid repeating these previous facts: "+recentFacts.slice(-9).join(" | ")+". Return exactly 3 lines formatted TOPIC: topic name | FACT: one or two sentences. Choose real subjects with Wikipedia pages. Do not invent facts.");if(token!==factToken)return;const lines=raw.split("\n").filter(line=>/TOPIC:/i.test(line)&&/FACT:/i.test(line)).slice(0,3);if(!lines.length)throw Error("No facts returned");recentFacts.push(...lines);recentFacts=recentFacts.slice(-9);const cards=await Promise.all(lines.map(async line=>{const topic=(line.match(/TOPIC:\s*(.*?)\s*\|/i)||[,"Amazing discovery"])[1].trim(),fact=(line.match(/FACT:\s*(.*)/i)||[,line])[1].trim(),image=await getTopicImage(topic);return "<div class='discovery-with-image'>"+(image?"<img src='"+escapeHTML(image)+"' alt='"+escapeHTML(topic)+"' onerror=\"this.style.display='none'\">":"")+"<div class='discovery-copy'><strong>"+escapeHTML(topic)+"</strong><p style='margin:5px 0 0'>"+escapeHTML(fact)+"</p></div></div>";}));if(token!==factToken)return;box.innerHTML=cards.join("");}catch(error){if(token!==factToken)return;box.innerHTML="<div style='padding:15px;background:#fff4e5;border-radius:15px'>Couldn't load facts right now. Please try again.</div>";}}
+function randomFactAndScroll(){document.getElementById("facts").scrollIntoView({behavior:"smooth",block:"start"});setTimeout(randomFact,500);}
 
-/* FACTS: request fresh facts and discourage repetition across clicks. */
-async function randomFact() {
-    const factBox = document.getElementById("factText");
-    const token = ++latestFactToken;
-    factBox.innerHTML = `<div style="padding:18px;text-align:center;">🧠 MEWLIX is finding some unusual facts...</div>`;
-    try {
-        const previous = recentFactOutputs.slice(-8).join("\n---\n");
-        const answer = await askAI(`You are the Amazing Facts feature of MEWLIX SEARCH. Generate 3 interesting, accurate educational facts on THREE DIFFERENT subjects. Avoid generic facts and avoid repeating or paraphrasing these recent outputs:\n${previous || "(none yet)"}\nFormat exactly FACT 1:, FACT 2:, FACT 3:, one short fact each under 45 words. Choose new subjects this time. Do not invent facts.`);
-        if (token !== latestFactToken) return;
-        recentFactOutputs.push(answer);
-        recentFactOutputs = recentFactOutputs.slice(-8);
-        factBox.innerHTML = `<div style="padding:16px;background:#f4f6ff;border-radius:17px;line-height:1.6;">${formatAI(answer)}</div>`;
-    } catch {
-        if (token !== latestFactToken) return;
-        factBox.innerHTML = `<div style="padding:15px;background:#fff4e5;border-radius:15px;">Couldn't load facts right now. Try again in a moment.</div>`;
-    }
-}
-function randomFactAndScroll() {
-    document.getElementById("facts").scrollIntoView({behavior:"smooth",block:"start"});
-    setTimeout(randomFact,500);
-}
+/* Surprise Me: new AI-selected topic and its thumbnail. */
+let surpriseToken=0,recentSurprises=[],lastSurpriseTopic="";
+async function surpriseMe(){const output=document.getElementById("surpriseOutput"),token=++surpriseToken;output.innerHTML="<div style='padding:18px;background:rgba(255,255,255,.12);border-radius:17px;text-align:center'>✨ Finding something unexpected...</div>";try{const raw=await askAI("Choose ONE real, fascinating educational topic, different from these recent topics: "+recentSurprises.slice(-10).join(", ")+". Return these labels: TITLE: short topic name; WHAT IT IS: 2 sentences; WHY IT IS INTERESTING: 2 sentences; AMAZING DETAIL: one accurate fact; LEARN NEXT: 2 related topics. Keep under 160 words. Do not invent facts.");if(token!==surpriseToken)return;const title=(raw.match(/^TITLE:\s*(.+)$/im)||[,"A new discovery"])[1].trim();lastSurpriseTopic=title;recentSurprises.push(title);recentSurprises=recentSurprises.slice(-10);const image=await getTopicImage(title);if(token!==surpriseToken)return;output.innerHTML="<div style='padding:17px;background:rgba(255,255,255,.12);border-radius:18px'><div style='font-size:12px;letter-spacing:2px;opacity:.75'>YOUR SURPRISE</div><div class='discovery-with-image' style='margin-top:12px;background:rgba(255,255,255,.1);box-shadow:none'>"+(image?"<img src='"+escapeHTML(image)+"' alt='"+escapeHTML(title)+"' onerror=\"this.style.display='none'\">":"")+"<div class='discovery-copy'><div class='ai-answer'>"+formatAI(raw)+"</div></div></div><button type='button' onclick='learnSurprise()' style='border:0;background:#fff;color:#4535c1;padding:10px 17px;border-radius:22px;font-weight:bold;cursor:pointer'>Learn More →</button></div>";}catch(error){if(token!==surpriseToken)return;output.innerHTML="<div style='padding:15px;background:rgba(255,255,255,.12);border-radius:15px'>Couldn't find a surprise. Try again!</div>";}}
+function learnSurprise(){if(!lastSurpriseTopic)return;searchBox.value=lastSurpriseTopic;document.getElementById("home").scrollIntoView({behavior:"smooth",block:"start"});setTimeout(searchTopic,650);}
+function surpriseAndScroll(){document.getElementById("surprise").scrollIntoView({behavior:"smooth",block:"start"});setTimeout(surpriseMe,500);}
 
-/* SURPRISE: ask for a different topic each time. */
-async function surpriseMe() {
-    const output = document.getElementById("surpriseOutput");
-    const token = ++latestSurpriseToken;
-    output.innerHTML = `<div style="padding:18px;background:rgba(255,255,255,.12);border-radius:17px;text-align:center;">✨ Finding something unexpected...</div>`;
-    try {
-        const previous = recentSurpriseTopics.slice(-10).join(", ");
-        const answer = await askAI(`You are the Surprise Me feature of MEWLIX SEARCH. Choose ONE fascinating, specific educational topic from science, nature, history, technology, space, geography, mathematics, art or culture. Avoid obvious topics and do not repeat these recent topics: ${previous || "(none yet)"}.\nGive exactly these labels:\nTITLE: one short topic name\nWHAT IT IS: 2-3 sentences\nWHY IT IS INTERESTING: 2 short sentences\nAMAZING DETAIL: one memorable accurate fact\nLEARN NEXT: 2 related topics\nKeep under 180 words. Choose a topic different from recent outputs. Do not invent facts.`);
-        if (token !== latestSurpriseToken) return;
-        const match = answer.match(/TITLE:\s*(.+)/i);
-        if (match) {
-            const chosen = match[1].replace(/\*\*/g,"").trim();
-            if (recentSurpriseTopics.some(t => cleanTopic(t) === cleanTopic(chosen))) {
-                // Ask again rather than knowingly repeat a recent title.
-                const retry = await askAI(`Pick a DIFFERENT specific educational topic. Do not use any of these: ${recentSurpriseTopics.slice(-10).join(", ")}. Return only a title.`);
-                if (token !== latestSurpriseToken) return;
-                const retryTitle = retry.trim().replace(/^TITLE:\s*/i,"").replace(/\*\*/g,"").split("\n")[0].trim();
-                if (retryTitle) {
-                    recentSurpriseTopics.push(retryTitle);
-                    recentSurpriseTopics = recentSurpriseTopics.slice(-10);
-                    window.lastSurprise = answer.replace(/^TITLE:\s*.+$/im,"TITLE: "+retryTitle);
-                } else window.lastSurprise = answer;
-            } else {
-                recentSurpriseTopics.push(chosen);
-                recentSurpriseTopics = recentSurpriseTopics.slice(-10);
-                window.lastSurprise = answer;
-            }
-        } else window.lastSurprise = answer;
-        output.innerHTML = `<div style="padding:18px;background:rgba(255,255,255,.12);border-radius:18px;"><div style="font-size:12px;letter-spacing:2px;opacity:.75;">YOUR SURPRISE</div><div class="ai-answer" style="margin-top:10px;">${formatAI(window.lastSurprise)}</div><button onclick="learnSurpriseFromText()" style="border:none;background:#ffffff;color:#4535c1;padding:10px 17px;border-radius:22px;font-weight:bold;cursor:pointer;">Learn More →</button></div>`;
-    } catch {
-        if (token !== latestSurpriseToken) return;
-        output.innerHTML = `<div style="padding:15px;background:rgba(255,255,255,.12);border-radius:15px;">Couldn't find a surprise. Try again!</div>`;
-    }
-}
-async function learnSurpriseFromText() {
-    if (!window.lastSurprise) return;
-    const match = window.lastSurprise.match(/TITLE:\s*(.+)/i);
-    if (!match) return;
-    document.getElementById("searchBox").value = match[1].replace(/\*\*/g,"").trim();
-    document.getElementById("home").scrollIntoView({behavior:"smooth",block:"start"});
-    setTimeout(searchTopic,700);
-}
-function surpriseAndScroll() {
-    document.getElementById("surprise").scrollIntoView({behavior:"smooth",block:"start"});
-    setTimeout(surpriseMe,500);
-}
+/* AI topic ideas in the results area. */
+async function showTrending(){const results=document.getElementById("results");results.innerHTML="<article class='result-card'><div class='result-label'>🔥 EXPLORE</div><h2>What should we learn today?</h2><p>Choose a topic and let MEWLIX explain it.</p><div id='exploreTopicButtons' class='topic-scroll'>Loading topics...</div></article>";scrollToResults();try{const raw=await askAI("Give 12 specific, interesting, real educational topics across science, space, animals, history, technology, geography, mathematics, art and culture. Return ONLY one topic per line, no numbering.");const topics=raw.split("\n").map(line=>line.replace(/^[-•*\d.)\s]+/,"").trim()).filter(item=>item.length>2).slice(0,12);const area=document.getElementById("exploreTopicButtons");if(area)area.innerHTML=topics.map(topic=>"<button class='topic-chip' onclick=\"searchFromButton('"+escapeInline(topic)+"')\">"+escapeHTML(topic)+"</button>").join("");}catch{const area=document.getElementById("exploreTopicButtons");if(area)area.textContent="Couldn't load topics right now.";}}
 
-/* EXPLORE TOPICS */
-async function showTrending() {
-    const results = document.getElementById("results");
-    results.innerHTML = `<article class="result-card"><div class="result-label">🔥 EXPLORE</div><h2>What should we learn today?</h2><p>Choose a topic and let MEWLIX explain it.</p><div id="exploreTopicButtons" class="topic-scroll">Loading topics...</div></article>`;
-    scrollToResults();
-    try {
-        const previous = recentExploreLists.slice(-4).flat().join(", ");
-        const answer = await askAI(`Create 12 specific interesting educational topics for MEWLIX SEARCH, mixing science, space, animals, history, technology, geography, mathematics, art and culture. Avoid these recent topics: ${previous || "(none yet)"}. Return ONLY one topic per line, no numbering or bullets. Avoid generic categories.`);
-        const topics = answer.split("\n").map(x=>x.replace(/^[-•*\d.)\s]+/,"").trim()).filter(x=>x.length>2).slice(0,12);
-        if (topics.length) { recentExploreLists.push(topics); recentExploreLists = recentExploreLists.slice(-4); }
-        const container = document.getElementById("exploreTopicButtons");
-        if (!container) return;
-        container.innerHTML = topics.map(topic=>`<button class="topic-chip" onclick="searchFromButton('${escapeAttribute(topic)}')">${escapeHTML(topic)}</button>`).join("");
-    } catch {
-        const container = document.getElementById("exploreTopicButtons");
-        if (container) container.innerHTML = `<p>Couldn't load topics right now.</p>`;
-    }
-}
-function searchFromButton(topic) {
-    document.getElementById("searchBox").value = topic;
-    searchTopic();
-}
-function scrollToResults() {
-    setTimeout(()=>document.getElementById("results-section").scrollIntoView({behavior:"smooth",block:"start"}),100);
-}
-
-/* TOPIC CAROUSEL */
-const carouselTopics = ["Black hole","Dinosaur","Mars","Ocean","Aurora","Volcano","Octopus","Jupiter","Milky Way","Moon","Coral reef","Penguin","Lightning","Ancient Egypt","Human brain","Great Barrier Reef","Saturn","Butterfly","Shark","Space","Tornado","Deep sea","Robot","Pyramid","Neutron star","Rainforest","Ant","DNA","Solar eclipse","Fossil","Coral","Quantum physics","Galaxy","Whale","Machu Picchu","Volcanoes","Time","Gravity","Clouds","Penguin","Supernova","Jellyfish","Roman Empire","Electricity"];
-let carouselOrder = [], carouselPosition = 0, carouselTimer = null;
-const carouselImageCache = {};
-function shuffleArray(array) {
-    const copy=[...array];
-    for (let i=copy.length-1;i>0;i--) { const j=Math.floor(Math.random()*(i+1)); [copy[i],copy[j]]=[copy[j],copy[i]]; }
-    return copy;
-}
-async function getCarouselImage(topic) {
-    if (carouselImageCache[topic]) return carouselImageCache[topic];
-    try {
-        const data=await getWikipediaPage(topic);
-        if (data && data.thumbnail && data.thumbnail.source) { carouselImageCache[topic]=data.thumbnail.source; return data.thumbnail.source; }
-    } catch {}
-    carouselImageCache[topic]="";
-    return "";
-}
-async function showCarouselGroup(animate=true) {
-    const track=document.getElementById("topicCarouselTrack");
-    if (!track) return;
-    const group=carouselOrder.slice(carouselPosition,carouselPosition+4);
-    if (group.length<4) { carouselOrder=shuffleArray(carouselTopics); carouselPosition=0; return showCarouselGroup(animate); }
-    if (animate) { track.style.opacity="0"; track.style.transform="translateY(8px)"; await new Promise(resolve=>setTimeout(resolve,450)); }
-    const images=await Promise.all(group.map(topic=>getCarouselImage(topic)));
-    let html="";
-    group.forEach((topic,index)=>{
-        const image=images[index];
-        html+=`<button onclick="searchFromButton('${escapeAttribute(topic)}')" style="border:none;outline:none;background:transparent;padding:0;width:105px;min-width:105px;cursor:pointer;color:white;text-align:center;font-family:inherit;">
-        <div style="width:56px;height:56px;margin:0 auto 6px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,.12);box-shadow:0 0 0 1px rgba(255,255,255,.22),0 7px 22px rgba(0,0,0,.28);transition:transform .2s ease;" onmouseenter="this.style.transform='scale(1.1)'" onmouseleave="this.style.transform='scale(1)'">
-        ${image?`<img src="${escapeHTML(image)}" alt="${escapeHTML(topic)}" style="width:100%;height:100%;object-fit:cover;display:block;">`:`<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:22px;">✦</div>`}
-        </div><div style="font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 7px rgba(0,0,0,.45);">${escapeHTML(topic)}</div></button>`;
-    });
-    track.innerHTML=html;
-    requestAnimationFrame(()=>{track.style.opacity="1";track.style.transform="translateY(0)";});
-    carouselPosition+=4;
-    if (carouselPosition>=carouselOrder.length) { carouselOrder=shuffleArray(carouselTopics); carouselPosition=0; }
-}
-async function startCarousel() {
-    carouselOrder=shuffleArray(carouselTopics);
-    carouselPosition=0;
-    await showCarouselGroup(false);
-    carouselTimer=setInterval(()=>showCarouselGroup(true),4500);
-}
-
-/* KEYBOARD */
-document.getElementById("searchBox").addEventListener("keydown",event=>{if(event.key==="Enter") searchTopic();});
-document.addEventListener("keydown",event=>{if(event.key==="Enter" && document.activeElement && document.activeElement.id==="followUpInput") submitFollowUp();});
-
-/* INIT */
-startCarousel();
+/* Start with the familiar cards, then rotate every 3.8 seconds. */
+renderExploreCards(starterCards);
+showCarouselGroup(false);
+setInterval(()=>showCarouselGroup(true),4500);
+setTimeout(refreshCarouselTopics,1300);
+setInterval(refreshCarouselTopics,90000);
+setTimeout(rotateExploreCards,3800);
+setInterval(rotateExploreCards,3800);
 </script>
 </body>
 </html>
