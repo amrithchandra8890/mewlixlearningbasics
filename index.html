@@ -43,7 +43,13 @@
 .chat-compose{display:flex;align-items:flex-end;gap:9px;max-width:850px;margin:0 auto;padding:8px;background:#fff;border:1px solid #e4e1ef;border-radius:19px;box-shadow:0 5px 20px rgba(40,35,80,.07)}
 #chatInput{flex:1;min-width:0;max-height:130px;resize:none;border:0;outline:0;padding:10px 9px;color:#24263b;background:transparent;font:inherit}
 #chatSend{border:0;border-radius:13px;padding:11px 16px;color:#fff;background:#635bdb;font-weight:700;cursor:pointer}#chatSend:disabled{opacity:.55;cursor:wait}.chat-note{text-align:center;color:#9695a5;font-size:11px;margin:7px 0 0}
-.conversation-checkpoint{max-width:760px;margin:12px auto 22px;padding:12px 15px;border:1px solid rgba(124,95,205,.22);border-left:4px solid #8065dc;border-radius:13px;background:linear-gradient(110deg,rgba(241,235,255,.94),rgba(255,245,232,.96));color:#51466f;box-shadow:0 4px 14px rgba(75,57,130,.06)}.conversation-checkpoint strong{display:block;font-size:12px;letter-spacing:.35px;color:#6651b5}.conversation-checkpoint p{margin:5px 0 0;font-size:12px;line-height:1.55;color:#625d70}
+/* Keep the two discovery panels centered and evenly sized on tablets and phones. */
+.bottom-section{width:min(1200px,calc(100% - 48px));max-width:1200px;margin:48px auto 54px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:stretch;box-sizing:border-box}
+.bottom-section>.fact-box,.bottom-section>.surprise-box{width:100%;min-width:0;max-width:none;margin:0;box-sizing:border-box;justify-self:stretch}
+.bottom-section .fact-box>* ,.bottom-section .surprise-box>*{max-width:100%;box-sizing:border-box}
+/* A small natural sentence, not a large AI-style summary card. */
+.conversation-checkpoint{width:fit-content;max-width:min(760px,92%);margin:5px 0 18px auto;padding:5px 0 5px 11px;border:0;border-left:2px solid rgba(128,101,220,.48);border-radius:0;background:transparent;color:#777184;box-shadow:none;font-size:12px;line-height:1.5}
+@media(max-width:760px){.bottom-section{width:calc(100% - 32px);grid-template-columns:minmax(0,1fr);gap:18px;margin:32px auto 40px}.bottom-section>.fact-box,.bottom-section>.surprise-box{width:100%;min-height:0}.conversation-checkpoint{max-width:94%;font-size:11px;margin:4px 0 16px auto}}
 @media(max-width:600px){#topicCarousel{overflow-x:auto;touch-action:pan-x;overscroll-behavior-x:contain}#topicCarouselTrack{justify-content:flex-start!important}.carousel-description{padding:0 18px}.discovery-with-image{gap:10px}.discovery-with-image img{width:82px;height:82px;flex-basis:82px}.chat-topbar{padding:11px 12px}#chatMessages{padding:18px 12px 24px}.chat-bubble{max-width:88%}}
 </style>
 </head>
@@ -149,19 +155,20 @@ async function sendChatMessage(){
     addChatMessage("user",question);
     const typing=addChatMessage("assistant","MEWLIX is thinking...");
     try{
-        const history=activeChatHistory.slice(-18).map(item=>(item.role==="user"?"Student":item.role==="checkpoint"?"Conversation checkpoint":"MEWLIX")+": "+item.content).join("\n");
-        const reply=await askAI("You are MEWLIX AI, a friendly educational chat tutor. The original topic is '"+activeFollowUpTopic+"'. Continue this exact conversation and use its history AND the latest conversation checkpoint. Do not restart the explanation or forget earlier discussed details. Answer the newest message directly, accurately and in age-appropriate language. Keep under 250 words unless more detail is needed. IMPORTANT: End every answer with a separate final line in exactly this format: CONVERSATION CHECKPOINT: [1-2 concise sentences recording the original topic, the latest subtopic, key facts already established, and any unresolved question or reference that may matter next. Do not write a vague summary.]\nCONVERSATION SO FAR:\n"+history+"\nStudent: "+question+"\nMEWLIX:");
+        const history=activeChatHistory.slice(-18).map(item=>(item.role==="user"?"Student":item.role==="checkpoint"?"Place to continue from":"MEWLIX")+": "+item.content).join("\n");
+        const reply=await askAI("You are MEWLIX AI, a friendly educational chat tutor. The original topic is '"+activeFollowUpTopic+"'. Continue this exact conversation using its history and the previous place-to-continue note. Answer the newest message directly, accurately and in age-appropriate language. Keep under 250 words unless more detail is needed. At the very end, add one short separate line in exactly this format: KEEPING OUR PLACE: [one simple sentence, maximum 20 words, saying what topic/subtopic we are discussing so the next reply can continue naturally. Do not list facts or write a long summary.].\nCONVERSATION SO FAR:\n"+history+"\nStudent: "+question+"\nMEWLIX:");
         typing.remove();
-        const marker="CONVERSATION CHECKPOINT:";
+        const marker="KEEPING OUR PLACE:";
         const markerIndex=reply.lastIndexOf(marker);
         let answer=reply.trim(),checkpoint="";
         if(markerIndex>=0){answer=reply.slice(0,markerIndex).trim();checkpoint=reply.slice(markerIndex+marker.length).trim();}
-        if(!checkpoint)checkpoint="The conversation is about "+activeFollowUpTopic+". The latest question was: "+question;
+        if(!checkpoint)checkpoint="We are continuing our conversation about "+activeFollowUpTopic+", including your latest question about "+question+".";
+        checkpoint=checkpoint.replace(/^\[|\]$/g,"").replace(/\s+/g," ").trim();
+        if(checkpoint.length>180)checkpoint=checkpoint.slice(0,177).replace(/\s+\S*$/,"")+"…";
         addChatMessage("assistant",formatAI(answer||reply),true);
         const checkpointRow=document.createElement("div");checkpointRow.className="conversation-checkpoint";
-        const checkpointLabel=document.createElement("strong");checkpointLabel.textContent="✦ Conversation checkpoint";
-        const checkpointText=document.createElement("p");checkpointText.textContent=checkpoint;
-        checkpointRow.append(checkpointLabel,checkpointText);chatMessages.appendChild(checkpointRow);chatMessages.scrollTop=chatMessages.scrollHeight;
+        checkpointRow.textContent="Just so we don't lose our place: "+checkpoint;
+        chatMessages.appendChild(checkpointRow);chatMessages.scrollTop=chatMessages.scrollHeight;
         activeChatHistory.push({role:"user",content:question},{role:"assistant",content:answer||reply},{role:"checkpoint",content:checkpoint});
         activeChatHistory=activeChatHistory.slice(-24);
     }catch(error){typing.remove();addChatMessage("assistant","Sorry, I couldn't connect just now. Please try sending that message again.");}
